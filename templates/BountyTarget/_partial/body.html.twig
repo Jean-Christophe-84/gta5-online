@@ -1,0 +1,32 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 40%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if bountyTarget %} value="{{ bountyTarget.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 40%;">
+        <label class="form-label" for="bountyMissionId">{{ 'bounty_mission'|translateLocale|mbUcfirst }}</label>
+        <select name="bountyMissionId" id="bountyMissionId">
+            <option value="">{{ 'select_a_bounty_mission'|translateLocale|mbUcfirst }}</option>
+            {% for bountyMissionLocale in bountyMissionLocales %}
+                <option value="{{ bountyMissionLocale.bountyMission.id }}"
+                    {% if bountyTarget and bountyMissionLocale.bountyMission.id == bountyTarget.bountyMissionId %} selected{% endif %}>{{ bountyMissionLocale.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="mostWanted">{{ 'most_wanted'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="mostWanted" id="mostWanted" value="1"{% if bountyTarget and bountyTarget.mostWanted %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    {% if is_granted('BOUNTY_TARGET_DONE') %}
+        <div class="form-group" style="--filter-width: 10%;">
+            <label class="form-label" for="done">{{ 'done'|translateLocale|mbUcfirst }}</label>
+            <div class="checkbox-wrapper-2">
+                <input type="checkbox" name="done" id="done" value="1"{% if bountyTarget and bountyTarget.done %} checked{% endif %} class="stylized" />
+            </div>
+        </div>
+    {% endif %}
+    <input type="hidden" name="id" value="{{ bountyTarget ? bountyTarget.id : '' }}" />
+</div>

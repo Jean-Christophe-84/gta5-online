@@ -1,0 +1,222 @@
+<table class="form_casino_heist">
+    <tbody>
+        <tr>
+            <th colspan="7">
+                <div class="resetHeistCasino">
+                    <a onclick="resetHeistCasino();" class="btn btn-danger" id="resetHeistCasino"
+                        {% if not (heistCasino.firstTimeInWeek is not same as(null) or heistCasino.difficulty is not same as(null) or heistCasino.approach is not same as(null)
+                            or heistCasino.hacker is not same as(null) or heistCasino.driver is not same as(null)
+                            or heistCasino.gunman is not same as(null) or heistCasino.mainLoot is not same as(null))
+                        %} style="display: none;"{% endif %}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                            <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                        </svg>
+                    </a>
+                </div>
+                {{ 'loots'|translateLocale|mbUcfirst }}
+                <br/>
+                {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                <br/>
+                {{ 'requires_a_retro_arcade'|translateLocale|mbUcfirst }}
+                <br/>
+                1 - 8 {{ 'players'|translateLocale|mbUcfirst }}
+            </th>
+        </tr>
+        <tr>
+            <th><label for="firstTimeInWeek">{{ 'first_heist_of_the_week'|translateLocale|mbUcfirst }}<br/>({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</label></th>
+            <th><label for="mainLootId">{{ 'main_loot'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="difficulty">{{ 'difficulty'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="approach">{{ 'approach'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="hackerId">{{ 'hacker'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="driverId">{{ 'driver'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="gunmanId">{{ 'gunman'|translateLocale|mbUcfirst }}</label></th>
+        </tr>
+        <tr>
+            <td>
+                <select class="form_casino_heist" name="first_time_in_week" id="firstTimeInWeek">
+                    <option value="null"
+                        {% if heistCasino.firstTimeInWeek is same as(null) %} selected{% endif %}>{{ 'choose'|translateLocale|mbUcfirst }}...</option>
+                    <option value="0"{% if heistCasino.firstTimeInWeek is same as(false) %} selected{% endif %}>{{ 'no'|translateLocale|mbUcfirst }}</option>
+                    <option value="1"{% if heistCasino.firstTimeInWeek is same as(true) %} selected{% endif %}>{{ 'yes'|translateLocale|mbUcfirst }}</option>
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist mainLoot" name="main_loot_id" id="mainLootId">
+                    <option value="0">{{ 'choose_the_main_loot'|translateLocale|mbUcfirst }}...</option>
+                    {% for heistCasinoMainLoot in heistCasinoMainLoots %}
+                        <option value="{{ heistCasinoMainLoot.id }}"
+                            {% if heistCasino.mainLoot and heistCasino.mainLoot.id == heistCasinoMainLoot.id %} selected{% endif %}>{{ heistCasinoMainLoot.name ~ ' (' ~ heistCasinoMainLoot.price|formatMoney ~ ')' }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist difficulty" name="difficulty" id="difficulty">
+                    <option value="0">{{ 'choose_the_difficulty'|translateLocale|mbUcfirst }}...</option>
+                    {% for difficulty in difficulties %}
+                        <option value="{{ difficulty.value }}"
+                            {% if heistCasino.difficulty and heistCasino.difficulty.value == difficulty.value %} selected{% endif %}>{{ difficulty|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist approach" name="approach" id="approach">
+                    <option value="0">{{ 'choose_the_approach'|translateLocale|mbUcfirst }}...</option>
+                    {% for approach in approaches %}
+                        <option value="{{ approach.value }}"
+                            {% if heistCasino.approach and heistCasino.approach.value == approach.value %} selected{% endif %}>{{ approach|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist hacker" name="hacker_id" id="hackerId">
+                    <option value="0">{{ 'choose_the_hacker'|translateLocale|mbUcfirst }}...</option>
+                    {% for heistCasinoHacker in heistCasinoHackers %}
+                        <option value="{{ heistCasinoHacker.id }}"
+                            {% if heistCasino.hacker and heistCasino.hacker.id == heistCasinoHacker.id %} selected{% endif %}>{{ heistCasinoHacker.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist driver" name="driver_id" id="driverId">
+                    <option value="0">{{ 'choose_the_driver'|translateLocale|mbUcfirst }}...</option>
+                    {% for heistCasinoDriver in heistCasinoDrivers %}
+                        <option value="{{ heistCasinoDriver.id }}"
+                            {% if heistCasino.driver and heistCasino.driver.id == heistCasinoDriver.id %} selected{% endif %}>{{ heistCasinoDriver.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_casino_heist gunman" name="gunman_id" id="gunmanId">
+                    <option value="0">{{ 'choose_the_gunman'|translateLocale|mbUcfirst }}...</option>
+                    {% for heistCasinoGunman in heistCasinoGunmen %}
+                        <option value="{{ heistCasinoGunman.id }}"
+                            {% if heistCasino.gunman and heistCasino.gunman.id == heistCasinoGunman.id %} selected{% endif %}>{{ heistCasinoGunman.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="white-space: nowrap;">
+                {{ ('loot_on_the_exit'|translateLocale|mbUcfirst ~ ' (' ~ 100|formatPercent ~ ')')|colon }} {{ optimizeProfits.total|formatMoney }}
+                / {{ ('without_the_slices'|translateLocale|mbUcfirst ~ ' (' ~ (100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0))|formatPercent ~ ')')|colon }} {{ (optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100))|formatMoney }}
+            </td>
+            <td style="white-space: nowrap;">
+                {{ ('slice'|translateLocale|mbUcfirst ~ (heistCasino.hacker ? ' (' ~ heistCasino.hacker.percent|formatPercent ~ ')'))|colon }} {{ (optimizeProfits.total * (heistCasino.hacker ? heistCasino.hacker.percent / 100 : 0))|formatMoney }}
+            </td>
+            <td style="white-space: nowrap;">
+                {{ ('slice'|translateLocale|mbUcfirst ~ (heistCasino.driver ? ' (' ~ heistCasino.driver.percent|formatPercent ~ ')'))|colon }} {{ (optimizeProfits.total * (heistCasino.driver ? heistCasino.driver.percent / 100 : 0))|formatMoney }}
+            </td>
+            <td style="white-space: nowrap;">
+                {{ ('slice'|translateLocale|mbUcfirst ~ (heistCasino.gunman ? ' (' ~ heistCasino.gunman.percent|formatPercent ~ ')'))|colon }} {{ (optimizeProfits.total * (heistCasino.gunman ? heistCasino.gunman.percent / 100 : 0))|formatMoney }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7" style="border: 0 !important; padding: 0 !important;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th colspan="2">{{ 'breakdown_by_player_based_on_percentage'|translateLocale|mbUcfirst ~ (optimizeProfits.amountEliteChallenge ? ' (+ ' ~ optimizeProfits.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale ~ ')') }}</th>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 15|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.15)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 20|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.2)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 25|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.25)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 30|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.3)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 35|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.35)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 40|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.4)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 45|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.45)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 50|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.5)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 55|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.55)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 60|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.6)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 65|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.65)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 70|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.7)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 75|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.75)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 80|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.8)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 85|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ ((optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100)) * 0.85)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 100|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfits.total * ((100 - (heistCasino.hacker ? heistCasino.hacker.percent : 0) - (heistCasino.driver ? heistCasino.driver.percent : 0) - (heistCasino.gunman ? heistCasino.gunman.percent : 0)) / 100))|formatMoney }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

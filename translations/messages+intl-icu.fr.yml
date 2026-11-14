@@ -1,0 +1,1382 @@
+######################
+# VARIABLES GLOBALES #
+######################
+agency: agence
+all: '{gender, select, feminine {toutes} other {tous}}'
+amount_in_dollars: '{amount}$'
+and: et
+an_error_occurred_while_changing_the_filter: une erreur est survenue lors du changement de filtre
+apartment: appartement
+average: moyenne
+a_technical_error_occurred: une erreur technique est survenue
+back_to_homepage: retour à l'accueil
+bicycles_short: vél
+cancel: annuler
+capacity: capacité
+career_progress: progrès de carrière
+career_progress_description: statistiques et progression de votre personnage, nécessite un compte Rockstar Games lié à votre plateforme
+casino: casino
+cayo_perico: cayo perico
+choose_language: choisir la langue
+close: fermer
+comment: commentaire
+confirm: confirmer
+date: date
+date_day_month: '{date, date, ::EEE d MMM}'
+date_month_year: '{date, date, ::MMMM y}'
+date_time: '{date, date, ::dd/MM/yyyy HH:mm}'
+deletion_and_more: '{count, plural, one {# autre} other {# autres}}'
+deletion_definitive: cette suppression est définitive
+deletion_impossible: suppression impossible tant que ces éléments y sont liés
+deletion_linked: >-
+    {count, plural,
+        one   {# {type, select, businesses {affaire liée} business_goods {bien d'affaire lié} casino_drivers {chauffeur du braquage du casino lié} casino_gunmen {braqueur du braquage du casino lié} child_vehicles {véhicule l'a comme parent} child_weapons {arme l'a comme parent} parent_properties {propriété l'a comme sous-propriété} properties {propriété liée} property_types {type de propriété lié} vehicles {véhicule lié} weapons {arme liée} other {élément lié}}}
+        other {# {type, select, businesses {affaires liées} business_goods {biens d'affaire liés} casino_drivers {chauffeurs du braquage du casino liés} casino_gunmen {braqueurs du braquage du casino liés} child_vehicles {véhicules l'ont comme parent} child_weapons {armes l'ont comme parent} parent_properties {propriétés l'ont comme sous-propriété} properties {propriétés liées} property_types {types de propriété liés} vehicles {véhicules liés} weapons {armes liées} other {éléments liés}}}
+    }
+deletion_removed_from_users: '{count, plural, one {# utilisateur a une coche dessus (obtenu, souhaité ou fait) : elle sera perdue} other {# utilisateurs ont une coche dessus (obtenu, souhaité ou fait) : elles seront perdues}}'
+deletion_vehicles_taken_out: '{count, plural, one {# véhicule rangé ou souhaité ici par un utilisateur sera sorti de la propriété} other {# véhicules rangés ou souhaités ici par des utilisateurs seront sortis de la propriété}}'
+description: description
+discount: réduit
+discounted_percentage: pourcentage réduit
+discounted_price: prix réduit
+displaying_the_item: affichage de l'élément
+doomsday: fin du monde
+doomsday_heist: braquage de fin du monde
+evolution: évolution
+external_links: liens externes
+factory: usine
+filters: filtres
+hangar: hangar
+heists_guide: guide des braquages
+home: accueil
+hours_of_gameplay: heures de jeu
+in: en
+independent_of_other_filters: indépendant des autres filtres
+information_list: liste d'informations
+interactive_map: carte interactive des spawns
+interactive_map_description: animaux, dealers, objets à collectionner, événements... tous les points d'apparition de la carte
+in_real_time: en temps réel
+ip_address: adresse IP
+items: éléments
+knoway: knoWay
+kortz_center: kortz center
+loading: chargement
+minimum: minimum
+minutes_in_real_time: minutes en temps réel
+name: nom
+news_site: Rockstar Actu
+news_site_description: actualités GTA Online en français (promotions de la semaine, mises à jour, événements)
+next: suivante
+no: non
+on: sur
+opens_in_a_new_tab: s'ouvre dans un nouvel onglet
+owned: obtenu
+parents: parents
+player: joueur
+players: joueurs
+please_enter_the_description: veuillez indiquer la description
+please_enter_the_name: veuillez indiquer le nom
+please_enter_the_price: veuillez indiquer le prix
+previous: précédente
+previous_page: page précédente
+price: prix
+promo: promo
+promotion: promotion
+promo_discount: réduit promo
+real_name: vrai nom
+remove_all_filters: supprimer tous les filtres
+return_to_main_menu: retour au menu principal
+search: recherche
+sort: trier
+subproperties: sous-propriétés
+text_with_colon: '{text} :'
+tips: astuces
+to: à
+to_be_removed: à enlever
+type: type
+unlock: déblocage
+unofficial_site_not_affiliated_with_rockstar_games: site non officiel, non affilié à Rockstar Games ni à Take-Two Interactive. Grand Theft Auto et GTA sont des marques déposées de Take-Two Interactive Software, Inc.
+url: URL
+validate: valider
+vehicles: véhicules
+vehicles_short: véh
+wanted: souhaité
+weapons: armes
+weekly_bonuses: bonus de la semaine
+weekly_bonuses_description: bonus, promotions et défis de la semaine en français (roue du casino, essais, Ammu-Nation, rotations...)
+yes: oui
+you_are_not_allowed_to_access_this_page: vous n'avez pas le droit d'accéder à cette page
+
+##################
+# CIBLE DE PRIME #
+##################
+add_a_bounty_target: ajouter une cible
+bail_office: bureau des cautions
+bounty_mission: mission
+delete_the_bounty_target: supprimer la cible
+done: faite
+edit_the_bounty_target: modifier la cible
+error_bounty_target_delete: une erreur est survenue lors de la suppression de la cible "{name}"
+error_bounty_target_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de la cible "{name}" via le formulaire
+error_bounty_target_list: une erreur est survenue lors de la mise à jour de la cible "{name}" sur la liste
+most_wanted: les plus recherchés
+reward_alive: prime (vivante)
+select_a_bounty_mission: sélectionner une mission
+success_bounty_target_delete: la cible "{name}" a bien été supprimée
+success_bounty_target_form: >-
+    la cible "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+success_bounty_target_list: la cible "{name}" a bien été mise à jour sur la liste
+tip_reward_dead: si la cible est ramenée morte, la prime est divisée par {divisor}
+
+###########
+# AFFAIRE #
+###########
+additional_information: informations supplémentaires
+add_a_business: ajouter une affaire
+business: affaire
+businesses: affaires
+contact: contact
+daily_earnings_in_game: gains journaliers en jeu
+daily_expenses_in_game: charges journalières en jeu
+delete_the_business: supprimer l'affaire
+edit_the_business: modifier l'affaire
+error_business_delete: une erreur est survenue lors de la suppression de l'affaire "{name}"
+error_business_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'affaire "{name}" via le formulaire
+improvement: amélioration
+maximum_number: nombre maximum
+please_enter_the_maximum_number: veuillez indiquer le nombre maximum
+please_select_a_business: veuillez sélectionner une affaire
+select_a_business: sélectionner une affaire
+success_business_delete: l'affaire "{name}" a bien été supprimée
+success_business_form: >-
+    l'affaire "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+
+##################
+# BIEN D'AFFAIRE #
+##################
+add_a_business_good: ajouter un bien d'affaire
+boost: boost
+business_goods: biens d'affaire
+cost_of_a_restock: coût d'un réapprovisionnement
+delete_the_business_good: supprimer le bien d'affaire
+edit_the_business_good: modifier le bien d'affaire
+error_business_good_delete: une erreur est survenue lors de la suppression du bien d'affaire "{name}"
+error_business_good_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du bien de l'affaire "{name}" via le formulaire
+far_away_sale: vente lointaine
+hour_in_game: heure en jeu
+in_real_minutes: en minutes réelles
+net_sale: vente nette
+profit_if_raw_materials_are_purchased: bénéfice en cas d'achat de matières premières
+replenishment: réapprovisionnement
+replenishment_rate: taux d'un réapprovisionnement
+replenishment_rate_with: taux d'un réapprovisionnement avec
+replenishment_rate_with_upgraded_equipment: taux d'un réapprovisionnement avec équipement amélioré
+replenishment_rate_with_upgraded_equipment_and: taux d'un réapprovisionnement avec équipement amélioré et
+sale: vente
+sale_with: vente avec
+sale_with_upgraded_equipment: vente avec équipement amélioré
+sale_with_upgraded_equipment_and: vente avec équipement amélioré et
+stock: stock
+stock_for_dealer: stock pour dealer
+success_business_good_delete: le bien d'affaire "{name}" a bien été supprimé
+success_business_good_form: >-
+    le bien de l'affaire "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+time_for_restock: temps d'un remplissage
+time_for_restock_with: temps d'un remplissage avec
+time_for_restock_with_upgraded_equipment: temps d'un remplissage avec équipement amélioré
+time_for_restock_with_upgraded_equipment_and: temps d'un remplissage avec équipement amélioré et
+tip_dealer_double_price: chaque dealer paie le double pour l'un des produits qu'il achète. Ce produit est tiré au hasard, change chaque jour (en temps réel) et apparaît en premier dans son menu, précédé d'une étoile
+tip_dealer_stock_order: le dealer pioche d'abord dans le stock des lieux de production, puis dans celui de la boîte de nuit. Si les deux sont vides, il ne peut rien vendre
+tip_production_online_only: les affaires ne produisent que lorsque vous êtes connecté à une session en ligne. La production s'arrête en mode histoire ou jeu fermé
+total: total
+total_stock_for_dealer: stock pour dealer au total
+total_with: total avec
+total_with_upgraded_equipment: total avec équipement amélioré
+upgraded_staff: personnel amélioré
+upgraded_staff_or_boost: personnel amélioré ou boost
+
+############
+# COMMANDE #
+############
+command_finished_with_error: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } s'est terminée avec une erreur
+command_finished_with_success: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } est terminée avec succès
+command_launched: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } a été lancée avec succès
+command_none_running: >-
+    aucune {command, select,
+        properties {récupération de propriétés}
+        promotions {suppression de promos}
+        vehicles   {récupération de véhicules}
+        weapons    {récupération d'armes}
+        other      {commande}
+    } en cours
+command_none_to_stop: >-
+    aucune {command, select,
+        properties {récupération de propriétés}
+        promotions {suppression de promos}
+        vehicles   {récupération de véhicules}
+        weapons    {récupération d'armes}
+        other      {commande}
+    } à arrêter
+command_no_longer_running: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } n'est plus en cours
+command_promotion_launch: lancer la commande de suppression des promos (propriétés, véhicules et armes)
+command_promotion_remove_all: supprimer toutes les promos
+command_promotion_remove_all_question: voulez-vous vraiment supprimer toutes les promos des propriétés, des véhicules et des armes ?
+command_promotion_stop: stopper la commande de suppression des promos
+command_running: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } est en cours
+command_stopped: >-
+    {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    } a bien été arrêtée
+command_stop_failed: >-
+    impossible d'arrêter {command, select,
+        properties {la récupération des propriétés}
+        promotions {la suppression des promos}
+        vehicles   {la récupération des véhicules}
+        weapons    {la récupération des armes}
+        other      {la commande}
+    }
+launch_the_properties_retrieval_command: lancer la commande de récupération des propriétés
+launch_the_vehicles_retrieval_command: lancer la commande de récupération des véhicules
+launch_the_weapons_retrieval_command: lancer la commande de récupération des armes
+stop_the_properties_retrieval_command: stopper la commande de récupération des propriétés
+stop_the_vehicles_retrieval_command: stopper la commande de récupération des véhicules
+stop_the_weapons_retrieval_command: stopper la commande de récupération des armes
+
+#################
+# CONFIGURATION #
+#################
+configuration: configuration
+
+####################
+# PERSONNALISATION #
+####################
+add_a_weapon_customization: ajouter une personnalisation d'arme
+delete_the_weapon_customization: supprimer la personnalisation d'arme
+edit_the_weapon_customization: modifier la personnalisation d'arme
+error_customization_delete: une erreur est survenue lors de la suppression de la personnalisation d'arme "{name}"
+error_customization_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de la personnalisation "{name}" via le formulaire
+success_customization_delete: la personnalisation d'arme "{name}" a bien été supprimée
+success_customization_form: >-
+    la personnalisation "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+weapon_customizations: personnalisations d'arme
+
+########################
+# MÉTHODE DE LIVRAISON #
+########################
+add_a_delivery_method: ajouter une méthode de livraison
+delete_the_delivery_method: supprimer la méthode de livraison
+delivery_methods: méthodes de livraison
+edit_the_delivery_method: modifier la méthode de livraison
+error_delivery_method_delete: une erreur est survenue lors de la suppression de la méthode de livraison "{name}"
+error_delivery_method_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de la méthode de livraison "{name}" via le formulaire
+success_delivery_method_delete: la méthode de livraison "{name}" a bien été supprimée
+success_delivery_method_form: >-
+    la méthode de livraison "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+
+##################
+# PAGES D'ERREUR #
+##################
+error_page_403_text: "Zone réglementée, et t'as pas l'accréditation. Les mains bien en évidence et tu recules doucement vers la sortie. Si tu penses qu'il y a erreur, tu t'expliqueras avec un administrateur… au poste."
+error_page_403_title: "Police ! Plus un geste !"
+error_page_404_text: "À toutes les unités : la page a été vue pour la dernière fois à cette adresse. Lester a fouillé Los Santos, Blaine County et même le fond du lac Alamo. Rien. Soit elle n'a jamais existé, soit elle se planque du côté de Sandy Shores."
+error_page_404_title: "Suspect en fuite"
+error_page_500_text: "Le braquage a mal tourné : quelqu'un a déclenché l'alarme. Bon… c'était nous. Toutes les unités sont sur place pour réparer les dégâts : réessaie dans quelques minutes, le temps que ça se calme."
+error_page_500_title: "Coups de feu, demande de renforts !"
+error_page_default_text: "Quelque chose ne s'est pas passé comme prévu. Une patrouille est en route, mais même Lamar n'a pas d'explication. Et pourtant, il a toujours un avis sur tout."
+error_page_default_title: "Activité suspecte signalée"
+error_technical_details: '{message} à la ligne {line} du fichier "{file}"'
+invalid_csrf_token: votre session a expiré, veuillez recharger la page
+technical_details_super_admin_only: détail technique (visible uniquement par les super admins)
+wanted_level: niveau de recherche
+
+##########
+# FILTRE #
+##########
+filter_evolution: >-
+    {filter, select,
+        all             {{entity, select, vehicles {tous} weapons {toutes} other {}}}
+        yes             {uniquement les {entity, select, vehicles {véhicules évolués} weapons {armes évoluées} other {}}}
+        yes_with_others {sans les {entity, select, vehicles {véhicules} weapons {armes} other {}} de base}
+        no_with_others  {sans les {entity, select, vehicles {véhicules évolués} weapons {armes évoluées} other {}}}
+        no              {uniquement les {entity, select, vehicles {véhicules} weapons {armes} other {}} de base}
+        other           {}
+    }
+filter_two: >-
+    {filter, select,
+        all             {{entity, select, vehicles {tous} weapons {toutes} other {}}}
+        yes             {uniquement les variantes}
+        yes_with_others {sans les {entity, select, vehicles {véhicules} weapons {armes} other {}} de base}
+        no_with_others  {sans les variantes}
+        no              {uniquement les {entity, select, vehicles {véhicules} weapons {armes} other {}} de base}
+        other           {}
+    }
+
+##########
+# GROUPE #
+##########
+add_a_group: ajouter un groupe
+a_default_group_is_required: 'un groupe par défaut est obligatoire pour les nouveaux comptes : cochez cette case sur un autre groupe pour le déplacer'
+default_group_for_new_accounts: groupe par défaut des nouveaux comptes
+edit_the_group: modifier le groupe
+error_group_gta_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du groupe "{name}" via le formulaire
+group: groupe
+groups: groupes
+please_select_the_group: veuillez sélectionner le groupe
+select_the_group: sélectionner le groupe
+success_group_gta_form: >-
+    le groupe "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+
+############
+# BRAQUAGE #
+############
+access_code: code d'accès
+act: acte
+aggressive: en force
+air_defenses: défenses aériennes
+air_support: soutien aérien
+all_you_have_to_do_is_choose_the_approach_used_during_the_second_to_last_turn: il vous suffit de choisir la stratégie utilisée lors de l'avant-dernier tour
+alpha_mail_outfit: tenue alpha mail
+an_internal_matter: une affaire interne
+approach: approche
+approach_vehicle: véhicule d'approche
+arcade_equipment: matériel d'arcade
+armors: armures
+artwork: tableau
+assault_of_an_agency: assaut d'une agence
+at_least_35_headshots_in_total: au moins 35 tirs effectués à la tête au total
+at_least_80_headshots_in_total: au moins 80 tirs effectués à la tête au total
+at_least_150_headshots_in_total: au moins 150 tirs effectués à la tête au total
+at_least_two_players_are_required: au moins deux joueurs sont requis
+average_accuracy_of: précision moyenne de
+a_loss_of: perte de
+a_new_beginning: un nouveau départ
+basement: sous-sol
+between: entre
+bikers: motards
+bikes: motos
+bonus_on_secondary_loots: bonus sur les butins secondaires
+breakdown_by_player_based_on_percentage: répartition par joueur en fonction du pourcentage
+buyer_s_request: requête de l'acheteur
+buyer_s_requests: requêtes de l'acheteur
+cargo: cargaisons
+cargo_zone: zone de chargement
+cash: argent
+choice_between_level_1_and_level_2: choix entre niveau 1 et niveau 2
+choose: choisir
+choose_the_approach: choisir l'approche
+choose_the_difficulty: choisir la difficulté
+choose_the_driver: choisir le chauffeur
+choose_the_getaway_vehicle: choisir le véhicule de fuite
+choose_the_gunman: choisir le braqueur
+choose_the_hacker: choisir le hacker
+choose_the_infiltration_equipment: choisir le matériel d'infiltration
+choose_the_main_loot: choisir le butin principal
+choose_the_main_painting: choisir le tableau principal
+choose_the_unmarked_weapon: choisir l'arme non marquée
+cluckin_bell_factory: usine Cluckin' Bell
+cocaine: cocaïne
+coke: cocaïne
+concealed_weapons: armes dissimulées
+conditions: conditions
+contact_avi_schwartzman: contacter Avi Schwartzman
+contact_vincent: contacter Vincent
+content_of_the_vault: contenu du coffre-fort
+convoy: convoi
+cost: coût
+costumes_to_enter: déguisements pour entrer
+costumes_to_exit: déguisements pour sortir
+cutting_torch: chalumeau
+dam: barrage
+days_in_game: jours en jeu
+day_in_game: jour en jeu
+dead_courier: le coursier mort
+dealers: trafiquants
+deliver_the_emp: livrer l'IEM
+demolition_charges: charges explosives
+desktop: bureau
+details: détails
+detected: détecté
+difficulty: difficulté
+disorganized_crime: criminalité non organisée
+disruptions: perturbations
+do_not_get_detected: ne pas se faire détecter
+drag_race: course de dragsters
+drills: perceuses
+drills_of_the_vault: perceuses du coffre-fort
+driver: chauffeur
+dr_dre_s_vip_contract: le contrat VIP de Dr. Dre
+duggan_cargo: cargaisons Duggan
+earnings: gains
+earnings_for_a_full_bag: gains pour un sac plein
+earnings_of_the_first_heist_of_the_week: gains du premier braquage de la semaine
+earnings_of_the_other_heists_throughout_the_week: gains des autres braquages effectués au cours de la semaine
+easy: facile
+elite_challenge: défi élite
+emp: IEM
+emplacements: emplacements
+employee_access_card: carte d'accès du personnel
+emp_loads: charges IEM
+enemies: ennemis
+entry_point: point d'entrée
+enum_heist_casino_approach: >-
+    {case, select,
+        BRUTAL   {en force}
+        CUNNING  {rusée}
+        STEALTHY {furtive}
+        other    {}
+    }
+enum_heist_casino_difficulty: >-
+    {case, select,
+        HARD   {difficile}
+        NORMAL {normale}
+        other  {}
+    }
+enum_heist_cayo_perico_difficulty: >-
+    {case, select,
+        HARD   {difficile}
+        NORMAL {normale}
+        other  {}
+    }
+enum_heist_kortz_center_difficulty: >-
+    {case, select,
+        HARD   {difficile}
+        NORMAL {normale}
+        other  {}
+    }
+enum_heist_kortz_center_material: >-
+    {case, select,
+        ALPHA_MAIL_OUTFIT    {tenue Alpha Mail}
+        EMPLOYEE_ACCESS_CARD {carte d'accès du personnel}
+        SAFETY_SUIT          {combinaison de sécurité}
+        TACTICAL_EQUIPMENT   {équipement tactique}
+        other                {}
+    }
+enum_heist_kortz_center_type: >-
+    {case, select,
+        CRATE_CARGO_ZONE       {caisse dans la zone de chargement}
+        DISPLAY_CASE           {vitrine}
+        LASER_CUT_DISPLAY_CASE {vitrine à découpe laser}
+        OTHER_PAINTING         {autre tableau}
+        VAULT_PAINTING         {tableau de la chambre forte}
+        other                  {}
+    }
+enum_heist_kortz_center_vehicle: >-
+    {case, select,
+        ANNIHILATOR_STEALTH {Annihilator furtif}
+        CARACARA_ARMORED    {Caracara blindé}
+        MANCHEZ             {Manchez}
+        other               {}
+    }
+enum_heist_kortz_center_weapon: >-
+    {case, select,
+        MILITARY_ARSENAL {arsenal militaire}
+        SECURITY_ARSENAL {arsenal de sécurité}
+        STREET_ARSENAL   {arsenal de rue}
+        other            {}
+    }
+equipment: équipement
+error_heist: >-
+    une erreur est survenue lors {type, select,
+        reset  {de la réinitialisation}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du braquage {heist, select,
+        casino       {du casino}
+        cayo_perico  {de Cayo Perico}
+        kortz_center {du Kortz Center}
+        other        {}
+    }
+escort_ulp: escorter ULP
+example: exemple
+extraction_in_less_than: extraction en moins de
+finals: finales
+fingerprint_cloner: duplicateur d'empreintes
+finish_the_heist_in_less_than: finir le braquage en moins de
+first_heist_of_the_week: premier braquage de la semaine
+from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m: du jeudi à 12h au jeudi qui suit à 12h
+gand_hideout: cache de gang
+gather_intel: recherche d'informations
+getaway_vehicle: véhicule de fuite
+glass_cutter: coupe-verre
+glass_roof: verrière
+gold: or
+gunman: braqueur
+hack: hack
+hacker: hacker
+hackers: hackers
+hacking_device: appareil de piratage
+hard: difficile
+heist_cayo_perico_loot_quantity: '{loot} : {quantity} [{percentage, number, ::.##}%]'
+heist_cayo_perico_secondary_loot: >-
+    {loot, select,
+        artwork   {tableau}
+        cash      {argent}
+        cocaine   {cocaïne}
+        gold      {or}
+        safe_cash {coffre-fort du bureau}
+        weed      {cannabis}
+        other     {}
+    }
+heist_completed_in_solo: braquage réalisé en solo
+heist_completed_in_team: braquage réalisé en équipe
+here_in_the_kortz_center: présent dans le Kortz Center
+hit_and_run: délit de fuite
+if_detected: si détecté
+if_elite_challenge: si défi élite
+if_the_buyer_s_requests_have_been_retrieved: si les requêtes de l'acheteur ont été récupérées
+implementation_fees: frais de mise en œuvre
+implementation_mission: mission de mise en place
+infiltration_equipment: '{count, plural, one {matériel d''infiltration} other {matériels d''infiltration}}'
+information_on_the_security: informations sur la sécurité
+insurgents: insurgents
+intrusion: effraction
+in_real_time_before_lester_contacts_you_again: en temps réel avant que Lester ne vous recontacte
+in_real_time_before_pavel_contacts_you_again: en temps réel avant que Pavel ne vous recontacte
+itineraries: itinéraires
+key_codes: codes clés
+kill: tuer
+limit_the_loss_in_value_to: limiter la perte de la valeur à
+loot: butin
+loots: butins
+loot_on_the_exit: butin à la sortie
+madrazo_cartel_s_slice: part du cartel de Madrazo
+magnetic_cards: cartes magnétiques
+main_loot: butin principal
+main_loots: butins principaux
+main_painting: tableau principal
+main_zone: zone principale
+masks: masques
+mckenzie_field_hangar: hangar de McKenzie field
+merryweather_expedition: expédition Merryweather
+merryweather_s_helicopter: hélicoptère de Merryweather
+merryweather_s_weapons: armes de Merryweather
+military_arsenal: arsenal militaire
+military_weapons: armes militaires
+minutes: minutes
+minutes_in_real_time_before_lester_contacts_you_again: minutes en temps réel avant que Lester ne vous recontacte
+minutes_in_real_time_before_pavel_contacts_you_again: minutes en temps réel avant que Pavel ne vous recontacte
+minutes_in_real_time_to_return_to_see_him_again_and_restart_the_heist: minutes en temps réel pour retourner le voir et recommencer le braquage
+missions: missions
+mission_information: informations sur la mission
+negative_press: presse négative
+noose_s_van: fourgon du NOOSE
+normal: '{gender, select, feminine {normale} other {normal}}'
+north: nord
+not_detected: non détecté
+no_failed_hacking: aucun piratage échoué
+no_player_dies: aucun joueur ne meurt
+no_quick_restart: pas de relancement rapide
+no_time_here: pas de temps ici
+only_the_first_time: uniquement la première fois
+optional: facultatif
+or: soit
+or_less: ou moins
+oscar_guzman_returns_to_duty: oscar Guzman reprend du service
+patrols: patrouilles
+pavel_s_slice: part de Pavel
+percentage: pourcentage
+percentage_of_chance_for_the_first_heist_of_the_week: pourcentage de chance pour le premier braquage de la semaine
+percentage_of_chance_for_the_other_heists_throughout_the_week: pourcentage de chance pour les autres braquages effectués au cours de la semaine
+plasma_cutter: découpeur plasma
+police_seizure: saisie policière
+police_station: commissariat de police
+preparation: préparation
+preparation_mission: mission de préparation
+random: aléatoire
+ready_to_work: prêt à fonctionner
+reconnaissance_of_the_casino: repérage du casino
+release_information: informations sur la sortie
+requires_a_facility: nécessite un complexe
+requires_a_kosatka_submarine: nécessite un sous-marin Kosatka
+requires_a_retro_arcade: nécessite une salle d'arcade
+requires_a_villa_and_an_art_studio: nécessite une villa et un atelier d'art
+requires_the_mckenzie_field_hangar: nécessite le hangar de McKenzie field
+rescue_agent_14: sauver l'agent 14
+rescue_ulp: ULP de secours
+reset_the_heist: réinitialiser le braquage
+retrieve_the_loots_of_the_list_of_the_buyer_s_request: récupérer les butins de la liste des requêtes de l'acheteur
+safety_suit: combinaison de sécurité
+safe_code: code du coffre
+salvage_hard_drives: récupération de disques durs
+scene_of_the_crime: scène de crime
+scope_out: découverte
+secondary_loots: butins secondaires
+security_arsenal: arsenal de sécurité
+security_passes: passes de sécurité
+series_a_funding: capital de départ
+server_farm: parc de serveurs
+sewer: égout
+signal: signal
+signal_intercepts: interceptions de signaux
+silent_and_sneaky: '{gender, select, feminine {furtive} other {furtif}}'
+slice: part
+slice_in_the_bag: part dans le sac
+slush_fund: caisse noire
+south: sud
+so_you_must_have_completed_at_least_two_heists: il faut donc avoir réalisé au moins 2 braquages
+staff_entrance: entrée du personnel
+start_hard_mode: lancer le mode difficile
+station: station
+steal_meth: voler la méthamphétamine
+street_arsenal: arsenal de rue
+submarine_recon: reconnaissance sous-marine
+success_heist: >-
+    le braquage {heist, select,
+        casino       {du casino}
+        cayo_perico  {de Cayo Perico}
+        kortz_center {du Kortz Center}
+        other        {}
+    } a bien été {type, select,
+        reset  {réinitialisé}
+        update {mis à jour}
+        other  {modifié}
+    }
+tactical_equipment: équipement tactique
+test_site: site de test
+the_big_con: '{gender, select, feminine {rusée} other {rusé}}'
+the_bogdan_problem: nom de code Bogdan
+the_bus: le bus
+the_cluckin_bell_farm_raid: le raid de l'usine Cluckin' Bell
+the_data_breaches: fuite de données
+the_doomsday_scenario: un scénario de fin du monde
+the_escape: la fuite
+the_fleeca_job: casse de la Fleeca Bank
+the_humane_labs_raid: raid sur les laboratoires Humane
+the_lost_mc: club de motards des Lost
+the_noose_is_not_called: le NOOSE n'est pas appelé
+the_pacific_standard_job: casse de la Pacific Standard
+the_plane: l'avion
+the_prison_break: sortie de prison
+the_theft_of_the_titan: le vol du Titan
+time_given: temps accordé
+tip_glass_cutter_required: sans la préparation « coupe-verre », les vitrines à découpe laser ne peuvent pas être ouvertes pendant le braquage
+tip_itineraries_show_guards: sans la préparation « itinéraires », les gardes ne sont pas affichés sur la carte pendant le braquage
+tip_loot_cutting: seul le dernier butin ramassé peut être coupé pour remplir le sac. Les tableaux ne se coupent pas, mais peuvent quand même être pris en dernier
+tip_minimal_preparation: 'un seul véhicule d''approche suffit pour faire le braquage. Côté équipement, il faut le duplicateur d''empreintes, le chalumeau et, selon la cible, le code du coffre (bons au porteur uniquement) ou le découpeur plasma (autres cibles). Les charges explosives ne servent que si vous arrivez par le haut de chez El Rubio. Il faut aussi des armes non marquées. Le reste n''est pas utile si vous ne vous faites pas repérer'
+tip_phantom_wedge_longfin: 'posséder un Phantom Wedge facilite grandement la mission de récupération du Longfin : il suffit de l''appeler une fois arrivé près du commissariat, au lieu de devoir aller en chercher un sur la carte'
+total_of_all_players: total de tous les joueurs
+to_have_full_bags: avoir les sacs pleins
+to_reach_loots_from_7_to_13: pour atteindre les butins de 7 à 13
+trash_truck: camion-poubelle
+tunnel_vision: vision tunnel
+underground_imports: imports clandestins
+unmarked_weapons: armes non marquées
+until_you_exit_from_el_rubio_s_house: jusqu'à ce que vous sortiez de chez El Rubio
+until_you_exit_from_the_casino: jusqu'à ce que vous sortiez du casino
+valet_service: service de voiturier
+vans: camionnettes
+vehicle_damages_less_than: dommages au véhicule inférieurs à
+verbal_provocations: provocations verbales
+video: vidéo
+weed: cannabis
+west: ouest
+wet_work: travaux humides
+we_have_to_wait: il faut attendre
+without_the_slices: sans les parts
+you_have: vous avez
+you_have_48_minutes_in_real_time_to_go_back_to_see_him_again_and_restart_the_heist: vous avez 48 minutes en temps réel pour retourner le voir et relancer le braquage
+you_will_have_to_wait_about_10_minutes_in_real_time_before_raf_contacts_you_again: il faudra attendre environ 10 minutes en temps réel avant que Raf ne vous recontacte
+
+####################
+# MENTIONS LÉGALES #
+####################
+gdpr_controller: responsable du traitement
+gdpr_cookies_intro: ce site n'utilise ni cookie publicitaire ni mesure d'audience ; seuls des cookies techniques indispensables, dispensés de consentement, sont déposés
+gdpr_cookies_title: cookies
+gdpr_cookie_remember: "cookie « rester connecté » : déposé seulement si vous cochez cette option, valable 7 jours"
+gdpr_cookie_session: "cookie de session : maintient votre connexion et votre langue, supprimé à la fermeture de la session"
+gdpr_cookie_turnstile: "cookies de Cloudflare Turnstile : protection contre les robots sur les formulaires qui l'utilisent"
+gdpr_datas_account: "compte : nom, prénom, pseudo, mail, mot de passe haché, langue, groupe, dates de création et de dernière activité"
+gdpr_datas_game: "jeu : véhicules, armes et propriétés possédés, cibles de prime et braquages enregistrés"
+gdpr_datas_technical: "technique : adresse IP et date des connexions, adresse IP et identifiant saisi lors des connexions échouées"
+gdpr_datas_title: données collectées
+gdpr_minors: si vous avez moins de 15 ans, la création d'un compte nécessite l'accord du titulaire de l'autorité parentale
+gdpr_no_sale: vos données ne sont ni vendues ni utilisées à des fins publicitaires
+gdpr_purposes_title: finalités et bases légales
+gdpr_purpose_account: "création et gestion de votre compte, fourniture du service : exécution du contrat (conditions d'utilisation)"
+gdpr_purpose_security: "sécurité du site et détection des connexions frauduleuses : intérêt légitime"
+gdpr_purpose_statistics: "statistiques de fréquentation agrégées, sans suivi individuel : intérêt légitime"
+gdpr_recipients_title: destinataires
+gdpr_recipient_host: Infomaniak Network SA (hébergement et mails), en Suisse, pays reconnu comme offrant une protection adéquate par la Commission européenne
+gdpr_recipient_turnstile: "Cloudflare, Inc. (protection anti-robot Turnstile à la connexion : adresse IP et informations du navigateur), aux États-Unis, certifiée au Data Privacy Framework UE-États-Unis"
+gdpr_retention_host_logs: "journaux techniques du serveur : conservés par l'hébergeur pour la sécurité, selon sa propre politique"
+gdpr_retention_inactive: "compte : conservé tant qu'il est utilisé, puis anonymisé après 3 ans sans activité, avec un mail de prévenance 30 jours avant"
+gdpr_retention_logins: "journaux de connexion : supprimés après 1 an"
+gdpr_retention_title: durées de conservation
+gdpr_retention_unverified: "compte dont le mail n'a pas été validé : anonymisé après 30 jours"
+gdpr_rights_account_page: "depuis la page « Mon compte », vous pouvez exporter vos données et supprimer votre compte"
+gdpr_rights_complaint: vous pouvez aussi introduire une réclamation auprès de la CNIL
+gdpr_rights_contact: pour toute autre demande, écrivez à
+gdpr_rights_delay: une réponse vous sera apportée sous un mois
+gdpr_rights_list: conformément au RGPD et à la loi Informatique et Libertés, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données
+gdpr_rights_title: vos droits
+legal_hosting: hébergement
+legal_hosting_text: ce site est hébergé par
+legal_mentions: mentions légales
+legal_publisher: éditeur et responsable de la publication
+legal_publisher_text: ce site est édité par
+legal_status: statut du site
+
+#####################
+# CONNEXION ÉCHOUÉE #
+#####################
+entered_mail: mail saisi
+failed_logins: connexions échouées
+
+#####################
+# CONNEXION RÉUSSIE #
+#####################
+successful_logins: connexions réussies
+
+########################
+# LIEU DE MODIFICATION #
+########################
+add_a_modification_location: ajouter un lieu de modification
+delete_the_modification_location: supprimer le lieu de modification
+edit_the_modification_location: modifier le lieu de modification
+error_modification_location_delete: une erreur est survenue lors de la suppression du lieu de modification "{name}"
+error_modification_location_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du lieu de modification "{name}" via le formulaire
+modification_locations: lieux de modification
+success_modification_location_delete: le lieu de modification "{name}" a bien été supprimé
+success_modification_location_form: >-
+    le lieu de modification "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+
+#############
+# PROPRIÉTÉ #
+#############
+add_a_property: ajouter une propriété
+choose_the_property: choisir la propriété
+choose_the_wanted_property: choisir la propriété souhaitée
+delete_the_property: supprimer la propriété
+edit_the_property: modifier la propriété
+error_property_delete: une erreur est survenue lors de la suppression de la propriété "{name}"
+error_property_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de la propriété "{name}" via le formulaire
+error_property_list: une erreur est survenue lors de la mise à jour de la propriété "{name}" sur la liste
+properties: propriétés
+property: propriété
+property_area: lieu de propriété
+property_location: zone de propriété
+select_a_property_area: sélectionner le lieu de propriété
+select_a_property_location: sélectionner la zone de propriété
+select_the_property: sélectionner la propriété
+select_the_wanted_property: sélectionner la propriété souhaitée
+success_property_delete: la propriété "{name}" a bien été supprimée
+success_property_form: >-
+    la propriété "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+success_property_list: la propriété "{name}" a bien été mise à jour sur la liste
+the_business_does_not_match_the_property_type: l'affaire choisie ne correspond pas au type de propriété
+tip_prefer_largest_garages: 'le nombre de garages et d''appartements que l''on peut posséder est limité : mieux vaut privilégier ceux qui ont le plus de places'
+vehicles_price: valeur des véhicules
+vehicles_price_help: prix de base indicatif des véhicules rangés (sans promotion ni réduction)
+wanted_property: propriété souhaitée
+you_can_not_own_this_property_without_its_parent_property: vous ne pouvez pas obtenir cette propriété sans posséder sa propriété parente ({names})
+you_can_not_select_this_property_maximum_reached: >-
+    vous ne pouvez pas {type, select, owned {obtenir} other {souhaiter}} cette propriété car vous avez atteint le maximum ({maximum}) pour « {business} »
+
+############################
+# ACQUISITION DE PROPRIÉTÉ #
+############################
+add_a_property_acquisition: ajouter une acquisition de propriété
+delete_the_property_acquisition: supprimer l'acquisition de propriété
+edit_the_property_acquisition: modifier l'acquisition de propriété
+error_property_acquisition_delete: une erreur est survenue lors de la suppression de l'acquisition de propriété "{name}"
+error_property_acquisition_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'acquisition de propriété "{name}" via le formulaire
+property_acquisitions: acquisitions de propriété
+success_property_acquisition_delete: l'acquisition de propriété "{name}" a bien été supprimée
+success_property_acquisition_form: >-
+    l'acquisition de propriété "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+
+#####################
+# TYPE DE PROPRIÉTÉ #
+#####################
+add_a_property_type: ajouter un type de propriété
+delete_the_property_type: supprimer le type de propriété
+edit_the_property_type: modifier le type de propriété
+error_property_type_delete: une erreur est survenue lors de la suppression du type de propriété "{name}"
+error_property_type_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du type de propriété "{name}" via le formulaire
+please_enter_the_property_type: veuillez indiquer le type de propriété
+property_type: type de propriété
+property_types: types de propriété
+select_a_property_type: sélectionner un type de propriété
+success_property_type_delete: le type de propriété "{name}" a bien été supprimé
+success_property_type_form: >-
+    le type de propriété "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+
+####################
+# LIEU DE STOCKAGE #
+####################
+add_a_storage_location: ajouter un lieu de stockage
+delete_the_storage_location: supprimer le lieu de stockage
+edit_the_storage_location: modifier le lieu de stockage
+error_storage_location_delete: une erreur est survenue lors de la suppression du lieu de stockage "{name}"
+error_storage_location_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du lieu de stockage "{name}" via le formulaire
+property_required: nécessite une propriété
+storage_location: lieu de stockage
+storage_locations: lieux de stockage
+success_storage_location_delete: le lieu de stockage "{name}" a bien été supprimé
+success_storage_location_form: >-
+    le lieu de stockage "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+
+#################
+# RÉCAPITULATIF #
+#################
+summary: récapitulatif
+summary_according_to_filters: calculé selon les filtres actifs
+summary_all_evolved: pour tout avoir en version évoluée
+summary_buyable: >-
+    {entity, select, vehicles {véhicules encore achetables} properties {propriétés encore achetables} weapons {armes encore achetables} other {}}
+summary_capacity: places occupées dans les propriétés obtenues
+summary_capacity_wanted: places des propriétés souhaitées
+summary_discounted: >-
+    {entity, select, vehicles {véhicules} properties {propriétés} weapons {armes} other {}} en promotion
+summary_evolutions: évolutions à acheter
+summary_evolutions_owned: >-
+    {count, plural,
+        one   {obtenue}
+        other {obtenues}
+    }
+summary_free_places: >-
+    {count, plural,
+        =0    {aucune place libre}
+        one   {# place libre}
+        other {# places libres}
+    }
+summary_items: >-
+    {count, plural,
+        =0    {aucun{entity, select, vehicles {} properties {e} weapons {e} bounty_targets {e} other {}} {entity, select, vehicles {véhicule} properties {propriété} weapons {arme} bounty_targets {cible} other {}}}
+        one   {# {entity, select, vehicles {véhicule} properties {propriété} weapons {arme} bounty_targets {cible} other {}}}
+        other {# {entity, select, vehicles {véhicules} properties {propriétés} weapons {armes} bounty_targets {cibles} other {}}}
+    }
+summary_most_wanted_done: '{count, number} / {total, number} parmi les plus recherchés'
+summary_need_place: >-
+    {count, plural,
+        =0    {aucun achetable n'a besoin de place}
+        one   {# achetable a besoin d'une place}
+        other {# achetables ont besoin d'une place}
+    }
+summary_not_buyable_anymore: >-
+    {count, plural,
+        =0    {tous encore achetables}
+        one   {# plus achetable aujourd'hui}
+        other {# plus achetables aujourd'hui}
+    }
+summary_not_stored: >-
+    {count, plural,
+        =0    {aucun sans propriété}
+        other {# sans propriété (dont {withoutPlace, number} sans place nécessaire)}
+    }
+summary_of_which_not_owned: >-
+    {count, plural,
+        =0    {aucun{entity, select, vehicles {} other {e}} à acheter}
+        one   {dont # non obtenu{entity, select, vehicles {} other {e}}}
+        other {dont # non obtenu{entity, select, vehicles {} other {e}}s}
+    }
+summary_of_which_wanted: >-
+    {count, plural,
+        =0    {aucun{entity, select, vehicles {} properties {e} other {}} souhaité{entity, select, vehicles {} properties {e} other {}}}
+        one   {dont # souhaité{entity, select, vehicles {} properties {e} other {}}}
+        other {dont # souhaité{entity, select, vehicles {} properties {e} other {}}s}
+    }
+summary_owned: >-
+    {entity, select, vehicles {véhicules obtenus} properties {propriétés obtenues} weapons {armes obtenues} bounty_targets {cibles faites} other {}}
+summary_remaining: >-
+    {entity, select, vehicles {véhicules restants} properties {propriétés restantes} weapons {armes restantes} bounty_targets {cibles restantes} other {}}
+summary_saving: économie
+summary_stored: >-
+    {count, plural,
+        =0    {aucun rangé}
+        one   {# rangé}
+        other {# rangés}
+    }
+summary_to_buy: à acheter (souhaité{entity, select, vehicles {s} properties {es} weapons {es} other {}})
+summary_to_pay: '{entity, select, vehicles {non obtenus} other {non obtenues}} : {price} au lieu de {basePrice}'
+summary_unavailable: >-
+    {count, plural,
+        =0    {aucun indisponible}
+        one   {# indisponible pour le moment}
+        other {# indisponibles pour le moment}
+    }
+summary_value: valeur
+summary_wanted_pegasus: '{count, plural, one {dont # en Pegasus} other {dont # en Pegasus}}'
+summary_wanted_to_pay: '{entity, select, vehicles {souhaités} other {souhaitées}} : {price} au lieu de {basePrice}'
+summary_without_place: >-
+    {count, plural,
+        =0    {aucun sans place nécessaire}
+        one   {# sans place nécessaire}
+        other {# sans place nécessaire}
+    }
+
+################
+# MAJ DE TITRE #
+################
+add_a_title_update: ajouter une mise à jour de titre
+delete_the_title_update: supprimer la mise à jour de titre
+edit_the_title_update: modifier la mise à jour de titre
+error_title_update_delete: une erreur est survenue lors de la suppression de la mise à jour de titre "{name}"
+error_title_update_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de la MAJ de titre "{name}" via le formulaire
+please_enter_the_release_date: veuillez indiquer la date de sortie
+please_enter_the_title_update: veuillez indiquer la mise à jour de titre
+release_date: date de sortie
+select_a_title_update: sélectionner une mise à jour de titre
+success_title_update_delete: la mise à jour de titre "{name}" a bien été supprimée
+success_title_update_form: >-
+    la MAJ de titre "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+title_update: mise à jour de titre
+title_updates: mises à jour de titre
+
+###############
+# UTILISATEUR #
+###############
+account_already_exists_mail_subject: tentative d'inscription sur GTA 5 Online
+active: actif
+add_a_user: ajouter un utilisateur
+all_you_have_to_do_is_validate_your_mail_by_clicking_on_the_link_below: il ne vous reste plus qu'à valider votre mail en cliquant sur le lien ci-dessous
+an_error_occurred_while_changing_the_password: une erreur est survenue lors du changement de mot de passe
+an_error_occurred_while_creating_the_account: une erreur est survenue lors de la création du compte
+an_error_occurred_while_deleting_the_account: une erreur est survenue lors de la suppression du compte
+an_error_occurred_while_sending_the_mail: une erreur est survenue lors de l'envoi du mail
+an_error_occurred_while_verifying_the_mail: une erreur est survenue lors de la vérification du mail
+a_mail_has_been_sent_to_you_to_finalize_your_registration: un mail vient de vous être envoyé pour finaliser votre inscription
+a_new_link_has_been_sent_to_you_by_mail: si le compte attend encore sa vérification, un nouveau lien vient de vous être envoyé par mail
+back_to_the_homepage: retour à l'accueil
+back_to_the_login: retour à la connexion
+choose_your_new_password: choisissez votre nouveau mot de passe
+click_on_the_button_below_to_validate_your_mail: cliquez sur le bouton ci-dessous pour valider votre mail et vous connecter
+connection: connexion
+create_an_account: créer un compte
+create_my_account: créer mon compte
+delete_my_account: supprimer mon compte
+download_all_your_datas_in_a_json_file: téléchargez toutes vos données dans un fichier JSON
+edit_the_user: modifier l'utilisateur
+enter_your_mail_to_receive_a_link: indiquez votre mail pour recevoir un lien de réinitialisation
+error_user_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'utilisateur "{name}" via le formulaire
+error_user_list: une erreur est survenue lors de la mise à jour de l'utilisateur "{name}" sur la liste
+export_my_datas: exporter mes données
+first_name: prénom
+hello: bonjour
+if_an_account_exists_with_this_mail_a_link_has_been_sent_to_it: si un compte existe avec ce mail, un lien de réinitialisation vient de lui être envoyé
+if_it_was_you_log_in_or_use_forgot_password: si c'était vous, connectez-vous ou utilisez « j'ai oublié mon mot de passe » sur la page de connexion
+if_you_are_not_at_the_origin_of_this_request_contact_the_website_administrator: si vous n'êtes pas à l'origine de cette demande, contactez l'administrateur du site
+if_you_did_not_make_this_change_reset_your_password_and_contact_the_website_administrator: si vous n'êtes pas à l'origine de ce changement, utilisez « j'ai oublié mon mot de passe » sur la page de connexion et contactez l'administrateur du site
+in_the_opposite_case_click_on_the_link_below: dans le cas contraire, cliquez sur le lien ci-dessous
+it_will_be_deleted_in_thirty_days_unless_you_log_in: il sera supprimé dans 30 jours si vous ne vous connectez pas d'ici là
+i_agree_that_my_personal_datas_will_be_stored_according_to_the: j'accepte que mes données personnelles soient stockées conformément à la
+i_forgot_my_password: j'ai oublié mon mot de passe
+i_reset_my_password: je réinitialise mon mot de passe
+i_validate_my_mail: je valide mon mail
+last_name: nom de famille
+leave_blank_if_there_are_no_changes: laisser vide s'il n'y a pas de changements
+logout: se déconnecter
+log_me_in: me connecter
+mail: mail
+mail_verification: vérification du mail
+my_account: mon compte
+my_personal_datas: mes données personnelles
+new_password: nouveau mot de passe
+no_reply_mail_local_part: ne-pas-repondre
+password: mot de passe
+password_changed_mail_subject: votre mot de passe GTA 5 Online a été modifié
+password_confirmation: confirmation du mot de passe
+password_reset: réinitialisation du mot de passe
+please_accept_the_privacy_policy_to_create_your_account: veuillez accepter la politique de confidentialité pour créer votre compte
+please_click_on_the_link_received_in_the_mail_for_totally_complete_your_register: veuillez cliquer sur le lien reçu dans le mail pour compléter totalement votre inscription
+please_enter_a_valid_mail: veuillez indiquer un mail valide
+please_enter_a_valid_password: veuillez indiquer un mot de passe valide
+please_enter_the_first_name: veuillez indiquer le prénom
+please_enter_the_last_name: veuillez indiquer le nom de famille
+please_enter_the_mail: veuillez indiquer le mail
+please_enter_the_password: veuillez indiquer le mot de passe
+please_enter_the_username: veuillez indiquer le surnom
+please_select_the_role: veuillez sélectionner le rôle
+privacy_policy: politique de confidentialité
+receive_a_new_link: recevoir un nouveau lien
+reset_password_mail_subject: réinitialisation de votre mot de passe GTA 5 Online
+role: rôle
+see_you_soon: à bientôt sur
+select_the_role: sélectionner le rôle
+send_me_a_link: m'envoyer un lien
+someone_tried_to_create_an_account_with_your_mail: quelqu'un vient d'essayer de créer un compte avec votre mail, qui en possède déjà un
+stay_connected: rester connecté
+success_user_form: >-
+    l'utilisateur "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+the_account_exists_but_it_was_not_verified: le compte existe mais il n'a pas été vérifié
+the_anti_robot_check_failed: la vérification anti-robot a échoué, merci de réessayer
+the_fields_cannot_exceed_characters: les champs ne peuvent pas dépasser {count} caractères
+the_last_administrator_cannot_delete_his_account: le dernier administrateur ne peut pas supprimer son compte
+the_passwords_are_not_identical: les mots de passe ne sont pas identiques
+the_password_is_incorrect: le mot de passe est incorrect
+the_password_must_contain_at_least: le mot de passe doit contenir au moins {count} caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial
+the_password_must_not_contain_your_personal_information: le mot de passe ne doit contenir ni votre nom, ni votre prénom, ni votre pseudo, ni votre mail
+the_team: l'équipe
+this_account_is_disabled: ce compte est désactivé
+this_action_is_irreversible: cette action est irréversible
+this_link_is_invalid_or_has_expired: ce lien n'est pas valide ou a expiré
+this_link_is_valid_for_hours: '{count, plural, one {ce lien est valable # heure} other {ce lien est valable # heures}}'
+too_many_requests_please_try_again_later: trop de demandes, veuillez réessayer plus tard
+to_correct_these_informations_write_to: pour corriger ces informations, écrivez à
+username: pseudo
+users: utilisateurs
+verify_mail_mail_subject: validez votre compte GTA 5 Online
+without_your_personal_information: sans votre nom, prénom, pseudo ou mail
+your_account_and_your_personal_datas_have_been_deleted: votre compte et vos données personnelles ont été supprimés
+your_account_has_been_good_created: votre compte a bien été créé
+your_account_has_been_inactive_for_a_long_time: votre compte est inactif depuis longtemps
+your_inactive_account_will_be_deleted: votre compte inactif va être supprimé
+your_password_has_been_changed: le mot de passe de votre compte vient d'être modifié
+your_personal_datas_will_be_erased: vos données personnelles, vos possessions et vos braquages enregistrés seront effacés
+you_made_a_password_reset_request: vous avez fait une demande de réinitialisation de mot de passe
+
+#############################
+# STATISTIQUES UTILISATEURS #
+#############################
+an_error_occurred_while_displaying_the_graphic: une erreur est survenue lors de l'affichage du graphique
+current_month: mois en cours
+current_week: semaine en cours
+current_year: année en cours
+custom: personnalisée
+end_date: date de fin
+hour_range: '{start}h - {end}h'
+last_month: mois dernier
+last_week: semaine dernière
+last_year: année dernière
+number_of_users: nombre d'utilisateurs
+period: période
+start_date: date de début
+today: aujourd'hui
+users_statistics: statistiques des utilisateurs
+yesterday: hier
+
+############
+# VÉHICULE #
+############
+acceleration: accélération
+add_a_vehicle: ajouter un véhicule
+braking: freinage
+delete_the_vehicle: supprimer le véhicule
+duplicate_the_vehicle: dupliquer le véhicule
+edit_the_vehicle: modifier le véhicule
+enum_speed_unit: >-
+    {case, select,
+        KILOMETERS {km/h}
+        MILES      {mph}
+        other      {}
+    }
+error_vehicle_delete: une erreur est survenue lors de la suppression du véhicule "{name}"
+error_vehicle_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du véhicule "{name}" via le formulaire
+error_vehicle_list: une erreur est survenue lors de la mise à jour du véhicule "{name}" sur la liste
+evolution_of_another_vehicle: évolution d'un autre véhicule
+gears: vitesses
+handling: maniabilité
+optimized: optimisé
+seats: sièges
+select_the_vehicle_drivetrain: sélectionner la transmission du véhicule
+speed: vitesse
+success_vehicle_delete: le véhicule "{name}" a bien été supprimé
+success_vehicle_form: >-
+    le véhicule "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+success_vehicle_list: le véhicule "{name}" a bien été mis à jour sur la liste
+tip_one_sale_per_day: un seul véhicule personnel peut être vendu par jour en jeu (48 minutes en temps réel)
+top_speed: vitesse max.
+top_speed_maximum: vitesse max. maximum
+totally_optimized_vehicle: véhicule totalement optimisé
+vehicles_and_bicycles_count: 'Véh. : {vehicles} / Vél. : {bicycles}'
+vehicles_and_bicycles_count_on_capacity: 'Véh. : {vehicles} sur {vehicleCapacity} / Vél. : {bicycles} sur {bicycleCapacity}'
+vehicle_class: classe de véhicule
+vehicle_classes: classes de véhicule
+vehicle_drivetrain: transmission du véhicule
+vehicle_in_real_life: véhicule dans la vraie vie
+weight: poids
+you_can_not_select_a_property_on_a_vehicle_that_you_do_not_own: vous ne pouvez pas sélectionner une propriété sur un véhicule que vous ne possédez pas
+
+###########################
+# ACQUISITION DE VÉHICULE #
+###########################
+acquirable: acquérable
+add_a_vehicle_acquisition: ajouter une acquisition de véhicule
+available: disponible
+delete_the_vehicle_acquisition: supprimer l'acquisition de véhicule
+edit_the_vehicle_acquisition: modifier l'acquisition de véhicule
+error_vehicle_acquisition_delete: une erreur est survenue lors de la suppression de l'acquisition de véhicule "{name}"
+error_vehicle_acquisition_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'acquisition de véhicule "{name}" via le formulaire
+success_vehicle_acquisition_delete: l'acquisition de véhicule "{name}" a bien été supprimée
+success_vehicle_acquisition_form: >-
+    l'acquisition de véhicule "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+vehicle_acquisitions: acquisitions de véhicule
+
+#########################
+# FABRICANT DE VÉHICULE #
+#########################
+add_a_vehicle_manufacturer: ajouter un fabricant de véhicule
+delete_the_vehicle_manufacturer: supprimer le fabricant de véhicule
+edit_the_vehicle_manufacturer: modifier le fabricant de véhicule
+error_vehicle_manufacturer_delete: une erreur est survenue lors de la suppression du fabricant de véhicule "{name}"
+error_vehicle_manufacturer_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du fabricant de véhicule "{name}" via le formulaire
+select_a_vehicle_manufacturer: sélectionner un fabricant de véhicule
+success_vehicle_manufacturer_delete: le fabricant de véhicule "{name}" a bien été supprimé
+success_vehicle_manufacturer_form: >-
+    le fabricant de véhicule "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+vehicle_manufacturer: fabricant de véhicule
+vehicle_manufacturers: fabricants de véhicule
+
+########
+# ARME #
+########
+accuracy: précision
+add_a_weapon: ajouter une arme
+damage: dégâts
+delete_the_weapon: supprimer l'arme
+edit_the_weapon: modifier l'arme
+error_weapon_delete: une erreur est survenue lors de la suppression de l'arme "{name}"
+error_weapon_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'arme "{name}" via le formulaire
+error_weapon_list: une erreur est survenue lors de la mise à jour de l'arme "{name}" sur la liste
+evolution_of_another_weapon: évolution d'une autre arme
+fire_rate: cadence de tir
+magazine_capacity: capacité du chargeur
+range: portée
+success_weapon_delete: l'arme "{name}" a bien été supprimée
+success_weapon_form: >-
+    l'arme "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+success_weapon_list: l'arme "{name}" a bien été mise à jour sur la liste
+unlock_rank: rang de déblocage
+variant: variante
+weapon_class: classe d'arme
+weapon_classes: classes d'arme
+weapon_in_real_life: arme dans la vraie vie
+
+######################
+# ACQUISITION D'ARME #
+######################
+add_a_weapon_acquisition: ajouter une acquisition d'arme
+delete_the_weapon_acquisition: supprimer l'acquisition d'arme
+edit_the_weapon_acquisition: modifier l'acquisition d'arme
+error_weapon_acquisition_delete: une erreur est survenue lors de la suppression de l'acquisition d'arme "{name}"
+error_weapon_acquisition_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } de l'acquisition d'arme "{name}" via le formulaire
+success_weapon_acquisition_delete: l'acquisition d'arme "{name}" a bien été supprimée
+success_weapon_acquisition_form: >-
+    l'acquisition d'arme "{name}" a bien été {type, select,
+        add    {ajoutée}
+        update {mise à jour}
+        other  {modifiée}
+    } via le formulaire
+weapon_acquisitions: acquisitions d'arme
+
+####################
+# FABRICANT D'ARME #
+####################
+add_a_weapon_manufacturer: ajouter un fabricant d'arme
+delete_the_weapon_manufacturer: supprimer le fabricant d'arme
+edit_the_weapon_manufacturer: modifier le fabricant d'arme
+error_weapon_manufacturer_delete: une erreur est survenue lors de la suppression du fabricant d'arme "{name}"
+error_weapon_manufacturer_form: >-
+    une erreur est survenue lors {type, select,
+        add    {de l'ajout}
+        update {de la mise à jour}
+        other  {de la modification}
+    } du fabricant d'arme "{name}" via le formulaire
+select_a_weapon_manufacturer: sélectionner un fabricant d'arme
+success_weapon_manufacturer_delete: le fabricant d'arme "{name}" a bien été supprimé
+success_weapon_manufacturer_form: >-
+    le fabricant d'arme "{name}" a bien été {type, select,
+        add    {ajouté}
+        update {mis à jour}
+        other  {modifié}
+    } via le formulaire
+weapon_manufacturer: fabricant d'arme
+weapon_manufacturers: fabricants d'arme

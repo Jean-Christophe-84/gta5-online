@@ -1,0 +1,15 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 75%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if storageLocation and storageLocation.name %} value="{{ storageLocation.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="propertyRequired">{{ 'property_required'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="propertyRequired" id="propertyRequired" value="1"
+                   {% if not storageLocation or storageLocation.propertyRequired %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{{ storageLocation ? storageLocation.id : '' }}">
+</div>

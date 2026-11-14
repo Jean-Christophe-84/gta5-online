@@ -1,0 +1,315 @@
+<table class="businessGoods">
+    <thead>
+        <tr>
+            <th role="button" data-sort-key="business_locale-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['business_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_locale-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button"><div class="cell"><label>{{ 'additional_information'|translateLocale|mbUcfirst }}</label></div></th>
+            <th role="button" data-sort-key="business_good-stock_dealer" onclick="orderFilter(this, event);"
+                {% if filter['order']['business_good-stock_dealer'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-stock_dealer']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'stock_for_dealer'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="business_good-stock_dealer_total" onclick="orderFilter(this, event);"
+                {% if filter['order']['business_good-stock_dealer_total'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-stock_dealer_total']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'total_stock_for_dealer'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="business_good-cost_of_restock" onclick="orderFilter(this, event);"
+                {% if filter['order']['business_good-cost_of_restock'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-cost_of_restock']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'cost_of_a_restock'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button">
+                <div class="cell"><label>{{ 'replenishment_rate'|translateLocale|mbUcfirst }}</label></div>
+            </th>
+            <th role="button">
+                <div class="cell">
+                    <label>{{ 'time_for_restock'|translateLocale|mbUcfirst }} ({{ 'in_real_time'|translateLocale }})</label>
+                </div>
+            </th>
+            <th role="button">
+                <div class="cell"><label>{{ 'net_sale'|translateLocale|mbUcfirst }} ({{ 'far_away_sale'|translateLocale }})</label></div>
+            </th>
+            <th role="button">
+                <div class="cell">
+                    <label>{{ 'profit_if_raw_materials_are_purchased'|translateLocale|mbUcfirst }} ({{ 'far_away_sale'|translateLocale }})</label>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for businessGood in businessGoods %}
+            <tr id="businessGood_{{ businessGood.id }}">
+                <td data-sort-value="{{ businessGood.businessName }}" class="name">
+                    <div class="cell">{{ businessGood.businessName }}</div>
+                </td>
+                <td data-sort-value="{{ businessGood.additionalInformations }}" class="name">
+                    <div class="cell">{{ businessGood.additionalInformations }}</div>
+                </td>
+                <td data-sort-value="{{ businessGood.stockDealer }}" class="stockDealer">
+                    <div class="cell">{{ businessGood.stockDealer }}</div>
+                </td>
+                <td data-sort-value="{{ businessGood.stockDealerTotal }}" class="stockDealerTotal">
+                    <div class="cell">{{ businessGood.stockDealerTotal }}</div>
+                </td>
+                <td data-sort-value="{{ businessGood.costOfRestock }}" class="costOfRestock">
+                    <div class="cell">{{ businessGood.costOfRestock ? businessGood.costOfRestock|formatMoney : '' }}</div>
+                </td>
+                <td class="replenishmentRate">
+                    <div class="cell">
+                        {% if businessGood.replenishmentRate %}
+                            {{ 'total'|translateLocale|mbUcfirst|colon }} {{ businessGood.replenishmentRate|formatPercent(2) }}
+                        {% endif %}
+                        {% if businessGood.replenishmentRateWithUpgradedEquipment %}
+                            {% if businessGood.replenishmentRate %}<br/>--------------------------------------------------<br/>{% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst|colon }} {{ businessGood.replenishmentRateWithUpgradedEquipment|formatPercent(2) }}
+                        {% endif %}
+                        {% if businessGood.replenishmentRateWithUpgradedStaff %}
+                            {% if businessGood.replenishmentRate or businessGood.replenishmentRateWithUpgradedEquipment %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with'|translateLocale|mbUcfirst }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ businessGood.replenishmentRateWithUpgradedStaff|formatPercent(2) }}
+                        {% endif %}
+                        {% if businessGood.replenishmentRateWithUpgradedEquipmentAndStaff %}
+                            {% if businessGood.replenishmentRate or businessGood.replenishmentRateWithUpgradedEquipment
+                                or businessGood.replenishmentRateWithUpgradedStaff
+                            %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ businessGood.replenishmentRateWithUpgradedEquipmentAndStaff|formatPercent(2) }}
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="timeForRestock">
+                    <div class="cell">
+                        {% if businessGood.timeForRestock %}
+                            {{ 'total'|translateLocale|mbUcfirst|colon }} {{ (businessGood.timeForRestock / 60)|round(0, 'floor') ~ 'h' ~ "%02d"|format(businessGood.timeForRestock % 60) }}
+                        {% endif %}
+                        {% if businessGood.timeForRestockWithUpgradedEquipment %}
+                            {% if businessGood.timeForRestock %}<br/>--------------------------------------------------<br/>{% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst|colon }} {{ (businessGood.timeForRestockWithUpgradedEquipment / 60)|round(0, 'floor') ~ 'h' ~ "%02d"|format(businessGood.timeForRestockWithUpgradedEquipment % 60) }}
+                        {% endif %}
+                        {% if businessGood.timeForRestockWithUpgradedStaff %}
+                            {% if businessGood.timeForRestock or businessGood.timeForRestockWithUpgradedEquipment %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with'|translateLocale|mbUcfirst }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ (businessGood.timeForRestockWithUpgradedStaff / 60)|round(0, 'floor') ~ 'h' ~ "%02d"|format(businessGood.timeForRestockWithUpgradedStaff % 60) }}
+                        {% endif %}
+                        {% if businessGood.timeForRestockWithUpgradedEquipmentAndStaff %}
+                            {% if businessGood.timeForRestock or businessGood.timeForRestockWithUpgradedEquipment
+                                or businessGood.timeForRestockWithUpgradedStaff
+                            %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ (businessGood.timeForRestockWithUpgradedEquipmentAndStaff / 60)|round(0, 'floor') ~ 'h' ~ "%02d"|format(businessGood.timeForRestockWithUpgradedEquipmentAndStaff % 60) }}
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="sale">
+                    <div class="cell">
+                        {% if businessGood.sale %}
+                            {{ 'total'|translateLocale|mbUcfirst|colon }} {{ businessGood.sale|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.sale * 1.5)|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total'|translateLocale|mbUcfirst }} / {{ 'stock'|translateLocale|colon }} {{ (businessGood.sale / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.sale * 1.5 / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRate and businessGood.costOfRestock %}
+                                <br/>
+                                {{ 'total'|translateLocale|mbUcfirst }} / {{ 'replenishment'|translateLocale|colon }} {{ (businessGood.sale * (businessGood.replenishmentRate / 100))|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.sale * 1.5 * (businessGood.replenishmentRate / 100))|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRate and businessGood.timeForRestock %}
+                                <br/>
+                                {{ 'total'|translateLocale|mbUcfirst }} / {{ 'hour_in_game'|translateLocale|colon }} {{ (businessGood.sale * (businessGood.replenishmentRate / 100) / businessGood.timeForRestock * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.sale * 1.5 * (businessGood.replenishmentRate / 100) / businessGood.timeForRestock * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedEquipment %}
+                            {% if businessGood.sale %}<br/>--------------------------------------------------<br/>{% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst|colon }} {{ businessGood.saleWithUpgradedEquipment|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipment * 1.5)|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'stock'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipment / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipment * 1.5 / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedEquipment and businessGood.costOfRestock %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'replenishment'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipment * (businessGood.replenishmentRateWithUpgradedEquipment / 100))|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipment * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipment / 100))|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedEquipment and businessGood.timeForRestockWithUpgradedEquipment %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'hour_in_game'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipment * (businessGood.replenishmentRateWithUpgradedEquipment / 100) / businessGood.timeForRestockWithUpgradedEquipment * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipment * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipment / 100) / businessGood.timeForRestockWithUpgradedEquipment * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedStaff %}
+                            {% if businessGood.sale or businessGood.saleWithUpgradedEquipment %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with'|translateLocale|mbUcfirst }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ businessGood.saleWithUpgradedStaff|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedStaff * 1.5)|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'stock'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedStaff / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedStaff * 1.5 / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedStaff and businessGood.costOfRestock %}
+                                <br/>
+                                {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'replenishment'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedStaff * (businessGood.replenishmentRateWithUpgradedStaff / 100))|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedStaff / 100))|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedStaff and businessGood.timeForRestockWithUpgradedStaff %}
+                                <br/>
+                                {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'hour_in_game'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedStaff * (businessGood.replenishmentRateWithUpgradedStaff / 100) / businessGood.timeForRestockWithUpgradedStaff * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedStaff / 100) / businessGood.timeForRestockWithUpgradedStaff * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedEquipmentAndStaff %}
+                            {% if businessGood.sale or businessGood.saleWithUpgradedEquipment or businessGood.saleWithUpgradedStaff %}<br/>--------------------------------------------------<br/>{% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ businessGood.saleWithUpgradedEquipmentAndStaff|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipmentAndStaff * 1.5)|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'stock'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipmentAndStaff / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipmentAndStaff * 1.5 / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedEquipmentAndStaff and businessGood.costOfRestock %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'replenishment'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipmentAndStaff * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipmentAndStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))|formatMoney }}){% endif %}
+                            {% endif %}
+                            {% if businessGood.replenishmentRateWithUpgradedEquipmentAndStaff and businessGood.timeForRestockWithUpgradedEquipmentAndStaff %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'hour_in_game'|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipmentAndStaff * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100) / businessGood.timeForRestockWithUpgradedEquipmentAndStaff * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (businessGood.saleWithUpgradedEquipmentAndStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100) / businessGood.timeForRestockWithUpgradedEquipmentAndStaff * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="profit">
+                    <div class="cell">
+                        {% if businessGood.sale and businessGood.costOfRestock and businessGood.replenishmentRate %}
+                            {{ 'total'|translateLocale|mbUcfirst|colon }} {{ (businessGood.sale - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100)))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.sale * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100)))|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total'|translateLocale|mbUcfirst }} / {{ 'stock'|translateLocale|colon }} {{ ((businessGood.sale - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100))) / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.sale * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100))) / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            <br/>
+                            {{ 'total'|translateLocale|mbUcfirst }} / {{ 'replenishment'|translateLocale|colon }} {{ ((businessGood.sale * (businessGood.replenishmentRate / 100)) - (businessGood.costOfRestock))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.sale * 1.5 * (businessGood.replenishmentRate / 100)) - businessGood.costOfRestock)|formatMoney }}){% endif %}
+                            {% if businessGood.timeForRestock %}
+                                <br/>
+                                {{ 'total'|translateLocale|mbUcfirst }} / {{ 'hour_in_game'|translateLocale|colon }} {{ ((businessGood.sale - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100))) / businessGood.timeForRestock * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.sale * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRate / 100))) / businessGood.timeForRestock * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedEquipment and businessGood.costOfRestock
+                            and businessGood.replenishmentRateWithUpgradedEquipment
+                        %}
+                            {% if businessGood.sale and businessGood.costOfRestock and businessGood.replenishmentRate %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst|colon }} {{ (businessGood.saleWithUpgradedEquipment - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100)))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedEquipment * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100)))|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'stock'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipment - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100))) / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedEquipment * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100))) / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            <br/>
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'replenishment'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipment * (businessGood.replenishmentRateWithUpgradedEquipment / 100)) - (businessGood.costOfRestock))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedEquipment * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipment / 100)) - businessGood.costOfRestock)|formatMoney }}){% endif %}
+                            {% if businessGood.timeForRestockWithUpgradedEquipment %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst }} / {{ 'hour_in_game'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipment - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100))) / businessGood.timeForRestockWithUpgradedEquipment * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedEquipment * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipment / 100))) / businessGood.timeForRestockWithUpgradedEquipment * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedStaff and businessGood.costOfRestock
+                            and businessGood.replenishmentRateWithUpgradedStaff
+                        %}
+                            {% if businessGood.saleWithUpgradedEquipment and businessGood.costOfRestock
+                                and businessGood.replenishmentRateWithUpgradedEquipment
+                            %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with'|translateLocale|mbUcfirst }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ (businessGood.saleWithUpgradedStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100)))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100)))|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'stock'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100))) / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100))) / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            <br/>
+                            {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'replenishment'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedStaff * (businessGood.replenishmentRateWithUpgradedStaff / 100)) - (businessGood.costOfRestock))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedStaff / 100)) - businessGood.costOfRestock)|formatMoney }}){% endif %}
+                            {% if businessGood.timeForRestockWithUpgradedStaff %}
+                                <br/>
+                                {{ 'total_with'|translateLocale|mbUcfirst }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'hour_in_game'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100))) / businessGood.timeForRestockWithUpgradedStaff * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedStaff / 100))) / businessGood.timeForRestockWithUpgradedStaff * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                        {% if businessGood.saleWithUpgradedStaff and businessGood.costOfRestock
+                            and businessGood.replenishmentRateWithUpgradedStaff
+                        %}
+                            {% if businessGood.saleWithUpgradedStaff and businessGood.costOfRestock and businessGood.replenishmentRateWithUpgradedStaff %}
+                                <br/>--------------------------------------------------<br/>
+                            {% endif %}
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {{ (businessGood.businessId != 29 ? 'upgraded_staff' : 'boost')|translateLocale|colon }} {{ (businessGood.saleWithUpgradedEquipmentAndStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100)))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedEquipmentAndStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100)))|formatMoney }}){% endif %}
+                            {% if businessGood.stockDealerTotal %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'stock'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipmentAndStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))) / businessGood.stockDealerTotal)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedEquipmentAndStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))) / businessGood.stockDealerTotal)|formatMoney }}){% endif %}
+                            {% endif %}
+                            <br/>
+                            {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'replenishment'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipmentAndStaff * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100)) - (businessGood.costOfRestock))|formatMoney }}
+                            {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ ((businessGood.saleWithUpgradedEquipmentAndStaff * 1.5 * (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100)) - businessGood.costOfRestock)|formatMoney }}){% endif %}
+                            {% if businessGood.timeForRestockWithUpgradedEquipmentAndStaff %}
+                                <br/>
+                                {{ 'total_with_upgraded_equipment'|translateLocale|mbUcfirst ~ ' ' ~ 'and'|translateLocale }} {% if businessGood.businessId != 29 %}{{ 'upgraded_staff'|translateLocale }}{% else %}{{ 'boost'|translateLocale }}{% endif %} / {{ 'hour_in_game'|translateLocale|colon }} {{ ((businessGood.saleWithUpgradedEquipmentAndStaff - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))) / businessGood.timeForRestockWithUpgradedEquipmentAndStaff * 60)|formatMoney }}
+                                {% if businessGood.businessId != 29 and businessGood.businessId != 16 %} ({{ (((businessGood.saleWithUpgradedEquipmentAndStaff * 1.5) - (businessGood.costOfRestock / (businessGood.replenishmentRateWithUpgradedEquipmentAndStaff / 100))) / businessGood.timeForRestockWithUpgradedEquipmentAndStaff * 60)|formatMoney }}){% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if is_granted('BUSINESS_GOOD_EDIT') %}
+                        <button class="btn btn-warning" data-modal-open="#businessGoodModal" data-business-good-id="{{ businessGood.id }}"
+                                data-business-good-name="{{ businessGood.businessName }}" id="formBusinessGood_{{ businessGood.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2zM156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5zM510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                    {% if is_granted('BUSINESS_GOOD_DELETE') %}
+                        <button class="btn btn-danger" data-modal-open="#businessGoodModal" data-delete data-business-good-id="{{ businessGood.id }}"
+                                data-business-good-name="{{ businessGood.businessName }}" id="deleteBusinessGood_{{ businessGood.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                <div class="pagination">
+                    {{ include('Widget/pagination.html.twig') }}
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

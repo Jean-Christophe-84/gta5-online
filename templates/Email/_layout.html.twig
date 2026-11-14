@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="color-scheme" content="light">
+        <title>{% block title %}GTA 5 Online{% endblock %}</title>
+    </head>
+    <body style="background-color:#161816;margin:0;padding:0;width:100%;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#161816;border-spacing:0;">
+            <tr>
+                <td align="center" style="padding:32px 16px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#FFFFFF;border-radius:16px;border-spacing:0;border-top:4px solid #3B5C1C;max-width:560px;overflow:hidden;">
+                        <tr>
+                            <td align="center" style="color:#3B5C1C;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:30px;font-weight:bold;letter-spacing:1px;line-height:36px;padding:32px 32px 0;text-transform:uppercase;">
+                                GTA 5 Online
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:#212529;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:24px;padding:32px 32px 8px;">
+                                <p style="margin:0 0 16px;">{{ 'hello'|translateLocale({}, locale)|mbUcfirst }} {{ username }},</p>
+                                {% block content %}{% endblock %}
+                            </td>
+                        </tr>
+                        {% block button %}{% endblock %}
+                        <tr>
+                            <td style="color:#6C757D;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:13px;line-height:20px;padding:8px 32px 32px;">
+                                {% if hours is defined %}
+                                    <p style="margin:0 0 16px;">{{ 'this_link_is_valid_for_hours'|translateLocale({count: hours}, locale)|mbUcfirst }}.</p>
+                                    <p style="margin:0 0 16px;word-break:break-all;">{{ url }}</p>
+                                {% endif %}
+                                <p style="margin:0;">{{ 'see_you_soon'|translateLocale({}, locale)|mbUcfirst }} GTA 5 Online !<br>{{ 'the_team'|translateLocale({}, locale)|mbUcfirst }} GTA 5 Online</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p style="color:#9CA39A;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:12px;line-height:18px;margin:16px 0 0;max-width:560px;">
+                        {{ 'unofficial_site_not_affiliated_with_rockstar_games'|translateLocale({}, locale)|mbUcfirst }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

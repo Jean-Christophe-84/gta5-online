@@ -1,0 +1,17 @@
+<div class="filter" style="--filter-grow: 15;">
+    <label class="form-label" for="filterPropertyAcquisitionIds">
+        {{ 'property_acquisitions'|translateLocale }} ({{ filterPropertyAcquisitionIds|length }})
+    </label>
+    <select id="filterPropertyAcquisitionIds" multiple data-multi-select>
+        {% if filterPropertyAcquisitionIds is not empty %}
+            {% for filterPropertyAcquisitionId in filterPropertyAcquisitionIds %}
+                <option value="{{ filterPropertyAcquisitionId.id }}"
+                    {% if filterPropertyAcquisitionId.id in filter.propertyAcquisitionIds %} selected{% endif %}>{{ filterPropertyAcquisitionId.name ~ ' (' ~ filterPropertyAcquisitionId.numberProperties ~ ')' }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 82;">
+    <label class="form-label" for="filterSearch">{{ 'search'|translateLocale|mbUcfirst }} ({{ 'independent_of_other_filters'|translateLocale }})</label>
+    <input type="search" id="filterSearch" value="{{ filter.search }}" class="form-input" />
+</div>

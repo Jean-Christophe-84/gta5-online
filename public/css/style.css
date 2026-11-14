@@ -1,0 +1,3510 @@
+/* ------------------------- */
+/*           ALERT           */
+/* ------------------------- */
+.alert {
+    backdrop-filter: blur(6px);
+    border: 1px solid transparent;
+    border-left-width: 4px;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.3);
+    margin: 0 1vw;
+    padding: .75rem 1.25rem;
+    position: fixed;
+    top: -16vh;
+    transition: all 0.3s ease-in-out;
+    width: calc(100% - 2vw);
+    z-index: 9999;
+}
+
+.alert.show {
+    top: 2vh;
+    transition: all 0.3s ease-in-out;
+}
+
+.alert-success {
+    background-color: #D4EDDA;
+    border-color: #C3E6CB;
+    border-left-color: var(--green);
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #F8D7DA;
+    border-color: #F5C6CB;
+    border-left-color: #DC3545;
+    color: #721C24;
+}
+
+.page-loader {
+    align-items: center;
+    backdrop-filter: blur(3px);
+    background: rgba(10, 10, 10, 0.5);
+    color: #FFFFFF;
+    display: none;
+    flex-direction: column;
+    inset: 0;
+    justify-content: center;
+    position: fixed;
+    z-index: 9999;
+}
+
+.page-loader__spinner {
+    animation: page-loader-spin 0.8s linear infinite;
+    border: 5px solid rgba(255, 255, 255, 0.25);
+    border-top-color: var(--green-light);
+    border-radius: 50%;
+    height: 56px;
+    width: 56px;
+}
+
+.page-loader__text {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-top: 16px;
+}
+
+@keyframes page-loader-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.page-loader.is-visible {
+    display: flex;
+}
+
+.configuration-loader {
+    align-items: center;
+    color: var(--green-light);
+    display: none;
+    flex-direction: column;
+    position: relative;
+    top: 5px;
+}
+
+.configuration-loader__spinner {
+    animation: configuration-loader-spin 0.8s linear infinite;
+    border: 5px solid rgba(var(--green-rgb), 0.25);
+    border-top-color: var(--green-light);
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.configuration-loader__text {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+@keyframes configuration-loader-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.configuration-loader.is-visible {
+    display: inline;
+}
+
+.close {
+    background-color: transparent;
+    border: 0;
+    color: #000000;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.5;
+    padding: 0.75rem 1.25rem;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 0 #FFFFFF;
+    top: 0;
+    -webkit-appearance: none;
+}
+
+.close:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.close:focus,
+.close:hover {
+    color: #000000;
+    opacity: 0.75;
+    text-decoration: none;
+}
+
+.close .iconSvg {
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+/* --------------------------- */
+/*           BUTTONS           */
+/* --------------------------- */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #3B3B3B;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.5rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, filter .15s ease-in-out, transform .15s ease-in-out;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.btn:not(:disabled):not(.disabled):hover {
+    box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.25);
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.btn:not(:disabled):not(.disabled):active {
+    filter: brightness(0.95);
+    transform: translateY(0);
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 0.2rem rgba(var(--green-rgb), 0.4);
+    outline: none;
+}
+
+.btn-primary {
+    color: #FFFFFF;
+    background-color: #1C3B5C;
+    border-color: #1C3B5C;
+}
+
+.btn-secondary {
+    color: #FFFFFF;
+    background-color: #383C40;
+    border-color: #383C40;
+}
+
+.btn-success {
+    color: #FFFFFF;
+    background-color: var(--green);
+    border-color: var(--green);
+}
+
+.btn-danger {
+    color: #FFFFFF;
+    background-color: #5C1C22;
+    border-color: #5C1C22;
+}
+
+.btn-warning {
+    color: #FFFFFF;
+    background-color: #5C4C1C;
+    border-color: #5C4C1C;
+}
+
+.btn-info {
+    color: #FFFFFF;
+    background-color: #1C535C;
+    border-color: #1C535C;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: #0D2F53;
+    border-color: #0D2F53;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: #2C3034;
+    border-color: #2C3034;
+}
+
+.btn-success:not(:disabled):not(.disabled).active,
+.btn-success:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: var(--green-dark);
+    border-color: var(--green-dark);
+}
+
+.btn-danger:not(:disabled):not(.disabled).active,
+.btn-danger:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: #530D14;
+    border-color: #530D14;
+}
+
+.btn-warning:not(:disabled):not(.disabled).active,
+.btn-warning:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: #53420D;
+    border-color: #53420D;
+}
+
+.btn-info:not(:disabled):not(.disabled).active,
+.btn-info:not(:disabled):not(.disabled):active {
+    color: #FFFFFF;
+    background-color: #0D4953;
+    border-color: #0D4953;
+}
+
+.btn.disabled,
+.btn:disabled {
+    opacity: .65;
+}
+
+/* ------------------------------ */
+/*           ERROR PAGE           */
+/* ------------------------------ */
+.error-page {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.error-page .element {
+    animation: fade-in-up 0.4s ease-out;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    border-top: 4px solid var(--green);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.45);
+    color: var(--text-dark);
+    max-width: 560px;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+.error-page .error-code {
+    color: var(--green);
+    font-size: 5rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin: 0;
+}
+
+.error-page .error-stars {
+    margin: 0.75rem 0 1.25rem;
+}
+
+.error-page .error-stars span {
+    font-size: 1.75rem;
+    margin: 0 0.1rem;
+}
+
+.error-page .error-stars .on {
+    color: #FFC107;
+    text-shadow: 0 0 0.5rem rgba(255, 193, 7, 0.6);
+}
+
+.error-page .error-stars .off {
+    color: #CED4DA;
+}
+
+.error-page .element h1 {
+    font-size: 2rem !important;
+    margin: 0 0 1rem;
+}
+
+.error-page .error-text {
+    color: #6C757D;
+    margin: 0 0 1.75rem;
+}
+
+.error-page .error-details {
+    margin: 0 0 1.5rem;
+    position: static;
+    text-align: left;
+    width: 100%;
+}
+
+.error-page .error-details code {
+    display: block;
+    margin-top: 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.error-page .submit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.error-page .submit .btn {
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ------------------------- */
+/*           LOGIN           */
+/* ------------------------- */
+.login {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.login .elements {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.login .element-left,
+.login .element-right {
+    display: none;
+}
+
+.login .element {
+    animation: fade-in-up 0.4s ease-out;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    border-top: 4px solid var(--green);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.45);
+    max-width: 400px;
+    padding: 2.5rem 2rem 2rem;
+    width: 100%;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login .login-header {
+    margin-bottom: 1.75rem;
+    text-align: center;
+}
+
+.login .login-header h1 {
+    color: var(--green);
+    font-size: 2rem !important;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.login .login-header p {
+    color: #6C757D;
+    margin: 0.25rem 0 0;
+}
+
+.login .alert {
+    border-radius: 0.5rem;
+    margin: 0 0 1.25rem;
+    position: static;
+    width: 100%;
+}
+
+.login .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.login .form-group label {
+    color: #212529;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.375rem;
+}
+
+.login .form-control {
+    background-color: #F8F9FA;
+    border: 1px solid #CED4DA;
+    border-radius: 0.5rem;
+    color: #212529;
+    display: block;
+    padding: 0.625rem 0.875rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    width: 100%;
+}
+
+.login .form-control:focus {
+    background-color: #FFFFFF;
+    border-color: var(--green);
+    box-shadow: 0 0 0 0.2rem rgba(var(--green-rgb), 0.2);
+    outline: none;
+}
+
+.login .remember-me {
+    align-items: center;
+    display: flex;
+    gap: 0.625rem;
+    margin-bottom: 1.5rem;
+}
+
+.login .remember-me label {
+    color: #495057;
+    cursor: pointer;
+}
+
+.login .turnstile {
+    margin-bottom: 1.5rem;
+    min-height: 65px;
+}
+
+.login .submit .btn {
+    align-items: center;
+    background-color: var(--green);
+    border-color: var(--green);
+    border-radius: 0.5rem;
+    display: flex;
+    font-weight: 600;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    width: 100%;
+}
+
+.login .submit .btn:not(:disabled):hover {
+    background-color: var(--green-dark);
+    border-color: var(--green-dark);
+    box-shadow: 0 0.5rem 1rem rgba(var(--green-rgb), 0.3);
+    transform: translateY(-1px);
+}
+
+.login .submit .btn:not(:disabled):active {
+    transform: translateY(0);
+}
+
+.login .submit .btn:disabled {
+    cursor: not-allowed;
+}
+
+.login .submit .btn:focus-visible {
+    box-shadow: 0 0 0 0.2rem rgba(var(--green-rgb), 0.4);
+    outline: none;
+}
+
+.login .submit .btn .iconSvg {
+    fill: currentColor;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.login .login-text {
+    color: #495057;
+    margin: 0 0 1.5rem;
+    text-align: center;
+}
+
+.login .form-group div.error {
+    color: #DC3545;
+    display: none;
+    font-size: 12px;
+    margin-top: 0.25rem;
+}
+
+.login .form-group div.error.show {
+    display: block;
+}
+
+.login .form-group span.help {
+    color: var(--bs-muted);
+    display: block;
+    font-size: 12px;
+    margin-top: 0.25rem;
+}
+
+.login .submit .btn + .btn {
+    margin-top: 0.75rem;
+}
+
+.login .submit .btn[hidden] {
+    display: none;
+}
+
+.login .login-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+}
+
+.login .login-links:has(> :only-child) {
+    justify-content: center;
+}
+
+.login .login-links a,
+.login .login-links button {
+    background: none;
+    border: 0;
+    color: var(--green);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    text-decoration: none;
+}
+
+.login .login-links a:hover,
+.login .login-links button:hover {
+    text-decoration: underline;
+}
+
+/* -------------------------- */
+/*           GLOBAL           */
+/* -------------------------- */
+:root {
+    --green: #3B5C1C;
+    --green-dark: #26530D;
+    --green-light: #9CC37A;
+    --green-rgb: 59, 92, 28;
+    --blue: #2F7EC2;
+    --green-soft: rgba(var(--green-rgb), 0.15);
+    --bg-dark: #161816;
+    --bg-dark-2: #2A2C2A;
+    --bg-dark-rgb: 22, 24, 22;
+    --surface: #FFFFFF;
+    --surface-dark: rgba(42, 44, 42, 0.85);
+    --table-bg: #2A2C2A;
+    --table-bg-alt: #313331;
+    --table-bg-hover: #383A38;
+    --input-bg: #BEC7B8;
+    --input-bg-hover: #CCD3C7;
+    --input-bg-focus: #FFFFFF;
+    --input-border: #95A28C;
+    --input-text: #1F231E;
+    --text-light: #F0F2EE;
+    --text-dark: #212529;
+    --border-dark: rgba(170, 179, 167, 0.22);
+    --radius: 0.75rem;
+    --shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(var(--green-rgb), 0.35), transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(var(--green-rgb), 0.25), transparent 50%),
+        linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-2) 100%) !important;
+    background-attachment: fixed !important;
+    color: var(--text-light);
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem !important;
+}
+
+footer.footer {
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+footer.footer a,
+.legal-mentions a:not(.btn),
+.remember-me a {
+    color: #A9D66B;
+}
+
+.legal-mentions {
+    color: #F0F2EE;
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 2rem 1rem 3rem;
+}
+
+.legal-mentions h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.legal-mentions h2 {
+    margin-top: 2rem;
+}
+
+.legal-mentions h3 {
+    font-size: 1.1rem;
+    margin-top: 1.25rem;
+}
+
+footer.footer p {
+    color: rgba(240, 242, 238, 0.6);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.5rem !important;
+}
+
+h3 {
+    font-size: 1.25rem !important;
+}
+
+h4 {
+    font-size: 1rem !important;
+}
+
+.h1, .h2, .h3, h1, h2, h3, h4 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h1, h2, h3, h4 {
+    margin: .5rem 0;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+::selection {
+    background-color: var(--green);
+    color: #FFFFFF;
+}
+
+.form-label {
+    color: inherit;
+    display: inline-block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.form-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    border-radius: 0.375rem;
+    display: block;
+    font-size: 13px;
+    padding: 0.434rem 0.5rem;
+    width: 100%;
+}
+
+.form-textarea {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    border-radius: 0.375rem;
+    display: block;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 90px;
+    padding: 0.484rem 0.75rem;
+    resize: vertical;
+    width: 100%;
+}
+
+.form-input,
+.form-textarea,
+div.ts-control .ts-input {
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+div.ts-control .ts-input {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    border-radius: 0.375rem;
+    color: var(--input-text);
+    line-height: 14px;
+}
+
+.form-input:hover:not(:focus),
+.form-textarea:hover:not(:focus),
+div.ts-control .ts-input:hover:not(.focus) {
+    background-color: var(--input-bg-hover);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+div.ts-control .ts-input.focus {
+    background-color: var(--input-bg-focus);
+    border-color: var(--green);
+    box-shadow: 0 0 0 0.2rem rgba(var(--green-rgb), 0.2);
+    outline: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder,
+div.ts-control .ts-input > input::placeholder {
+    color: rgba(27, 36, 32, 0.6);
+}
+
+div.ts-control.multi .ts-input > div {
+    background-color: rgba(var(--green-rgb), 0.15);
+    border-radius: 0.25rem;
+    color: var(--green-dark);
+}
+
+div.ts-dropdown {
+    border-color: var(--input-border);
+    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+div.ts-dropdown .active,
+div.ts-dropdown .option:hover {
+    background-color: var(--green-soft);
+    color: var(--green-dark);
+}
+
+table .ts-input {
+    padding: 3px 5px !important;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.content h1 {
+    background: linear-gradient(90deg, var(--green-light) 0%, var(--green) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 48px !important;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.content h3 {
+    color: var(--text-light);
+    font-size: 36px !important;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.content h3::after {
+    background-color: var(--green);
+    border-radius: 2px;
+    content: "";
+    display: block;
+    height: 3px;
+    margin: 0.5rem auto 0;
+    width: 60px;
+}
+
+.content h5 {
+    color: var(--green-light);
+    font-size: 24px !important;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.content .tables {
+    display: flex;
+    gap: 15px;
+    margin: 15px;
+}
+
+.content .menu-links {
+    --menu-columns: 6;
+    --menu-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--menu-gap);
+    justify-content: center;
+    margin: 15px;
+}
+
+.content .menu-links .menu-link {
+    display: flex;
+    min-height: 100px;
+    width: calc((100% - (var(--menu-columns) - 1) * var(--menu-gap)) / var(--menu-columns));
+}
+
+.content .menu-links .menu-link a {
+    background-color: var(--surface-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--text-light);
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s all ease-in-out;
+    width: 100%;
+}
+
+.content .menu-links .menu-link a:hover {
+    background-color: var(--green);
+    border-color: var(--green-light);
+    box-shadow: 0 1rem 2rem rgba(var(--green-rgb), 0.4);
+    color: #FFFFFF;
+    transform: translateY(-4px) scale(1.03);
+}
+
+.content .menu-links .menu-link a div.link {
+    display: block;
+    font-size: 16px;
+    padding: 20px 10px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.content .menu-links .menu-link a div.link svg {
+    display: block;
+    height: 40px;
+    margin: 0 auto;
+    width: 40px;
+}
+
+.content .menu-links .menu-link a div.link svg.svgMin {
+    background-color: var(--bg-dark-2);
+    border: 2px solid var(--green-light);
+    border-radius: 50%;
+    display: inline;
+    height: 26px;
+    left: calc(50% + 4px);
+    padding: 3px;
+    position: absolute;
+    top: 40px;
+    transition: 0.3s all ease-in-out;
+    width: 26px;
+}
+
+.content .menu-links .menu-link a:hover div.link svg.svgMin {
+    background-color: var(--green-dark);
+    border-color: #FFFFFF;
+}
+
+.content .menu-links .menu-link a div.link svg path {
+    fill: var(--green-light);
+    transition: 0.3s all ease-in-out;
+}
+
+.content .menu-links .menu-link a:hover div.link svg path {
+    fill: #FFFFFF;
+    transition: 0.3s all ease-in-out;
+}
+
+.content .menu-links.menu-links--external {
+    --external-accent: #7FB3E0;
+    --external-rgb: 47, 126, 194;
+    --menu-columns: 4;
+}
+
+.content .menu-links.menu-links--external .menu-link {
+    min-height: 0;
+}
+
+.content .menu-links.menu-links--external .menu-link a {
+    background: linear-gradient(90deg, rgba(var(--external-rgb), 0.18) 0%, var(--surface-dark) 60%);
+    border: 1px dashed rgba(var(--external-rgb), 0.7);
+    border-left: 4px solid var(--blue);
+}
+
+.content .menu-links.menu-links--external .menu-link a:hover {
+    background: var(--blue);
+    border-color: var(--external-accent);
+    box-shadow: 0 1rem 2rem rgba(var(--external-rgb), 0.4);
+    transform: translateX(4px);
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link {
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    gap: 14px;
+    padding: 14px 16px;
+    text-align: left;
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link svg {
+    background-color: rgba(var(--external-rgb), 0.2);
+    border-radius: var(--radius);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    height: 48px;
+    margin: 0;
+    padding: 10px;
+    transition: 0.3s all ease-in-out;
+    width: 48px;
+}
+
+.content .menu-links.menu-links--external .menu-link a:hover div.link svg {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link svg path {
+    fill: var(--external-accent);
+}
+
+.content .menu-links.menu-links--external .menu-link a:hover div.link svg path {
+    fill: #FFFFFF;
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link span.link-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link span.link-domain {
+    color: var(--external-accent);
+    font-size: 13px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 0.3s all ease-in-out;
+    white-space: nowrap;
+}
+
+.content .menu-links.menu-links--external .menu-link a:hover div.link span.link-domain {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link span.external-badge {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.content .menu-links.menu-links--external .menu-link a div.link span.external-badge svg {
+    background: none;
+    border-radius: 0;
+    height: 20px;
+    padding: 0;
+    width: 20px;
+}
+
+.content .tables table {
+    background-color: var(--surface);
+    border-collapse: collapse;
+    border: 2px solid var(--green);
+    box-shadow: var(--shadow);
+    color: var(--text-dark);
+    width: 100%;
+}
+
+.content .tables table table {
+    box-shadow: none;
+}
+
+.content .tables table tr th {
+    background-color: var(--green-soft);
+    border: 2px solid var(--green) !important;
+    color: var(--green-dark);
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.content .tables table tr th,
+.content .tables table tr td {
+    border: 1px solid var(--green);
+    padding: 5px 15px;
+}
+
+.guide .tables {
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.guide .tables table {
+    background-color: var(--table-bg);
+    border: 0;
+    box-shadow: none;
+    color: var(--text-light);
+    margin-left: -1px;
+    max-width: none;
+    width: calc(100% + 1px);
+}
+
+.guide .tables table tr th,
+.guide .tables table tr td {
+    border: 0 !important;
+    border-bottom: 1px solid var(--border-dark) !important;
+    border-left: 1px solid var(--border-dark) !important;
+    padding: 8px 15px;
+}
+
+.guide .tables table tr th {
+    background-color: rgba(var(--green-rgb), 0.18);
+    color: var(--green-light);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+}
+
+.guide .tables > table > tbody > tr:first-child > th {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 14px 15px;
+}
+
+.guide .tables table tr td {
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.guide .tables table tr:hover td {
+    background-color: var(--table-bg-hover);
+}
+
+.guide #loots table tbody tr.secondary_loot_kortz_center_heist {
+    background-color: #FFFFFF;
+    color: var(--text-dark);
+}
+
+.guide #loots table tbody tr td.main-loot {
+    background-image: linear-gradient(#5C4C1C, #5C4C1C), linear-gradient(#FFFFFF, #FFFFFF);
+    color: var(--text-dark);
+}
+
+div.content div.return {
+    margin: 5px 0 0 5px;
+    position: absolute;
+    width: 35px;
+}
+
+div.content div.return a {
+    padding: 0.1875rem 0.375rem;
+    margin-bottom: 5px;
+}
+
+div.content div.logout {
+    margin: 5px 0 0;
+    position: absolute;
+    right: 5px;
+}
+
+div.content div.logout a {
+    padding: 0.1875rem 0.375rem;
+}
+
+div.content div.logout a svg {
+    height: 20px;
+    position: relative;
+    top: 2px;
+    width: 20px;
+}
+
+div.content div.return a svg {
+    height: 16px;
+    position: relative;
+    top: 2px;
+    width: 16px;
+}
+
+div.content div.return a#launchCommandVehicle,
+div.content div.return a#launchCommandProperty,
+div.content div.return a#launchCommandWeapon,
+div.content div.return a#launchCommandPromotion,
+div.content div.return a#stopCommandVehicle,
+div.content div.return a#stopCommandProperty,
+div.content div.return a#stopCommandWeapon,
+div.content div.return a#stopCommandPromotion {
+    display: none;
+}
+
+div.content div.return a#launchCommandVehicle.is-visible,
+div.content div.return a#launchCommandProperty.is-visible,
+div.content div.return a#launchCommandWeapon.is-visible,
+div.content div.return a#launchCommandPromotion.is-visible,
+div.content div.return a#stopCommandVehicle.is-visible,
+div.content div.return a#stopCommandProperty.is-visible,
+div.content div.return a#stopCommandWeapon.is-visible,
+div.content div.return a#stopCommandPromotion.is-visible {
+    display: inline !important;
+}
+
+div.content div.addBountyTarget,
+div.content div.addBusiness,
+div.content div.addBusinessGood,
+div.content div.addCustomization,
+div.content div.addDeliveryMethod,
+div.content div.addGroupGta,
+div.content div.addModificationLocation,
+div.content div.addProperty,
+div.content div.addPropertyAcquisition,
+div.content div.addPropertyType,
+div.content div.addStorageLocation,
+div.content div.addTitleUpdate,
+div.content div.addUser,
+div.content div.addVehicle,
+div.content div.addVehicleAcquisition,
+div.content div.addVehicleManufacturer,
+div.content div.addWeapon,
+div.content div.addWeaponAcquisition,
+div.content div.addWeaponManufacturer {
+    margin: 5px 0 0;
+    position: absolute;
+    right: 5px;
+}
+
+div.content div.addBountyTarget button,
+div.content div.addBusiness button,
+div.content div.addBusinessGood button,
+div.content div.addCustomization button,
+div.content div.addDeliveryMethod button,
+div.content div.addGroupGta button,
+div.content div.addModificationLocation button,
+div.content div.addProperty button,
+div.content div.addPropertyAcquisition button,
+div.content div.addPropertyType button,
+div.content div.addStorageLocation button,
+div.content div.addTitleUpdate button,
+div.content div.addUser button,
+div.content div.addVehicle button,
+div.content div.addVehicleAcquisition button,
+div.content div.addVehicleManufacturer button,
+div.content div.addWeapon button,
+div.content div.addWeaponAcquisition button,
+div.content div.addWeaponManufacturer button {
+    padding: 0.1875rem 0.375rem;
+}
+
+div.content div.addBountyTarget button svg,
+div.content div.addBusiness button svg,
+div.content div.addBusinessGood button svg,
+div.content div.addCustomization button svg,
+div.content div.addDeliveryMethod button svg,
+div.content div.addGroupGta button svg,
+div.content div.addModificationLocation button svg,
+div.content div.addProperty button svg,
+div.content div.addPropertyAcquisition button svg,
+div.content div.addPropertyType button svg,
+div.content div.addStorageLocation button svg,
+div.content div.addTitleUpdate button svg,
+div.content div.addUser button svg,
+div.content div.addVehicle button svg,
+div.content div.addVehicleAcquisition button svg,
+div.content div.addVehicleManufacturer button svg,
+div.content div.addWeapon button svg,
+div.content div.addWeaponAcquisition button svg,
+div.content div.addWeaponManufacturer button svg {
+    height: 16px;
+    position: relative;
+    top: 2px;
+    width: 16px;
+}
+
+div.content div.removeAllFilters {
+    margin: 25px 0 0 5px;
+    position: absolute;
+    right: 5px
+}
+
+div.content div.resetHeistCayoPerico,
+div.content div.resetHeistKortzCenter,
+div.content div.resetHeistCasino {
+    margin: -10px 0 0 5px;
+    position: absolute;
+    right: 20px
+}
+
+div.content div.removeAllFilters a,
+div.content div.resetHeistCayoPerico a,
+div.content div.resetHeistCasino a,
+div.content div.resetHeistKortzCenter a {
+    padding: 0.1875rem 0.375rem;
+}
+
+div.content div.removeAllFilters a svg,
+div.content div.resetHeistCayoPerico a svg,
+div.content div.resetHeistCasino a svg,
+div.content div.resetHeistKortzCenter a svg {
+    height: 16px;
+    position: relative;
+    top: 2px;
+    width: 16px;
+}
+
+div.content div.tables table.form_casino_heist tbody tr th label {
+    font-size: 16px;
+}
+
+div.content div.filters {
+    background-color: var(--surface-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    display: flex;
+    flex: 0 0 auto;
+    margin: 5px 40px 0;
+    padding: 5px;
+}
+
+.mobile-toolbar {
+    display: none;
+}
+
+div.content div.filters div.filter {
+    align-items: center;
+    flex: var(--filter-grow, 1) 1 0;
+    min-width: min-content;
+    padding: 0 5px;
+    position: relative;
+}
+
+div.content div.filters div.filter .ts-control {
+    contain: inline-size;
+}
+
+div.content div.filters div.filter label,
+div.content div.filters div.filter input,
+div.content div.filters div.filter div {
+    font-size: 10px;
+}
+
+div.content div.filters div.filter label {
+    color: rgba(230, 237, 233, 0.75);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+div.content div.filters div.filter div.ts-input {
+    padding: 5px !important;
+}
+
+div.content div.table-scroll {
+    background: var(--table-bg) !important;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--text-light);
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    margin: 15px 5px 45px;
+    scrollbar-color: var(--green) transparent;
+    scrollbar-width: thin;
+    width: calc(100% - 10px);
+}
+
+div.content div.table-scroll table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+div.content div.table-scroll table thead tr th {
+    background: linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    height: 25px;
+    line-height: 13px;
+    overflow-wrap: anywhere;
+    padding: 2px;
+    position: sticky;
+    top: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 2;
+}
+
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-name"],
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_mission_locale-name"],
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-most_wanted"],
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target_user-done"],
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-price"],
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="business_locale-name"],
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="property_type_locale-name"],
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="title_update-name"],
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_locale-name"],
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-stock_dealer"],
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-stock_dealer_total"],
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-cost_of_restock"],
+div.content div.table-scroll table.customizations thead tr th[data-sort-key="customization_locale-name"],
+div.content div.table-scroll table.deliveryMethods thead tr th[data-sort-key="delivery_method_locale-name"],
+div.content div.table-scroll table.groupGtas thead tr th[data-sort-key="group_gta_locale-name"],
+div.content div.table-scroll table.groupGtas thead tr th[data-sort-key="group_gta_locale-description"],
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-date"],
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-email"],
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-ip"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="login_success-date"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-lastname"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-firstname"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-username"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-mail"],
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="login_success-ip"],
+div.content div.table-scroll table.modificationLocations thead tr th[data-sort-key="modification_location_locale-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_user-owned"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_user-wanted"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_type_locale-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="business-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_area-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="title_update-name"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-price"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-capacity_vehicles"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-capacity_bicycles"],
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-vehicles_price"],
+div.content div.table-scroll table.propertyAcquisitions thead tr th[data-sort-key="property_acquisition_locale-name"],
+div.content div.table-scroll table.propertyTypes thead tr th[data-sort-key="property_type_locale-name"],
+div.content div.table-scroll table.storageLocations thead tr th[data-sort-key="storage_location_locale-name"],
+div.content div.table-scroll table.titleUpdates thead tr th[data-sort-key="title_update-name"],
+div.content div.table-scroll table.titleUpdates thead tr th[data-sort-key="title_update-release_date"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-lastname"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-firstname"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-mail"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-username"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-active"],
+div.content div.table-scroll table.users thead tr th[data-sort-key="group_gta-name"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-name"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="title_update-name"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle_user-owned"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-seats"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle_drivetrain-name"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-price"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-weight"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-gears"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-top_speed_kilometers"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-top_speed_kilometers_maximum"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-speed"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-acceleration"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-braking"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-handling"],
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-average"],
+div.content div.table-scroll table.vehicleAcquisitions thead tr th[data-sort-key="vehicle_acquisition_locale-name"],
+div.content div.table-scroll table.vehicleManufacturers thead tr th[data-sort-key="vehicle_manufacturer-name"],
+div.content div.table-scroll table.vehicleManufacturers thead tr th[data-sort-key="vehicle_manufacturer-real_name"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon_locale-name"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="title_update-name"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon_user-owned"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-damage"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-fire_rate"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-accuracy"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-range_weapon"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-clip_size"],
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-average"],
+div.content div.table-scroll table.weaponAcquisitions thead tr th[data-sort-key="weapon_acquisition_locale-name"],
+div.content div.table-scroll table.weaponManufacturers thead tr th[data-sort-key="weapon_manufacturer-name"] {
+    cursor: pointer;
+    padding-right: 25px;
+}
+
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-name"] div.cell label,
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_mission_locale-name"] div.cell label,
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-most_wanted"] div.cell label,
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target_user-done"] div.cell label,
+div.content div.table-scroll table.bountyTargets thead tr th[data-sort-key="bounty_target-price"] div.cell label,
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="business_locale-name"] div.cell label,
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="property_type_locale-name"] div.cell label,
+div.content div.table-scroll table.businesses thead tr th[data-sort-key="title_update-name"] div.cell label,
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_locale-name"] div.cell label,
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-stock_dealer"] div.cell label,
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-stock_dealer_total"] div.cell label,
+div.content div.table-scroll table.businessGoods thead tr th[data-sort-key="business_good-cost_of_restock"] div.cell label,
+div.content div.table-scroll table.customizations thead tr th[data-sort-key="customization_locale-name"] div.cell label,
+div.content div.table-scroll table.deliveryMethods thead tr th[data-sort-key="delivery_method_locale-name"] div.cell label,
+div.content div.table-scroll table.groupGtas thead tr th[data-sort-key="group_gta_locale-name"] div.cell label,
+div.content div.table-scroll table.groupGtas thead tr th[data-sort-key="group_gta_locale-description"] div.cell label,
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-date"] div.cell label,
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-email"] div.cell label,
+div.content div.table-scroll table.loginErrors thead tr th[data-sort-key="login_error-ip"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="login_success-date"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-lastname"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-firstname"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-username"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="user-mail"] div.cell label,
+div.content div.table-scroll table.loginSuccesses thead tr th[data-sort-key="login_success-ip"] div.cell label,
+div.content div.table-scroll table.modificationLocations thead tr th[data-sort-key="modification_location_locale-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_user-owned"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_user-wanted"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_type_locale-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="business-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property_area-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="title_update-name"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-price"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-capacity_vehicles"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-capacity_bicycles"] div.cell label,
+div.content div.table-scroll table.properties thead tr th[data-sort-key="property-vehicles_price"] div.cell label,
+div.content div.table-scroll table.propertyAcquisitions thead tr th[data-sort-key="property_acquisition_locale-name"] div.cell label,
+div.content div.table-scroll table.propertyTypes thead tr th[data-sort-key="property_type_locale-name"] div.cell label,
+div.content div.table-scroll table.storageLocations thead tr th[data-sort-key="storage_location_locale-name"] div.cell label,
+div.content div.table-scroll table.titleUpdates thead tr th[data-sort-key="title_update-name"] div.cell label,
+div.content div.table-scroll table.titleUpdates thead tr th[data-sort-key="title_update-release_date"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-lastname"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-firstname"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-mail"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-username"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="user-active"] div.cell label,
+div.content div.table-scroll table.users thead tr th[data-sort-key="group_gta-name"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-name"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="title_update-name"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle_user-owned"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-seats"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle_drivetrain-name"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-price"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-weight"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-gears"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-top_speed_kilometers"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-top_speed_kilometers_maximum"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-speed"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-acceleration"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-braking"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-handling"] div.cell label,
+div.content div.table-scroll table.vehicles thead tr th[data-sort-key="vehicle-average"] div.cell label,
+div.content div.table-scroll table.vehicleAcquisitions thead tr th[data-sort-key="vehicle_acquisition_locale-name"] div.cell label,
+div.content div.table-scroll table.vehicleManufacturers thead tr th[data-sort-key="vehicle_manufacturer-name"] div.cell label,
+div.content div.table-scroll table.vehicleManufacturers thead tr th[data-sort-key="vehicle_manufacturer-real_name"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon_locale-name"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="title_update-name"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon_user-owned"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-damage"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-fire_rate"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-accuracy"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-range_weapon"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-clip_size"] div.cell label,
+div.content div.table-scroll table.weapons thead tr th[data-sort-key="weapon-average"] div.cell label,
+div.content div.table-scroll table.weaponAcquisitions thead tr th[data-sort-key="weapon_acquisition_locale-name"] div.cell label,
+div.content div.table-scroll table.weaponManufacturers thead tr th[data-sort-key="weapon_manufacturer-name"] div.cell label {
+    cursor: pointer;
+}
+
+div.content div.table-scroll table thead tr th div.cell {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 35px;
+}
+
+div.content div.table-scroll table thead tr th div.cell label {
+    display: block;
+    font-size: 10px !important;
+    overflow-wrap: anywhere;
+    width: 100%;
+}
+
+div.content div.table-scroll table thead tr th div.arrows {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
+
+div.content div.table-scroll table thead tr th div.arrows svg {
+    opacity: 0.55;
+    width: 12px;
+}
+
+div.content div.table-scroll table thead tr th div.arrows svg.js-sort-arrow-down {
+    margin-right: -8px;
+}
+
+div.content div.table-scroll table thead tr th div.arrows svg path {
+    fill: rgba(0, 0, 0, 0.45);
+}
+
+div.content div.table-scroll table thead tr th.is-sorted div.arrows svg {
+    opacity: 1;
+}
+
+div.content div.table-scroll table thead tr th.is-sorted[data-sort-dir="asc"] div.arrows svg.js-sort-arrow-up path,
+div.content div.table-scroll table thead tr th.is-sorted[data-sort-dir="desc"] div.arrows svg.js-sort-arrow-down path {
+    fill: #FFFFFF;
+}
+
+div.content div.table-scroll table tbody tr {
+    position: relative;
+}
+
+div.content div.table-scroll table tbody tr td {
+    padding: 1px;
+}
+
+div.content div.table-scroll table tbody tr td button {
+    line-height: 1.25;
+    opacity: 0;
+    padding: 0.1875rem 0.375rem;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    transition: 0.3s all ease-in-out;
+}
+
+div.content div.table-scroll table tbody tr td:has(> button.btn-danger) > button.btn-warning,
+div.content div.table-scroll table.vehicles tbody tr td:has(> button.btn-danger) > button.btn-info,
+div.content div.table-scroll table.vehicles tbody tr td button.btn-warning {
+    right: 35px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td:has(> button.btn-danger) > button.btn-warning {
+    right: 65px;
+}
+
+div.content div.table-scroll table tbody tr:hover td button {
+    opacity: 1;
+    transition: 0.3s all ease-in-out;
+}
+
+div.content div.table-scroll table tbody tr td button svg,
+div.content div.table-scroll table tbody tr td div.cell svg {
+    height: 14px;
+    position: relative;
+    top: 2px;
+    width: 14px;
+}
+
+div.content div.table-scroll table tbody tr td div.cell {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    justify-content: center;
+    min-height: 30px !important;
+    text-align: center;
+}
+
+div.content div.table-scroll table tbody tr td div.cell.italic {
+    font-style: italic;
+}
+
+div.content div.table-scroll table tbody tr td div.cell div {
+    font-size: 10px !important;
+}
+
+div.content div.table-scroll table tbody tr td {
+    background-color: var(--table-bg);
+    border-top: 1px solid var(--border-dark);
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+div.content div.table-scroll table tbody tr:nth-child(even) td {
+    background-color: var(--table-bg-alt);
+}
+
+div.content div.table-scroll table tbody tr:hover td {
+    background-color: var(--table-bg-hover);
+}
+
+div.content div.table-scroll table tbody tr:hover td:first-child {
+    box-shadow: inset 3px 0 0 var(--green-light);
+}
+
+div.content div.table-scroll table tbody tr td span {
+    font-size: 10px !important;
+}
+
+div.content div.table-scroll table.bountyTargets tbody tr td.price,
+div.content div.table-scroll table.businessGoods tbody tr td.replenishmentRate,
+div.content div.table-scroll table.businessGoods tbody tr td.timeForRestock,
+div.content div.table-scroll table.businessGoods tbody tr td.sale,
+div.content div.table-scroll table.businessGoods tbody tr td.profit,
+div.content div.table-scroll table.properties tbody tr td.price,
+div.content div.table-scroll table.vehicles tbody tr td.price,
+div.content div.table-scroll table.vehicles tbody tr td.weight,
+div.content div.table-scroll table.vehicles tbody tr td.topSpeed,
+div.content div.table-scroll table.vehicles tbody tr td.topSpeedMaximum,
+div.content div.table-scroll table.weapons tbody tr td.price {
+    white-space: nowrap;
+}
+
+div.content div.table-scroll table.properties tbody tr td.price div.cell_info,
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_parents,
+div.content div.table-scroll table.vehicles tbody tr td.price div.cell_info,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_parents,
+div.content div.table-scroll table.weapons tbody tr td.price div.cell_info {
+    position: relative;
+    padding-right: 18px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_evolution,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution {
+    padding-right: 36px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_optimized {
+    padding-right: 54px;
+}
+
+div.content div.table-scroll table.properties tbody tr td.name div.cell a,
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell a,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell a {
+    color: var(--text-light);
+    font-size: 10px;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell a:hover,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell a:hover {
+    color: var(--green-light);
+}
+
+div.content div.table-scroll table.properties tbody tr td.price div.cell,
+div.content div.table-scroll table.vehicles tbody tr td.price div.cell,
+div.content div.table-scroll table.weapons tbody tr td.price div.cell {
+    color: var(--green-light);
+    font-weight: 600;
+}
+
+div.content div.table-scroll table.properties tbody tr td.price div.cell_info svg,
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_parents svg,
+div.content div.table-scroll table.vehicles tbody tr td.price div.cell_info svg,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution svg,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_parents svg,
+div.content div.table-scroll table.weapons tbody tr td.price div.cell_info svg {
+    height: 16px;
+    margin-top: -2px;
+    position: absolute;
+    right: 1px;
+    width: 16px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_evolution svg.svgParent,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution svg.svgParent {
+    right: 17px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_optimized svg.svgParent,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution svg.svgParent {
+    right: 35px;
+}
+
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_optimized svg.svgEvolution,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution svg.svgEvolution {
+    right: 17px;
+}
+
+div.content div.table-scroll table.properties tbody tr td.price div.cell_info svg path,
+div.content div.table-scroll table.vehicles tbody tr td.name div.cell_parents svg path,
+div.content div.table-scroll table.vehicles tbody tr td.price div.cell_info svg path,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_evolution svg path,
+div.content div.table-scroll table.weapons tbody tr td.name div.cell_parents svg path,
+div.content div.table-scroll table.weapons tbody tr td.price div.cell_info svg path {
+    fill: var(--green-light);
+}
+
+div.content div table tfoot {
+    position: fixed;
+}
+
+div.content #loots #mainLootId + div div.ts-input {
+    min-width: 300px;
+}
+
+div.content #loots #haul + div div.ts-input,
+div.content #loots #difficulty + div div.ts-input,
+div.content #loots #approach + div div.ts-input,
+div.content #loots #mainLootId + div div.ts-input,
+div.content #loots #hackerId + div div.ts-input,
+div.content #loots #driverId + div div.ts-input,
+div.content #loots #gunmanId + div div.ts-input,
+div.content #loots #material + div div.ts-input,
+div.content #loots #weapon + div div.ts-input,
+div.content #loots #vehicle + div div.ts-input,
+div.content #loots #firstTimeInWeek + div div.ts-input,
+div.content #loots #mainLoot + div div.ts-input {
+    padding: 0.5rem 0.75rem !important;
+}
+
+div.content #loots img.cayo_perico,
+div.content #loots table tbody tr.image-kortz-center th img {
+    width: 100%;
+}
+
+div.content #loots table tbody tr.image-kortz-center th span {
+    font-size: 18px;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td {
+    font-size: 12px !important;
+    padding: 1px 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist.vault-painting td,
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist.other-painting td {
+    background-color: #5C1C22 !important;
+    color: #FFFFFF !important;
+}
+
+div.content #loots table tbody tr td span.other-painting {
+    color: #5C1C22 !important;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist.display-case td {
+    background-color: #1C3B5C !important;
+    color: #FFFFFF !important;
+}
+
+div.content #loots table tbody tr td span.display-case {
+    color: #1C3B5C !important;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist.laser-cut-display-case td {
+    background-color: var(--green) !important;
+    color: #FFFFFF !important;
+}
+
+div.content #loots table tbody tr td span.laser-cut-display-case {
+    color: var(--green) !important;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist.crate-cargo-zone td {
+    background-color: #1C535C !important;
+    color: #FFFFFF !important;
+}
+
+div.content #loots table tbody tr td span.crate-cargo-zone {
+    color: #1C535C !important;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name select {
+    font-size: 12px !important;
+    padding: 1px 5px;
+    width: 200px;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name .ts-control,
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name .ts-control * {
+    font-size: 12px;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name .ts-dropdown {
+    text-align: center;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name .ts-input {
+    justify-content: center;
+}
+
+div.content #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_price input {
+    font-size: 12px !important;
+    padding: 1px 5px;
+    width: 100px;
+}
+
+/* ------------------------------ */
+/*            SUMMARY             */
+/* ------------------------------ */
+div.content div.include.summary {
+    flex: 0 0 auto;
+    margin: 5px 40px 0;
+}
+
+section.summary {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+section.summary div.summary-card {
+    align-items: baseline;
+    background-color: var(--surface-dark);
+    background-image: linear-gradient(90deg, var(--card-tint, rgba(156, 195, 122, 0.14)), transparent 90%);
+    border: 1px solid var(--border-dark);
+    border-left: 4px solid var(--card-accent, var(--green-light));
+    border-radius: var(--radius);
+    color: var(--text-light);
+    column-gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1.3;
+    min-width: 0;
+    overflow: hidden;
+    padding: 3px 10px 4px;
+    position: relative;
+}
+
+section.summary div.summary-card--to-buy {
+    --card-accent: #1C3B5C;
+    --card-tint: rgba(28, 59, 92, 0.6);
+}
+
+section.summary div.summary-card--discounted {
+    --card-accent: #5C1C22;
+    --card-tint: rgba(92, 28, 34, 0.6);
+}
+
+section.summary div.summary-card--capacity {
+    --card-accent: var(--green);
+    --card-tint: rgba(var(--green-rgb), 0.6);
+}
+
+section.summary div.summary-card--evolutions {
+    --card-accent: #1C535C;
+    --card-tint: rgba(28, 83, 92, 0.6);
+}
+
+section.summary .summary-card__label {
+    color: rgba(230, 237, 233, 0.75);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+section.summary .summary-card__value {
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+section.summary .summary-card__detail {
+    color: rgba(240, 242, 238, 0.7);
+    font-size: 11px;
+}
+
+section.summary .summary-card__detail--line {
+    flex-basis: 100%;
+}
+
+section.summary div.summary-card__progress {
+    background-color: rgba(255, 255, 255, 0.08);
+    bottom: 0;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+section.summary div.summary-card__progress div {
+    background-color: var(--green-light);
+    height: 100%;
+}
+
+/* ------------------------------ */
+/*           PAGINATION           */
+/* ------------------------------ */
+div.pagination {
+    backdrop-filter: blur(8px);
+    background-color: rgba(var(--bg-dark-rgb), 0.92);
+    border-radius: 0;
+    border-top: 1px solid var(--border-dark);
+    color: var(--text-light);
+    bottom: 0;
+    font-size: 14px;
+    height: 40px;
+    line-height: 30px;
+    left: 0;
+    padding: 5px 15px;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+
+div.pagination nav {
+    left: 15px;
+    position: absolute;
+    right: 45px;
+}
+
+div.pagination nav ul {
+    justify-content: flex-end;
+    margin-bottom: 0;
+    margin-top: -2px;
+}
+
+div.pagination .page-link {
+    color: var(--text-light);
+    display: block;
+    line-height: 1.25;
+    margin-left: -1px;
+    padding: .5rem .75rem;
+    position: relative;
+}
+
+div.pagination nav ul li a,
+div.pagination nav ul li span {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 14px;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+div.pagination nav ul li a:hover {
+    background-color: var(--green);
+    border-color: var(--green);
+    color: #FFFFFF;
+}
+
+div.pagination nav ul li.disabled {
+    cursor: not-allowed;
+}
+
+div.pagination nav ul li.disabled span,
+div.pagination nav ul li.disabled span:hover {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-light);
+    opacity: 0.4;
+}
+
+.pagination {
+    border-radius: .25rem;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+
+.page-link {
+    background-color: #FFFFFF;
+    border: 1px solid #DEE2E6;
+    color: var(--text-dark);
+    display: block;
+    line-height: 1.25;
+    margin-left: -1px;
+    padding: .5rem .75rem;
+    position: relative;
+    text-decoration: none;
+}
+
+.page-link:hover {
+    background-color: var(--green-soft);
+    border-color: #DEE2E6;
+    color: var(--green-dark);
+    z-index: 2;
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 .2rem rgba(var(--green-rgb), .4);
+    outline: 0;
+    z-index: 3;
+}
+
+.pagination li:first-child .page-link {
+    border-bottom-left-radius: .5rem;
+    border-top-left-radius: .5rem;
+    margin-left: 0;
+}
+
+.pagination li:last-child .page-link {
+    border-bottom-right-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.page-item.active .page-link {
+    background-color: var(--green);
+    border-color: var(--green);
+    color: #FFFFFF;
+    z-index: 3;
+}
+
+.page-item.disabled .page-link {
+    background-color: #FFFFFF;
+    border-color: #DEE2E6;
+    color: var(--green);
+    cursor: auto;
+    pointer-events: none;
+}
+
+/* ------------------------- */
+/*           MODAL           */
+/* ------------------------- */
+:root {
+    --bs-backdrop: rgba(20, 22, 20, .65);
+    --bs-radius: .75rem;
+    --bs-border: var(--border-dark);
+    --bs-shadow: 0 1.5rem 3rem rgba(0, 0, 0, .5);
+    --bs-body-bg: var(--table-bg);
+    --bs-body-color: var(--text-light);
+    --bs-muted: rgba(255, 255, 255, .7);
+    --bs-primary: var(--green);
+    --bs-secondary: #6c757d;
+}
+
+.modal {
+    backdrop-filter: blur(4px);
+    background: var(--bs-backdrop);
+    display: none;
+    inset: 0;
+    padding: 1rem;
+    position: fixed;
+    z-index: 1050;
+}
+
+.modal.is-open {
+    display: block;
+}
+
+.modal.is-open .modal-dialog {
+    animation: fade-in-up 0.25s ease-out;
+}
+
+.modal-dialog {
+    margin: 2vh auto 0 auto;
+    max-width: calc(100% - 4vh);
+}
+
+.modal-content {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border);
+    border-radius: var(--bs-radius);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.modal-header {
+    align-items: center;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    border-bottom: 1px solid var(--bs-border);
+    display: flex;
+    gap: .75rem;
+    padding: .75rem 1rem;
+}
+
+.modal-title {
+    color: #FFFFFF;
+    letter-spacing: 0.03em;
+    flex: 1;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+.modal-body {
+    height: calc(100vh - 201px);
+    overflow-y: scroll;
+    padding: 1rem;
+}
+
+.modal-body.modal-body--centered {
+    text-align: center;
+}
+
+.modal.modal--auto-height .modal-content,
+.modal.modal--auto-height .modal-body {
+    height: auto;
+}
+
+.modal.modal--auto-height .modal-body {
+    overflow-y: auto;
+}
+
+.modal-footer {
+    background-color: var(--table-bg-alt);
+    border-top: 1px solid var(--bs-border);
+    padding: 15px 0;
+}
+
+.modal:not(.is-delete) [data-delete-confirm],
+.modal.is-delete .modal-footer .btn-success {
+    display: none !important;
+}
+
+.modal .btn:disabled {
+    cursor: not-allowed;
+}
+
+.modal .deletion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal .deletion-message {
+    border-left: 4px solid var(--card-accent);
+    border-radius: var(--radius);
+    background-color: var(--card-tint);
+    padding: 10px 15px;
+}
+
+.modal .deletion-message ul {
+    margin: 5px 0 0;
+    padding-left: 20px;
+}
+
+.modal .deletion-message--definitive,
+.modal .deletion-message--impossible {
+    --card-accent: #5C1C22;
+    --card-tint: rgba(92, 28, 34, 0.6);
+}
+
+.modal .deletion-message--warning {
+    --card-accent: #1C3B5C;
+    --card-tint: rgba(28, 59, 92, 0.6);
+}
+
+.modal fieldset.deletion-detail {
+    border: 0;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+}
+
+.modal .btn {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: .375rem;
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    gap: .5rem;
+    justify-content: center;
+    padding: .375rem .75rem;
+}
+
+.modal .btn-close {
+    background: transparent;
+    border: 2px solid var(--bs-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    height: 2rem;
+    position: relative;
+    width: 2rem;
+}
+
+.modal .btn-close::before,
+.modal .btn-close::after {
+    background: var(--bs-muted);
+    content: "";
+    height: 2px;
+    inset: 50% auto auto 50%;
+    position: absolute;
+    transform-origin: center;
+    width: 1rem;
+}
+
+.modal .btn-close:hover::before,
+.modal .btn-close:hover::after {
+    background: #FFFFFF;
+}
+
+.modal .btn-close:hover {
+    border-color: #FFFFFF;
+}
+
+.modal .btn-close:focus-visible {
+    border-radius: 50%;
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.modal .btn-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.modal .btn-close::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.modal .group {
+    display: inline-flex;
+    width: 100%;
+}
+
+.modal .group .form-group {
+    padding: 0 20px 10px;
+    position: relative;
+    width: var(--filter-width);
+}
+
+.modal .group .form-group label.required {
+    font-weight: bold;
+}
+
+.modal .group .form-group label.required::after {
+    color: var(--green-light);
+    content: " *";
+}
+
+.modal hr {
+    border: 0;
+    border-top: 1px solid var(--bs-border);
+    margin: 1rem 20px;
+}
+
+.modal .group .form-group label,
+.modal .group .form-group input,
+.modal .group .form-group select,
+.modal .group .form-group div.item {
+    font-size: 13px;
+}
+
+.modal .group .form-group div.error {
+    bottom: -15px;
+    color: #FF6B6B;
+    font-size: 10px;
+    opacity: 0;
+    position: absolute;
+    transition: 0.3s all ease-in-out;
+}
+
+.modal .group .form-group div.error.show {
+    opacity: 1;
+    transition: 0.3s all ease-in-out;
+}
+
+.modal .group .form-group span.help {
+    color: var(--bs-muted);
+    font-size: 11px;
+}
+
+.modal .submit {
+    text-align: center;
+}
+
+.modal .submit button {
+    margin: 0 15px;
+}
+
+/* ---------------------------- */
+/*           CHECKBOX           */
+/* ---------------------------- */
+.checkbox-wrapper-2 {
+    line-height: 1;
+}
+
+.checkbox-wrapper-2 .stylized {
+    appearance: none;
+    background-color: #dfe1e4;
+    border-radius: 72px;
+    border-style: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    height: 20px;
+    margin: 0;
+    position: relative;
+    width: 30px;
+}
+
+.checkbox-wrapper-2 .stylized:disabled {
+    background-color: rgba(223, 225, 228, 0.3) !important;
+    cursor: default !important;
+}
+
+.checkbox-wrapper-2 .stylized::before {
+    bottom: -6px;
+    content: "";
+    left: -6px;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+}
+
+.checkbox-wrapper-2 .stylized,
+.checkbox-wrapper-2 .stylized::after {
+    transition: all 100ms ease-out;
+}
+
+.checkbox-wrapper-2 .stylized::after {
+    background-color: #fff;
+    border-radius: 50%;
+    content: "";
+    height: 14px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 14px;
+}
+
+.checkbox-wrapper-2 .stylized:hover {
+    background-color: #c9cbcd;
+    transition-duration: 0s;
+}
+
+.checkbox-wrapper-2 .stylized:checked {
+    background-color: var(--green);
+}
+
+.checkbox-wrapper-2 .stylized:checked::after {
+    background-color: #fff;
+    left: 13px;
+}
+
+.checkbox-wrapper-2 :focus:not(:focus-visible) {
+    outline: 0;
+}
+
+.checkbox-wrapper-2 .stylized:checked:hover {
+    background-color: var(--green-dark);
+}
+
+/* ------------------------------ */
+/*        USER STATISTICS         */
+/* ------------------------------ */
+#userStatisticModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+
+div.content div.filters.user-statistic-filters {
+    align-items: center;
+    margin: 0 0 1rem;
+}
+
+div.content div.filters.user-statistic-filters div.removeAllFilters {
+    margin: 0 5px;
+    position: static;
+}
+
+#removeUserStatisticFilter {
+    visibility: hidden;
+}
+
+#removeUserStatisticFilter.is-visible {
+    visibility: visible;
+}
+
+#userStatisticChart {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* ------------------------------ */
+/*        LOCALE SWITCHER         */
+/* ------------------------------ */
+div.locale-switcher {
+    --locale-accent: var(--green-light);
+    --locale-tab: linear-gradient(180deg, var(--green) 0%, var(--green-light) 100%);
+    left: 45px;
+    position: fixed;
+    top: 0;
+    z-index: 20;
+}
+
+.locale-switcher__toggle {
+    background: var(--locale-tab);
+    border: 1px solid var(--locale-accent);
+    border-radius: 0 0 0.5rem 0.5rem;
+    border-top: 0;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: block;
+    opacity: 0.85;
+    padding: 9px 8px 8px;
+    transform: translateY(-15px);
+    transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.locale-switcher__toggle:focus-visible {
+    outline: none;
+}
+
+.locale-switcher__flag {
+    border-radius: 2px;
+    display: block;
+    height: 14px;
+    object-fit: cover;
+    width: 20px;
+}
+
+.locale-switcher__menu {
+    background-color: var(--surface-dark);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border-dark);
+    border-radius: 0 var(--radius) var(--radius) var(--radius);
+    border-top: 2px solid var(--locale-accent);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    left: 0;
+    min-width: 150px;
+    opacity: 0;
+    padding: 5px;
+    position: absolute;
+    top: 100%;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    visibility: hidden;
+}
+
+.locale-switcher__option {
+    align-items: center;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    gap: 10px;
+    padding: 6px 10px;
+    text-align: left;
+    transition: 0.2s all ease-in-out;
+    width: 100%;
+}
+
+.locale-switcher__option:hover,
+.locale-switcher__option:focus-visible {
+    background-color: var(--green);
+    border-color: var(--green-light);
+    color: #FFFFFF;
+    outline: none;
+}
+
+.locale-switcher__option[aria-current="true"] {
+    background-color: var(--green-soft);
+    color: var(--green-light);
+}
+
+.locale-switcher__option[aria-current="true"]:hover {
+    color: #FFFFFF;
+}
+
+.locale-switcher.is-open .locale-switcher__toggle,
+.locale-switcher:focus-within .locale-switcher__toggle {
+    box-shadow: 0 0.5rem 1rem rgba(var(--green-rgb), 0.5);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.locale-switcher.is-open .locale-switcher__menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* ------------------------------ */
+/*              TIPS              */
+/* ------------------------------ */
+div.tips,
+.content .menu-links .menu-link a div.link span.tips-badge,
+.tippy-box[data-theme~='tips'] {
+    --tips-accent: #D9B44A;
+    --tips-rgb: 217, 180, 74;
+    --tips-tab: linear-gradient(180deg, #5C4C1C 0%, #8A7128 100%);
+}
+
+.content .menu-links .menu-link a div.link span.promotion-badge,
+.tippy-box[data-theme~='promotion'] {
+    --tips-accent: var(--green-light);
+    --tips-rgb: 156, 195, 122;
+    --tips-tab: linear-gradient(180deg, var(--green-dark) 0%, var(--green) 100%);
+}
+
+div.tips {
+    position: fixed;
+    right: 45px;
+    top: 0;
+    z-index: 20;
+}
+
+.tips__toggle {
+    align-items: center;
+    background: var(--tips-tab);
+    border: 1px solid var(--tips-accent);
+    border-radius: 0 0 0.5rem 0.5rem;
+    border-top: 0;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    opacity: 0.85;
+    padding: 9px 8px 8px;
+    transform: translateY(-12px);
+    transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tips__toggle:focus-visible {
+    outline: none;
+}
+
+.tips__icon {
+    fill: #FFFFFF;
+    height: 18px;
+    width: 18px;
+}
+
+.tips__count {
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 14px;
+}
+
+.tips__panel {
+    background-color: var(--surface-dark);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius) 0 var(--radius) var(--radius);
+    border-top: 2px solid var(--tips-accent);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    padding: 12px 14px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    visibility: hidden;
+    width: min(340px, calc(100vw - 20px));
+}
+
+.tips__title {
+    color: var(--tips-accent);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.tips__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tips__list li {
+    border-left: 3px solid rgba(var(--tips-rgb), 0.6);
+    color: var(--text-light);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    padding: 2px 0 2px 10px;
+    text-align: left;
+}
+
+.tips__list li + li {
+    margin-top: 10px;
+}
+
+.tips.is-open .tips__toggle {
+    box-shadow: 0 0.5rem 1rem rgba(var(--tips-rgb), 0.35);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tips.is-open .tips__panel {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.content .menu-links .menu-link a div.link span.promotion-badge,
+.content .menu-links .menu-link a div.link span.tips-badge {
+    align-items: center;
+    background: var(--tips-tab);
+    border: 1px solid var(--tips-accent);
+    border-radius: 999px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.75rem;
+    font-weight: 700;
+    gap: 4px;
+    line-height: 1;
+    padding: 3px 7px;
+    position: absolute;
+    top: 6px;
+}
+
+.content .menu-links .menu-link a div.link span.promotion-badge {
+    left: 6px;
+}
+
+.content .menu-links .menu-link a div.link span.tips-badge {
+    right: 6px;
+}
+
+.content .menu-links .menu-link a div.link span.promotion-badge svg,
+.content .menu-links .menu-link a div.link span.tips-badge svg {
+    height: 14px;
+    margin: 0;
+    width: 14px;
+}
+
+.content .menu-links .menu-link a div.link span.promotion-badge svg path,
+.content .menu-links .menu-link a div.link span.tips-badge svg path,
+.content .menu-links .menu-link a:hover div.link span.promotion-badge svg path,
+.content .menu-links .menu-link a:hover div.link span.tips-badge svg path {
+    fill: #FFFFFF;
+}
+
+.tippy-box[data-theme~='tips'] {
+    background-color: var(--surface-dark);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    border-top: 2px solid var(--tips-accent);
+    box-shadow: var(--shadow);
+}
+
+.tippy-box[data-theme~='tips'] .tippy-content {
+    padding: 12px 14px;
+}
+
+/* ------------------------------ */
+/*        OPTIONAL MISSIONS       */
+/* ------------------------------ */
+.optional-mission {
+    opacity: 0.65;
+}
+
+.optional-tag {
+    background-color: #2A6FAB;
+    border-radius: 0.5rem;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    margin-left: 4px;
+    padding: 0 8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ------------------------------ */
+/*           RESPONSIVE           */
+/* ------------------------------ */
+@media (hover: hover) and (pointer: fine) {
+    .locale-switcher:hover .locale-switcher__toggle {
+        box-shadow: 0 0.5rem 1rem rgba(var(--green-rgb), 0.5);
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .locale-switcher:hover .locale-switcher__menu {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    .tips:hover .tips__toggle {
+        box-shadow: 0 0.5rem 1rem rgba(var(--tips-rgb), 0.35);
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .locale-switcher__toggle,
+    .locale-switcher__menu,
+    .locale-switcher__option {
+        transition: none;
+    }
+
+    .tips__toggle,
+    .tips__panel {
+        transition: none;
+    }
+}
+
+@media (max-width: 1199px) {
+    div.locale-switcher {
+        left: auto;
+        right: 45px;
+    }
+
+    .locale-switcher__menu {
+        border-radius: var(--radius) 0 var(--radius) var(--radius);
+        left: auto;
+        right: 0;
+    }
+
+    .locale-switcher__option {
+        padding: 10px 12px;
+    }
+
+    div.tips {
+        right: 90px;
+    }
+
+    .content .tables {
+        flex-wrap: wrap;
+    }
+
+    .guide .tables {
+        overflow-x: auto;
+    }
+
+    .guide table.is-unfolded,
+    .guide table.is-unfolded > tbody {
+        display: block;
+    }
+
+    .guide table.is-unfolded > tbody > tr {
+        border-bottom: 1px solid var(--border-dark);
+        display: grid;
+        gap: 10px 14px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        padding: 12px 14px;
+    }
+
+    .guide table.is-unfolded > tbody > tr.is-section-row {
+        padding: 0;
+    }
+
+    .guide table.is-unfolded > tbody > tr.is-header-row,
+    .guide table.is-unfolded > tbody > tr > .is-header-cell,
+    .guide table.is-unfolded > tbody > tr > .is-empty {
+        display: none;
+    }
+
+    .guide table.is-unfolded > tbody > tr > th,
+    .guide table.is-unfolded > tbody > tr > td {
+        border: 0 !important;
+        display: block;
+        min-width: 0;
+        padding: 0;
+        text-align: left;
+        white-space: normal !important;
+    }
+
+    .guide table.is-unfolded > tbody > tr > .is-section {
+        grid-column: 1 / -1;
+        padding: 10px 14px;
+        text-align: center;
+    }
+
+    .guide table.is-unfolded > tbody > tr > .is-row-title {
+        background: none;
+        color: var(--green-light);
+        font-size: 15px;
+        grid-column: 1 / -1;
+        text-align: left;
+    }
+
+    .guide table.is-unfolded > tbody > tr > .is-wide {
+        grid-column: 1 / -1;
+        overflow-x: auto;
+    }
+
+    .guide table.is-unfolded > tbody > tr > td[data-label]::before {
+        color: rgba(230, 237, 233, 0.55);
+        content: attr(data-label);
+        display: block;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .guide table.is-unfolded > tbody > tr > td.is-fields {
+        align-content: start;
+        align-items: center;
+        display: grid;
+        gap: 6px 10px;
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .guide table.is-unfolded > tbody > tr > td.is-fields::before {
+        grid-column: 1 / -1;
+    }
+
+    .guide table.is-unfolded > tbody > tr > td.is-fields > br {
+        display: none;
+    }
+
+    .guide table.is-unfolded > tbody > tr > td.is-fields > label {
+        margin: 0;
+    }
+
+    .guide table.is-unfolded > tbody > tr > td.is-fields > label:has(+ select),
+    .guide table.is-unfolded > tbody > tr > td.is-fields > select,
+    .guide table.is-unfolded > tbody > tr > td.is-fields > .ts-control {
+        grid-column: 1 / -1;
+    }
+
+    .guide #loots td.main-loot {
+        grid-column: 1 / -1;
+        padding: 8px 10px;
+    }
+
+    .guide #loots td.main-loot::before {
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 600;
+    }
+
+    div.content #loots #mainLootId + div div.ts-input {
+        min-width: 0;
+    }
+
+    .guide #loots img.cayo_perico,
+    .guide #loots tr.image-kortz-center th img {
+        display: block;
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist {
+        border-bottom: 2px solid var(--table-bg);
+        gap: 0;
+        padding: 0;
+        grid-template-columns: 0.4fr 2.6fr 1.3fr 0.8fr 1.8fr 1fr 1fr;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td {
+        grid-column: span 2;
+        padding: 6px 10px;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1) {
+        font-weight: 700;
+        grid-column: span 1;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2) {
+        grid-column: span 5;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: span 3;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td[data-label]::before {
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 600;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1)::before,
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2)::before {
+        content: none;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(4)::before {
+        content: "Sac";
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6)::before {
+        content: "Présent";
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7)::before {
+        content: "Requête acheteur";
+    }
+
+    div.content.guide #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_name select,
+    div.content.guide #loots table tbody tr.secondary_loot_kortz_center_heist td.secondary_loot_price input {
+        width: 100%;
+    }
+
+    div.content div.return {
+        display: flex;
+        gap: 5px;
+        width: auto;
+    }
+
+    div.content div.return a {
+        margin-bottom: 0;
+    }
+
+    .mobile-toolbar {
+        display: flex;
+        gap: 10px;
+        margin: 45px 10px 0;
+    }
+
+    .toolbar-toggle {
+        background-color: var(--surface-dark);
+        border: 1px solid var(--border-dark);
+        color: var(--text-light);
+        flex: 1;
+        font-weight: 600;
+    }
+
+    .toolbar-toggle::after {
+        content: " ▾";
+    }
+
+    .toolbar-toggle.is-open {
+        border-color: var(--green);
+    }
+
+    .toolbar-toggle.is-open::after {
+        content: " ▴";
+    }
+
+    .content:not(.filters-open) div.include.filters {
+        display: none;
+    }
+
+    div.content div.filters {
+        flex-wrap: wrap;
+        margin: 8px 10px 0;
+        row-gap: 8px;
+    }
+
+    div.content div.include.summary {
+        margin: 8px 10px 0;
+    }
+
+    div.content div.filters div.filter {
+        flex: 1 1 auto;
+    }
+
+    div.content div.table-scroll {
+        background: transparent !important;
+        border: 0;
+        box-shadow: none;
+        margin: 10px 10px 60px;
+        width: auto;
+    }
+
+    div.content div.table-scroll table,
+    div.content div.table-scroll table tbody {
+        display: block;
+    }
+
+    div.content div.table-scroll table thead {
+        display: none;
+    }
+
+    div.content.sort-open div.table-scroll table thead {
+        backdrop-filter: blur(6px);
+        background-color: rgba(var(--bg-dark-rgb), 0.92);
+        border: 1px solid var(--border-dark);
+        border-radius: var(--radius);
+        display: block;
+        margin-bottom: 10px;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+
+    div.content div.table-scroll table thead tr {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    div.content div.table-scroll table thead tr th {
+        align-items: center;
+        background: var(--surface-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 999px;
+        display: flex;
+        gap: 6px;
+        height: auto;
+        line-height: 1.2;
+        padding: 6px 12px !important;
+        position: relative;
+    }
+
+    div.content div.table-scroll table thead tr th:not([data-sort-key]) {
+        display: none;
+    }
+
+    div.content div.table-scroll table thead tr th.is-sorted {
+        background: var(--green);
+        border-color: var(--green-light);
+    }
+
+    div.content div.table-scroll table thead tr th div.cell {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    div.content div.table-scroll table thead tr th div.cell label {
+        font-size: 12px !important;
+        white-space: nowrap;
+        width: auto;
+    }
+
+    div.content div.table-scroll table thead tr th div.arrows {
+        display: flex;
+        position: static;
+    }
+
+    div.content div.table-scroll table thead tr th div.arrows svg path {
+        fill: rgba(255, 255, 255, 0.5);
+    }
+
+    div.content div.table-scroll table tbody {
+        align-items: start;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    div.content div.table-scroll table tbody tr {
+        background-color: var(--table-bg);
+        border: 1px solid var(--border-dark);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 8px 12px;
+        grid-template-columns: 1fr 1fr;
+        padding: 12px 14px;
+    }
+
+    div.content div.table-scroll table tbody tr td,
+    div.content div.table-scroll table tbody tr:nth-child(even) td,
+    div.content div.table-scroll table tbody tr:hover td,
+    div.content div.table-scroll table tbody tr:hover td:first-child {
+        background-color: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    div.content div.table-scroll table tbody tr td {
+        display: none;
+        text-align: left;
+    }
+
+    div.content div.table-scroll table tbody tr td:first-child,
+    div.content div.table-scroll table tbody tr td.key,
+    div.content div.table-scroll table tbody tr:not(.is-collapsible) td:not(.is-empty),
+    div.content div.table-scroll table tbody tr.is-expanded td:not(.is-empty) {
+        display: block;
+    }
+
+    div.content div.table-scroll table tbody tr td.has-actions {
+        display: block;
+        grid-column: 1 / -1;
+        height: 0;
+        margin-top: -8px;
+        overflow: hidden;
+    }
+
+    div.content div.table-scroll table tbody tr.is-expanded td.has-actions,
+    div.content div.table-scroll table tbody tr:not(.is-collapsible) td.has-actions {
+        height: auto;
+        margin-top: 0;
+        overflow: visible;
+    }
+
+    div.content div.table-scroll table tbody tr td.is-actions-only:not(.is-empty) {
+        display: contents;
+    }
+
+    div.content div.table-scroll table tbody tr td.is-wide {
+        grid-column: 1 / -1;
+    }
+
+    div.content div.table-scroll table tbody tr td::before {
+        color: rgba(230, 237, 233, 0.55);
+        content: attr(data-label);
+        display: block;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+        text-transform: uppercase;
+    }
+
+    div.content div.table-scroll table tbody tr td:first-child::before,
+    div.content div.table-scroll table tbody tr td.is-actions-only::before {
+        content: none;
+    }
+
+    div.content div.table-scroll table tbody tr td div.cell {
+        align-items: flex-start;
+        font-size: 13px;
+        min-height: 0;
+        text-align: left;
+    }
+
+    div.content div.table-scroll table tbody tr td div.cell div,
+    div.content div.table-scroll table tbody tr td span {
+        font-size: 12px !important;
+    }
+
+    div.content div.table-scroll table tbody tr td:first-child {
+        grid-column: 1 / -1;
+        padding-right: 70px;
+    }
+
+    div.content div.table-scroll table tbody tr td:first-child div.cell,
+    div.content div.table-scroll table.vehicles tbody tr td.name div.cell a,
+    div.content div.table-scroll table.weapons tbody tr td.name div.cell a {
+        color: var(--text-light);
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    div.content div.table-scroll table tbody tr td button {
+        opacity: 1;
+        right: 8px;
+        top: 10px;
+    }
+
+    div.content div.table-scroll table tbody tr td:has(> button.btn-danger) > button.btn-warning,
+    div.content div.table-scroll table.vehicles tbody tr td:has(> button.btn-danger) > button.btn-info,
+    div.content div.table-scroll table.vehicles tbody tr td button.btn-warning {
+        right: 40px;
+    }
+
+    div.content div.table-scroll table.vehicles tbody tr td:has(> button.btn-danger) > button.btn-warning {
+        right: 72px;
+    }
+
+    div.content div.table-scroll table.vehicles tbody tr td:first-child:has(> button.btn-danger) {
+        padding-right: 104px;
+    }
+
+    div.content div.table-scroll table tbody tr.is-collapsible {
+        cursor: pointer;
+    }
+
+    div.content div.table-scroll table tbody tr.is-collapsible::after {
+        border-top: 1px solid var(--border-dark);
+        color: var(--green-light);
+        content: "Plus de détails ▾";
+        font-size: 12px;
+        grid-column: 1 / -1;
+        padding-top: 6px;
+        text-align: center;
+    }
+
+    div.content div.table-scroll table tbody tr.is-expanded::after {
+        content: "Moins de détails ▴";
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td,
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: auto;
+    }
+
+    .content h1 {
+        font-size: 42px !important;
+    }
+
+    .content h3 {
+        font-size: 32px !important;
+    }
+
+    .content .menu-links {
+        --menu-columns: 2;
+    }
+
+    .content .menu-links.menu-links--external {
+        --menu-columns: 2;
+    }
+
+    .content .menu-links .menu-link {
+        min-height: 110px;
+    }
+
+    .content .menu-links .menu-link a div.link {
+        font-size: 24px;
+        padding: 24px 10px;
+    }
+
+    .content .menu-links .menu-link a div.link svg {
+        height: 52px;
+        width: 52px;
+    }
+
+    .content .menu-links .menu-link a div.link svg.svgMin {
+        height: 30px;
+        left: calc(50% + 6px);
+        padding: 3px;
+        top: 52px;
+        width: 30px;
+    }
+
+    .modal .group {
+        flex-wrap: wrap;
+    }
+
+    .modal .group .form-group {
+        width: max(25%, var(--filter-width));
+    }
+}
+
+@media (max-width: 991px) {
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td {
+        grid-column: span 2;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1) {
+        grid-column: span 1;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2) {
+        grid-column: span 5;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: span 3;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td,
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: auto;
+    }
+
+    .content h1 {
+        font-size: 38px !important;
+    }
+
+    .content h3 {
+        font-size: 30px !important;
+    }
+
+    .content .menu-links .menu-link a div.link {
+        font-size: 22px;
+    }
+
+    div.content div.table-scroll table tbody {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .modal .group .form-group {
+        width: max(33.333%, var(--filter-width));
+    }
+}
+
+@media (max-width: 767px) {
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td {
+        grid-column: span 2;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1) {
+        grid-column: span 1;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2) {
+        grid-column: span 5;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: span 3;
+    }
+
+    .content .tables {
+        gap: 10px;
+        margin: 10px;
+        width: auto;
+    }
+
+    .content .menu-links {
+        --menu-gap: 10px;
+        margin: 10px;
+    }
+
+    .content .menu-links.menu-links--external {
+        --menu-columns: 1;
+    }
+
+    section.summary {
+        grid-template-columns: 1fr;
+    }
+
+    div.pagination {
+        font-size: 0;
+        height: auto;
+        padding: 6px 8px;
+    }
+
+    div.pagination nav {
+        position: static;
+    }
+
+    div.pagination nav ul {
+        justify-content: center;
+        margin: 0;
+    }
+
+    div.pagination nav ul li a,
+    div.pagination nav ul li span {
+        font-size: 13px;
+        padding: 0.45rem 0.6rem;
+    }
+
+    .guide .tables table tr th,
+    .guide .tables table tr td {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+
+    .guide .tables table tr th {
+        font-size: 11px;
+    }
+
+    .guide .tables > table > tbody > tr:first-child > th {
+        font-size: 14px;
+        padding: 12px 50px;
+    }
+
+    .modal {
+        padding: 0.5rem;
+    }
+
+    .modal-dialog {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .modal-content {
+        height: calc(100vh - 1rem);
+    }
+
+    .modal-body {
+        height: calc(100vh - 1rem - 121px);
+        padding: 0.75rem 0.25rem;
+    }
+
+    .modal-title {
+        font-size: 1.05rem;
+    }
+
+    .modal .group .form-group {
+        padding: 0 10px 14px;
+        width: max(50%, var(--filter-width));
+    }
+
+    .content h1 {
+        font-size: 32px !important;
+    }
+
+    .content h3 {
+        font-size: 26px !important;
+    }
+
+    .content .menu-links .menu-link {
+        min-height: 0;
+    }
+
+    .content .menu-links .menu-link a div.link {
+        font-size: 16px;
+        padding: 18px 8px;
+    }
+
+    .content .menu-links .menu-link a div.link svg {
+        height: 40px;
+        width: 40px;
+    }
+
+    .content .menu-links .menu-link a div.link svg.svgMin {
+        height: 26px;
+        left: calc(50% + 4px);
+        top: 38px;
+        width: 26px;
+    }
+
+    div.content div.filters div.filter {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+@media (max-width: 575px) {
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td {
+        grid-column: span 2;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(1) {
+        grid-column: span 1;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(2) {
+        grid-column: span 5;
+    }
+
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(6),
+    .guide #loots table.is-unfolded > tbody > tr.secondary_loot_kortz_center_heist > td:nth-child(7) {
+        grid-column: span 3;
+    }
+
+    .content h1 {
+        font-size: 26px !important;
+    }
+
+    .content h3 {
+        font-size: 22px !important;
+    }
+
+    .content .tables {
+        flex-direction: column;
+    }
+
+    .content .menu-links {
+        --menu-columns: 1;
+    }
+
+    .content .menu-links .menu-link a div.link {
+        align-items: center;
+        display: flex;
+        font-size: 17px;
+        gap: 14px;
+        padding: 14px 18px;
+        text-align: left;
+    }
+
+    .content .menu-links .menu-link a div.link svg {
+        flex-shrink: 0;
+        margin: 0;
+    }
+
+    .content .menu-links .menu-link a div.link svg.svgMin {
+        left: 42px;
+        top: 50%;
+    }
+
+    .content .menu-links .menu-link a:hover {
+        transform: translateY(-2px);
+    }
+
+    div.content div.filters div.filter {
+        flex: 1 1 100%;
+    }
+
+    div.content div.filters div.filter label {
+        white-space: normal;
+    }
+
+    div.content div.table-scroll table tbody {
+        grid-template-columns: 1fr;
+    }
+
+    .modal .group .form-group {
+        width: 100%;
+    }
+
+    .login .element {
+        padding: 2rem 1.25rem 1.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+
+}

@@ -1,0 +1,12 @@
+{% extends 'Email/_layout.html.twig' %}
+
+{% block title %}{{ 'your_inactive_account_will_be_deleted'|translateLocale({}, locale)|mbUcfirst }}{% endblock %}
+
+{% block content %}
+    <p style="margin:0 0 16px;">{{ 'your_account_has_been_inactive_for_a_long_time'|translateLocale({}, locale)|mbUcfirst }}.</p>
+    <p style="margin:0;">{{ 'it_will_be_deleted_in_thirty_days_unless_you_log_in'|translateLocale({}, locale)|mbUcfirst }}.</p>
+{% endblock %}
+
+{% block button %}
+    {{ include('Email/_button.html.twig', {label: 'log_me_in'|translateLocale({}, locale)|mbUcfirst}) }}
+{% endblock %}

@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html lang="{{ default_locale() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}GTA 5 Online{% endblock %}</title>
+        <meta name="description" content="{% block description %}GTA 5 Online{% endblock %}"/>
+        <meta name="csrf-token" content="{{ csrf_token('ajax') }}"/>
+        <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any"/>
+        <link rel="icon" type="image/png" sizes="300x300" href="{{ asset('assets/images/favicon.png') }}"/>
+        <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.png') }}"/>
+
+        <!-- FEUILLES DE STYLE -->
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/style.css') }}" />
+
+        <!-- TIPPY -->
+        <link rel="stylesheet" href="{{ asset('assets/tippy/scale.min.css') }}" />
+        <script src="{{ asset('assets/tippy/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/tippy/tippy-bundle.umd.min.js') }}"></script>
+
+        <!-- TOM SELECT -->
+        <link rel="stylesheet" href="{{ asset('assets/tom-select/dist/css/tom-select.min.css') }}">
+        <script src="{{ asset('assets/tom-select/dist/js/tom-select.complete.min.js') }}"></script>
+    </head>
+    <body class="has-locale-switcher">
+        <div id="page-loader" class="page-loader" role="status" aria-live="polite">
+            <div class="page-loader__spinner" aria-hidden="true"></div>
+            <div class="page-loader__text">{{ 'loading'|translateLocale|mbUcfirst }}...</div>
+        </div>
+        {{ include('_partial/locale_switcher.html.twig') }}
+        {% block body %}
+        {% endblock %}
+        {% block footer %}
+        {% endblock %}
+    </body>
+    <script type="text/javascript">
+        let loaderFocusedElementId             = null;
+        let loaderFocusedElementSelectionStart = null;
+        let loaderFocusedElementSelectionEnd   = null;
+
+        document.addEventListener("keydown", (event) => {
+            const isMac  = /mac/i.test(navigator.userAgent);
+            const isFind = (isMac ? event.metaKey : event.ctrlKey) && (event.key === "f" || event.key === "F");
+
+            if (!isFind) return;
+
+            if (!filterSearch) return;
+
+            event.preventDefault();
+            filterSearch.focus();
+            filterSearch.select();
+        });
+
+        document.addEventListener("click", (event) => {
+            const closer = event.target.closest("[data-modal-close]");
+
+            if (!closer) return;
+
+            const modal = closer.closest(".modal");
+            closeModal(modal);
+        });
+
+        document.addEventListener("click", (event) => {
+            const modal = event.target.classList?.contains("modal") ? event.target : null;
+
+            if (!modal) return;
+
+            closeModal(modal);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+
+            const modal = document.querySelector(".modal.is-open");
+            closeModal(modal);
+        });
+
+        function prepareListCards(container) {
+            const table = container.querySelector('table');
+
+            if (!table || !table.tHead) return;
+
+            const labels = [];
+
+            for (const headerCell of table.tHead.rows[0].cells) {
+                const label = headerCell.querySelector('label');
+
+                labels.push(label ? label.textContent.trim() : headerCell.textContent.trim());
+            }
+
+            for (const tbody of table.tBodies) {
+                for (const row of tbody.rows) {
+                    let index = 0;
+
+                    for (const cell of row.cells) {
+                        const text       = cell.textContent.trim();
+                        const hasControl = !!cell.querySelector('input, select, textarea, img');
+                        const hasButton  = !!cell.querySelector('button');
+
+                        cell.dataset.label = labels[index] ?? '';
+                        cell.classList.toggle('is-empty', !hasButton && !hasControl && text === '');
+                        cell.classList.toggle('is-actions-only', hasButton && !hasControl && text === '');
+                        cell.classList.toggle('is-wide', text.length > 25 || !!cell.querySelector('select'));
+                        cell.classList.toggle('has-actions', hasButton);
+
+                        index += cell.colSpan;
+                    }
+
+                    row.classList.toggle('is-collapsible', !!row.querySelector('td.key'));
+                }
+            }
+        }
+
+        document.querySelectorAll('div.table-scroll').forEach((container) => {
+            prepareListCards(container);
+            new MutationObserver(() => prepareListCards(container)).observe(container, { childList: true, subtree: true });
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!window.matchMedia('(max-width: 1199px)').matches) return;
+
+            const row = event.target.closest('div.table-scroll tbody tr.is-collapsible');
+
+            if (!row || event.target.closest('a, button, input, select, textarea, label, .ts-control, .ts-dropdown')) return;
+
+            row.classList.toggle('is-expanded');
+        });
+
+        function prepareHeistTable(table) {
+            const rows = [...table.rows];
+            const grid = [];
+
+            table.classList.add('is-unfolded');
+            let columnCount = 0;
+
+            rows.forEach((row, rowIndex) => {
+                grid[rowIndex] ??= [];
+
+                let column = 0;
+
+                for (const cell of row.cells) {
+                    while (grid[rowIndex][column]) column++;
+
+                    cell.dataset.column = column;
+
+                    for (let i = 0; i < cell.rowSpan; i++) {
+                        for (let j = 0; j < cell.colSpan; j++) {
+                            (grid[rowIndex + i] ??= [])[column + j] = cell;
+                        }
+                    }
+
+                    column += cell.colSpan;
+                }
+
+                columnCount = Math.max(columnCount, column);
+            });
+
+            const hasContent = (cell) => !!cell.querySelector('img, select, input, table');
+            const cellText   = (cell) => {
+                const clone = cell.cloneNode(true);
+
+                clone.querySelectorAll('br').forEach((lineBreak) => lineBreak.replaceWith(' '));
+
+                return clone.textContent.replace(/\s+/g, ' ').trim();
+            };
+
+            let headerRows = [];
+
+            rows.forEach((row, rowIndex) => {
+                const cells       = [...row.cells];
+                const headerCells = cells.filter((cell) => cell.tagName === 'TH' && !hasContent(cell) && cells.length > 1);
+                const isHeaderRow = headerCells.length >= 2 && !cells.some((cell) => cell.tagName === 'TD');
+
+                cells.forEach((cell) => {
+                    cell.classList.remove('is-header-cell', 'is-row-title', 'is-section', 'is-empty', 'is-wide', 'is-fields');
+                    delete cell.dataset.label;
+                });
+
+                row.classList.toggle('is-section-row', cells.length === 1);
+                row.classList.toggle('is-header-row', isHeaderRow && headerCells.length === cells.length);
+
+                if (isHeaderRow) {
+                    headerCells.forEach((cell) => cell.classList.add('is-header-cell'));
+                    headerRows = headerRows.at(-1) === rowIndex - 1 ? [...headerRows, rowIndex] : [rowIndex];
+                }
+
+                const deepestHeader = headerRows.length ? grid[headerRows.at(-1)] : [];
+                const matchesHeader = !isHeaderRow && cells.every((cell) => {
+                    const header = deepestHeader[+cell.dataset.column];
+
+                    return header && header.classList.contains('is-header-cell') && header.dataset.column === cell.dataset.column && header.colSpan === cell.colSpan;
+                });
+
+                cells.forEach((cell) => {
+                    if (cell.classList.contains('is-header-cell')) return;
+
+                    if (cells.length === 1) {
+                        cell.classList.add('is-section');
+                    } else if (cell.tagName === 'TH' && !hasContent(cell)) {
+                        cell.classList.add('is-row-title');
+                    }
+
+                    cell.classList.toggle('is-empty', cellText(cell) === '' && !hasContent(cell));
+                    cell.classList.toggle('is-wide', !!cell.querySelector('img, table'));
+                    cell.classList.toggle('is-fields', !!cell.querySelector(':scope > label.form-label') && !!cell.querySelector(':scope > input, :scope > select'));
+
+                    if (matchesHeader && cell.tagName === 'TD') {
+                        const labels = [];
+
+                        headerRows.forEach((headerRowIndex) => {
+                            const header = grid[headerRowIndex][+cell.dataset.column];
+                            const text   = header && header.classList.contains('is-header-cell') ? cellText(header) : '';
+
+                            if (text && !labels.includes(text)) labels.push(text);
+                        });
+
+                        cell.dataset.label = labels.join(' · ');
+                    }
+                });
+            });
+        }
+
+        document.querySelectorAll('.guide div#loots').forEach((container) => {
+            const prepare = () => container.querySelectorAll('table').forEach(prepareHeistTable);
+
+            container.closest('.content').querySelectorAll('.tables table').forEach(prepareHeistTable);
+            new MutationObserver(prepare).observe(container, { childList: true, subtree: true });
+        });
+
+        const filtersPanels = document.querySelectorAll('div.include.filters');
+        const listContainer = document.querySelector('div.table-scroll');
+
+        if (filtersPanels.length || listContainer) {
+            const toolbar = document.createElement('div');
+
+            toolbar.className = 'mobile-toolbar';
+
+            const addToggle = (label, stateClass) => {
+                const toggle = document.createElement('button');
+
+                toggle.type        = 'button';
+                toggle.className   = 'btn toolbar-toggle';
+                toggle.textContent = label;
+                toggle.setAttribute('aria-expanded', 'false');
+                toolbar.append(toggle);
+
+                toggle.addEventListener('click', () => {
+                    const isOpen = toggle.closest('.content').classList.toggle(stateClass);
+
+                    toggle.classList.toggle('is-open', isOpen);
+                    toggle.setAttribute('aria-expanded', isOpen);
+                });
+            };
+
+            if (filtersPanels.length) addToggle('{{ 'filters'|translateLocale|mbUcfirst|e('js') }}', 'filters-open');
+
+            if (listContainer) addToggle('{{ 'sort'|translateLocale|mbUcfirst|e('js') }}', 'sort-open');
+
+            (filtersPanels[0] ?? listContainer).before(toolbar);
+        }
+
+        function orderFilter(element, event) {
+            let orderNew = 'asc';
+
+            if (element.hasAttribute('data-sort-dir') && element.getAttribute('data-sort-dir') === 'asc') {
+                orderNew = 'desc';
+            }
+
+            if (event.shiftKey) {
+                orderNew += '&orderNew=0';
+            } else {
+                orderNew += '&orderNew=1';
+            }
+
+            reloadFilter('&orders[' + element.getAttribute('data-sort-key') + ']=' + orderNew)
+        }
+
+        function postRequest(url) {
+            const separator = url.indexOf('?');
+
+            return fetch(separator === -1 ? url : url.substring(0, separator), {
+                body   : separator === -1 ? '' : url.substring(separator + 1),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content ?? ''
+                },
+                method : 'POST'
+            });
+        }
+
+        // Un clic ferme les infobulles (capture : avant l'ouverture d'une modale ou le rechargement d'une liste) ; l'élément cliqué garde le focus,
+        // qui rouvrirait son infobulle : elle reste désactivée jusqu'à ce que la souris le quitte. Une infobulle ouverte au clic est laissée à tippy
+        document.addEventListener('click', (event) => {
+            const clickInstance = event.target.closest('.tips-badge')?._tippy;
+
+            tippy.hideAll({duration: 0, exclude: clickInstance});
+
+            for (let element = event.target; element; element = element.parentElement) {
+                const instance = element._tippy;
+
+                if (instance && instance !== clickInstance && instance.reference === element && instance.state.isEnabled) {
+                    instance.disable();
+                    element.addEventListener('mouseleave', () => instance.enable(), {once: true});
+                }
+            }
+        }, true);
+
+        function refreshList(data) {
+            const blocks = {
+                'div.include.filters:not(.filters_two)': data.filter,
+                'div.include.filters_two'              : data.filterTwo,
+                'div.include.summary'                  : data.summary,
+                'div.table-scroll'                     : data.template
+            };
+
+            Object.entries(blocks).forEach(([selector, html]) => {
+                const block = document.querySelector(selector);
+
+                if (block && html !== undefined) {
+                    // Les éléments remplacés emportent leurs infobulles : affichées, elles ne recevraient plus jamais l'ordre de se fermer
+                    block.querySelectorAll('*').forEach(element => element._tippy?.destroy());
+                    block.innerHTML = html;
+                }
+            });
+        }
+
+        function syncTomSelectOption(tomselect, option) {
+            const tomselectOption = tomselect.options[option.value];
+
+            if (tomselectOption) {
+                tomselect.updateOption(option.value, {...tomselectOption, text: option.textContent, disabled: option.disabled});
+            }
+        }
+
+        function showLoader() {
+            const activeElement = document.activeElement;
+
+            loaderFocusedElementId = activeElement?.id || null;
+            loaderFocusedElementSelectionStart = activeElement?.selectionStart ?? null;
+            loaderFocusedElementSelectionEnd = activeElement?.selectionEnd ?? null;
+
+            document.getElementById('page-loader').classList.add('is-visible');
+        }
+
+        function hideLoader() {
+            document.getElementById('page-loader').classList.remove('is-visible');
+
+            if (!loaderFocusedElementId) {
+                return;
+            }
+
+            const focusedElement = document.getElementById(loaderFocusedElementId);
+            const openedModal    = document.querySelector('.modal.is-open');
+
+            // Pas de focus rendu à un élément caché par une modale (ex. le bouton qui l'a ouverte : son infobulle se rouvrirait par-dessus)
+            if (!focusedElement || (openedModal && !openedModal.contains(focusedElement))) {
+                return;
+            }
+
+            focusedElement.focus();
+
+            if (
+                typeof loaderFocusedElementSelectionStart === 'number'
+                && typeof loaderFocusedElementSelectionEnd === 'number'
+                && typeof focusedElement.setSelectionRange === 'function'
+            ) {
+                focusedElement.setSelectionRange(loaderFocusedElementSelectionStart, loaderFocusedElementSelectionEnd);
+            }
+
+            loaderFocusedElementId             = null;
+            loaderFocusedElementSelectionStart = null;
+            loaderFocusedElementSelectionEnd   = null;
+        }
+
+        // Mêmes règles que UserHelper::getPasswordMessage() (hors données personnelles, vérifiées par le serveur)
+        function isValidPassword(password) {
+            return [...password].length >= {{ constant('App\\Helper\\UserHelper::PASSWORD_MIN_LENGTH') }} && /\p{Lu}/u.test(password) && /\p{Ll}/u.test(password)
+                   && /\p{Nd}/u.test(password) && /[^\p{L}\p{N}\s]/u.test(password);
+        }
+
+        function openModal(modal) {
+            if (!modal) return;
+
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+
+            document.documentElement.style.overflow = "hidden";
+
+            const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            (focusable || modal).focus?.();
+        }
+
+        function closeModal(modal) {
+            if (!modal) return;
+
+            modal.classList.remove("is-open");
+            modal.setAttribute("aria-hidden", "true");
+
+            document.documentElement.style.overflow = "";
+        }
+
+        function setDeleteMode(modal, deleteMode, deletable = false) {
+            modal.classList.toggle('is-delete', deleteMode);
+
+            const deleteConfirm = modal.querySelector('[data-delete-confirm]');
+
+            if (deleteConfirm) {
+                deleteConfirm.disabled = !deletable;
+            }
+
+            if (deleteMode) {
+                modal.querySelectorAll('.deletion-detail select').forEach(select => select.tomselect?.disable());
+            }
+        }
+
+        // Texte venant de la base (noms, commentaires...) à insérer dans du HTML : jamais tel quel
+        function escapeHtml(text) {
+            const element = document.createElement('div');
+
+            element.textContent = text ?? '';
+
+            return element.innerHTML;
+        }
+
+        // Les messages contiennent des noms saisis : affichés comme du texte, le détail technique éventuel dans un <pre>
+        function showAlert(success, message, details = null) {
+            const shown  = document.getElementById(success ? 'alert-success' : 'alert-danger');
+            const hidden = document.getElementById(success ? 'alert-danger' : 'alert-success');
+
+            hidden.querySelector('span').textContent = '';
+            hidden.classList.remove('show');
+            shown.querySelector('span').textContent = message ?? '';
+
+            if (details) {
+                const preformattedText = document.createElement('pre');
+
+                preformattedText.textContent = details;
+                shown.querySelector('span').append(document.createElement('br'), preformattedText);
+            }
+
+            shown.classList.add('show');
+
+            if (success) {
+                setTimeout("document.getElementById('alert-success').classList.remove('show')", 3000);
+            }
+        }
+    </script>
+    {% block javascripts %}
+    {% endblock %}
+</html>

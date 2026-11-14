@@ -1,0 +1,83 @@
+<div class="filter" style="--filter-grow: 21;">
+    <label class="form-label" for="filterSearch">{{ 'search'|translateLocale|mbUcfirst }} ({{ 'independent_of_other_filters'|translateLocale }})</label>
+    <input type="search" id="filterSearch" value="{{ filter.search }}" class="form-input" />
+</div>
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterVehicleTwo">{{ 'variant'|translateLocale|mbUcfirst }}</label>
+    <select id="filterVehicleTwo">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterVehicleTwo in filterVehicleTwos %}
+            <option value="{{ filterVehicleTwo.vehicleTwo }}"
+                {% if filter.vehicleTwo == filterVehicleTwo.vehicleTwo %} selected{% endif %}>{{ filterVehicleTwo.vehicleTwo|vehicleTwoLabelVehicle }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterVehicleTwo.numberVehiclesNotBicycles, bicycles: filterVehicleTwo.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterOptimized">{{ 'optimized'|translateLocale|mbUcfirst }}</label>
+    <select id="filterOptimized">
+        <option value="null"{% if filter.optimized is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterOptimized in filterOptimizeds %}
+            <option value="{{ filterOptimized.optimized }}"
+                {% if not filter.optimized is same as(null) and filter.optimized == filterOptimized.optimized %} selected{% endif %}>{{ (filterOptimized.optimized == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterOptimized.numberVehiclesNotBicycles, bicycles: filterOptimized.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterEvolution">{{ 'evolution'|translateLocale|mbUcfirst }}</label>
+    <select id="filterEvolution">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterEvolution in filterEvolutions %}
+            <option value="{{ filterEvolution.evolution }}"
+                {% if filter.evolution == filterEvolution.evolution %} selected{% endif %}>{{ filterEvolution.evolution|evolutionLabelVehicle }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterEvolution.numberVehiclesNotBicycles, bicycles: filterEvolution.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+{% if is_granted('VEHICLE_OWN') %}
+    <div class="filter" style="--filter-grow: 13;">
+        <label class="form-label" for="filterWantedProperty">{{ 'wanted_property'|translateLocale|mbUcfirst }}</label>
+        <select id="filterWantedProperty">
+            <option value="null"{% if filter.wantedProperty is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+            {% for filterWantedProperty in filterWantedProperties %}
+                <option value="{{ filterWantedProperty.wantedProperty }}"
+                    {% if not filter.wantedProperty is same as(null) and filter.wantedProperty == filterWantedProperty.wantedProperty %} selected{% endif %}>{{ (filterWantedProperty.wantedProperty == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterWantedProperty.numberVehiclesNotBicycles, bicycles: filterWantedProperty.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterWantedProperty" value="null" />
+{% endif %}
+<div class="filter" style="--filter-grow: 9; text-align: right;">
+    <label class="form-label" style="padding-top: 32px;">{{ 'to_be_removed'|translateLocale|mbUcfirst|colon }}</label>
+</div>
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterNotVehicleClassIds">{{ 'vehicle_class'|translateLocale|mbUcfirst }} ({{ filterNotVehicleClassIds|length }})</label>
+    <select id="filterNotVehicleClassIds" multiple data-multi-select>
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterNotVehicleClassId in filterNotVehicleClassIds %}
+            <option value="{{ filterNotVehicleClassId.id }}"
+                {% if filterNotVehicleClassId.id in filter.notVehicleClassIds %} selected{% endif %}>{{ filterNotVehicleClassId.name ~ ' (' ~ filterNotVehicleClassId.numberVehicles ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 12;">
+    <label class="form-label" for="filterNotVehicleAcquisitionIds">{{ 'vehicle_acquisitions'|translateLocale|mbUcfirst }} ({{ filterNotVehicleAcquisitionIds|length }})</label>
+    <select id="filterNotVehicleAcquisitionIds" multiple data-multi-select>
+        {% if filterNotVehicleAcquisitionIds is not empty %}
+            {% for filterNotVehicleAcquisitionId in filterNotVehicleAcquisitionIds %}
+                <option value="{{ filterNotVehicleAcquisitionId.id }}"
+                    {% if filterNotVehicleAcquisitionId.id in filter.notVehicleAcquisitionIds %} selected{% endif %}>{{ filterNotVehicleAcquisitionId.name }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterNotVehicleAcquisitionId.numberVehiclesNotBicycles, bicycles: filterNotVehicleAcquisitionId.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 15;">
+    <label class="form-label" for="filterNotStorageLocationIds">{{ 'storage_locations'|translateLocale|mbUcfirst }} ({{ filterNotStorageLocationIds|length }})</label>
+    <select id="filterNotStorageLocationIds" multiple data-multi-select>
+        {% if filterNotStorageLocationIds is not empty %}
+            {% for filterNotStorageLocationId in filterNotStorageLocationIds %}
+                <option value="{{ filterNotStorageLocationId.id }}"
+                    {% if filterNotStorageLocationId.id in filter.notStorageLocationIds %} selected{% endif %}>{{ filterNotStorageLocationId.name }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterNotStorageLocationId.numberVehiclesNotBicycles, bicycles: filterNotStorageLocationId.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>

@@ -1,0 +1,9 @@
+<footer class="footer">
+    <p>{{ 'unofficial_site_not_affiliated_with_rockstar_games'|translateLocale|mbUcfirst }}</p>
+    <p>
+        <a href="{{ path('legal_mentions') }}">{{ 'legal_mentions'|translateLocale|mbUcfirst }}</a>
+        {% if is_granted('ROLE_USER') %}
+            - <a href="{{ path('account_user') }}">{{ 'my_account'|translateLocale|mbUcfirst }}</a>
+        {% endif %}
+    </p>
+</footer>

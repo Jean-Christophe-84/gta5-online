@@ -1,0 +1,653 @@
+<table>
+    <tbody>
+        <tr>
+            <th colspan="9">
+                <div class="resetHeistCayoPerico">
+                    <a onclick="resetHeistCayoPerico();" class="btn btn-danger" id="resetHeistCayoPerico"
+                        {% if not (heistCayoPerico.difficulty is not same as(null) or heistCayoPerico.cocaineZoneOne != 0
+                            or heistCayoPerico.weedZoneOne != 0 or heistCayoPerico.cashZoneOne != 0 or heistCayoPerico.cocaineZoneThree != 0
+                            or heistCayoPerico.weedZoneThree != 0 or heistCayoPerico.cashZoneThree != 0 or heistCayoPerico.cocaineZoneSix != 0
+                            or heistCayoPerico.weedZoneSix != 0 or heistCayoPerico.cashZoneSix != 0
+                            or heistCayoPerico.mainLoot is not same as(null) or heistCayoPerico.goldMainBasement != 0
+                            or heistCayoPerico.cocaineMainBasement != 0 or heistCayoPerico.weedMainBasement != 0
+                            or heistCayoPerico.artworkMainBasement != 0 or heistCayoPerico.cashMainBasement != 0
+                            or heistCayoPerico.artworkMainDesktop != 0 or heistCayoPerico.goldMainWest != 0 or heistCayoPerico.cocaineMainWest != 0
+                            or heistCayoPerico.weedMainWest != 0 or heistCayoPerico.artworkMainWest != 0 or heistCayoPerico.cashMainWest != 0
+                            or heistCayoPerico.goldMainNorth != 0 or heistCayoPerico.cocaineMainNorth != 0 or heistCayoPerico.weedMainNorth != 0
+                            or heistCayoPerico.artworkMainNorth != 0 or heistCayoPerico.cashMainNorth != 0 or heistCayoPerico.goldMainSouth != 0
+                            or heistCayoPerico.cocaineMainSouth != 0 or heistCayoPerico.weedMainSouth != 0 or heistCayoPerico.artworkMainSouth != 0
+                            or heistCayoPerico.cashMainSouth != 0)
+                        %} style="display: none;"{% endif %}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                            <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                        </svg>
+                    </a>
+                </div>
+                {{ 'emplacements'|translateLocale|mbUcfirst }}
+                <br/>
+                {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 100000|formatMoney }}
+                <br/>
+                {{ 'requires_a_kosatka_submarine'|translateLocale|mbUcfirst }}
+                <br/>
+                1 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+            </th>
+        </tr>
+        <tr>
+            <th rowspan="2"><label for="difficulty">{{ 'difficulty'|translateLocale|mbUcfirst }}</label></th>
+            <th rowspan="2">Zone 1</th>
+            <th rowspan="2">Zone 3</th>
+            <th rowspan="2">Zone 6</th>
+            <th colspan="5">{{ 'main_zone'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'basement'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'desktop'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'west'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'north'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'south'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <td>
+                <select class="form_cayo_perico_heist difficulty" name="difficulty" id="difficulty">
+                    <option value="0">{{ 'choose_the_difficulty'|translateLocale|mbUcfirst }}...</option>
+                    {% for difficulty in difficulties %}
+                        <option value="{{ difficulty.value }}"
+                            {% if heistCayoPerico.difficulty and heistCayoPerico.difficulty.value == difficulty.value %} selected{% endif %}>{{ difficulty|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+                <br/>
+                <img class="cayo_perico" src="{{ asset('assets/images/cayo_perico.png') }}" alt="Cayo Perico" />
+            </td>
+            <td>
+                <label class="form-label" for="cocaine_zone_one">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_zone_one" id="cocaine_zone_one"
+                       value="{{ heistCayoPerico.cocaineZoneOne }}" />
+                <br/>
+                <label class="form-label" for="weed_zone_one">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_zone_one" id="weed_zone_one"
+                       value="{{ heistCayoPerico.weedZoneOne }}" />
+                <br/>
+                <label class="form-label" for="cash_zone_one">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_zone_one" id="cash_zone_one"
+                       value="{{ heistCayoPerico.cashZoneOne }}" />
+            </td>
+            <td>
+                <label class="form-label" for="cocaine_zone_three">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_zone_three" id="cocaine_zone_three"
+                       value="{{ heistCayoPerico.cocaineZoneThree }}" />
+                <br/>
+                <label class="form-label" for="weed_zone_three">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_zone_three" id="weed_zone_three"
+                       value="{{ heistCayoPerico.weedZoneThree }}" />
+                <br/>
+                <label class="form-label" for="cash_zone_three">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_zone_three" id="cash_zone_three"
+                       value="{{ heistCayoPerico.cashZoneThree }}" />
+            </td>
+            <td>
+                <label class="form-label" for="cocaine_zone_six">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_zone_six" id="cocaine_zone_six"
+                       value="{{ heistCayoPerico.cocaineZoneSix }}" />
+                <br/>
+                <label class="form-label" for="weed_zone_six">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_zone_six" id="weed_zone_six"
+                       value="{{ heistCayoPerico.weedZoneSix }}" />
+                <br/>
+                <label class="form-label" for="cash_zone_six">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_zone_six" id="cash_zone_six"
+                       value="{{ heistCayoPerico.cashZoneSix }}" />
+            </td>
+            <td>
+                <label class="form-label" for="mainLootId">{{ 'main_loot'|translateLocale|mbUcfirst }}</label>
+                <select class="form_cayo_perico_heist" name="main_loot_id" id="mainLootId">
+                    <option value="0">{{ 'choose_the_main_loot'|translateLocale|mbUcfirst }}...</option>
+                    {% for heistCayoPericoMainLoot in heistCayoPericoMainLoots %}
+                        <option value="{{ heistCayoPericoMainLoot.id }}"
+                            {% if heistCayoPerico.mainLoot and heistCayoPerico.mainLoot.id == heistCayoPericoMainLoot.id %} selected{% endif %}>{{ heistCayoPericoMainLoot.name ~ ' (' ~ heistCayoPericoMainLoot.price|formatMoney ~ ')' }}</option>
+                    {% endfor %}
+                </select>
+                <br/>
+                <label class="form-label" for="gold_main_basement">{{ 'gold'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="gold_main_basement" id="gold_main_basement"
+                       value="{{ heistCayoPerico.goldMainBasement }}" />
+                <br/>
+                <label class="form-label" for="cocaine_main_basement">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_main_basement" id="cocaine_main_basement"
+                       value="{{ heistCayoPerico.cocaineMainBasement }}" />
+                <br/>
+                <label class="form-label" for="weed_main_basement">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_main_basement" id="weed_main_basement"
+                       value="{{ heistCayoPerico.weedMainBasement }}" />
+                <br/>
+                <label class="form-label" for="artwork_main_basement">{{ 'artwork'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="artwork_main_basement" id="artwork_main_basement"
+                       value="{{ heistCayoPerico.artworkMainBasement }}" />
+                <br/>
+                <label class="form-label" for="cash_main_basement">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_main_basement" id="cash_main_basement"
+                       value="{{ heistCayoPerico.cashMainBasement }}" />
+            </td>
+            <td>
+                <label class="form-label" for="artwork_main_desktop">{{ 'artwork'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="artwork_main_desktop" id="artwork_main_desktop"
+                       value="{{ heistCayoPerico.artworkMainDesktop }}" />
+            </td>
+            <td>
+                <label class="form-label" for="gold_main_west">{{ 'gold'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="gold_main_west" id="gold_main_west"
+                       value="{{ heistCayoPerico.goldMainWest }}" />
+                <br/>
+                <label class="form-label" for="cocaine_main_west">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_main_west" id="cocaine_main_west"
+                       value="{{ heistCayoPerico.cocaineMainWest }}" />
+                <br/>
+                <label class="form-label" for="weed_main_west">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_main_west" id="weed_main_west"
+                       value="{{ heistCayoPerico.weedMainWest }}" />
+                <br/>
+                <label class="form-label" for="artwork_main_west">{{ 'artwork'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="artwork_main_west" id="artwork_main_west"
+                       value="{{ heistCayoPerico.artworkMainWest }}" />
+                <br/>
+                <label class="form-label" for="cash_main_west">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_main_west" id="cash_main_west"
+                       value="{{ heistCayoPerico.cashMainWest }}" />
+            </td>
+            <td>
+                <label class="form-label" for="gold_main_north">{{ 'gold'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="gold_main_north" id="gold_main_north"
+                       value="{{ heistCayoPerico.goldMainNorth }}" />
+                <br/>
+                <label class="form-label" for="cocaine_main_north">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_main_north" id="cocaine_main_north"
+                       value="{{ heistCayoPerico.cocaineMainNorth }}" />
+                <br/>
+                <label class="form-label" for="weed_main_north">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_main_north" id="weed_main_north"
+                       value="{{ heistCayoPerico.weedMainNorth }}" />
+                <br/>
+                <label class="form-label" for="artwork_main_north">{{ 'artwork'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="artwork_main_north" id="artwork_main_north"
+                       value="{{ heistCayoPerico.artworkMainNorth }}" />
+                <br/>
+                <label class="form-label" for="cash_main_north">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_main_north" id="cash_main_north"
+                       value="{{ heistCayoPerico.cashMainNorth }}" />
+            </td>
+            <td>
+                <label class="form-label" for="gold_main_south">{{ 'gold'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="gold_main_south" id="gold_main_south"
+                       value="{{ heistCayoPerico.goldMainSouth }}" />
+                <br/>
+                <label class="form-label" for="cocaine_main_south">{{ 'cocaine'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cocaine_main_south" id="cocaine_main_south"
+                       value="{{ heistCayoPerico.cocaineMainSouth }}" />
+                <br/>
+                <label class="form-label" for="weed_main_south">{{ 'weed'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="weed_main_south" id="weed_main_south"
+                       value="{{ heistCayoPerico.weedMainSouth }}" />
+                <br/>
+                <label class="form-label" for="artwork_main_south">{{ 'artwork'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="artwork_main_south" id="artwork_main_south"
+                       value="{{ heistCayoPerico.artworkMainSouth }}" />
+                <br/>
+                <label class="form-label" for="cash_main_south">{{ 'cash'|translateLocale|mbUcfirst }}</label>
+                <input type="number" class="form-input form_cayo_perico_heist" name="cash_main_south" id="cash_main_south"
+                       value="{{ heistCayoPerico.cashMainSouth }}" />
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="2">1 {{ 'player'|translateLocale|mbUcfirst }}</th>
+            <th rowspan="2">Zone 1</th>
+            <th rowspan="2">Zone 3</th>
+            <th rowspan="2">Zone 6</th>
+            <th colspan="5">{{ 'main_zone'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'basement'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'desktop'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'west'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'north'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'south'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td>{{ optimizeProfitsForOnePlayer.zoneOne[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.zoneThree[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.zoneSix[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.mainBasement[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.mainDesktop[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.mainWest[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.mainNorth[1]|raw }}</td>
+            <td>{{ optimizeProfitsForOnePlayer.mainSouth[1]|raw }}</td>
+        </tr>
+        <tr>
+            <th rowspan="2">2 {{ 'players'|translateLocale|mbUcfirst }}</th>
+            <th rowspan="2">Zone 1</th>
+            <th rowspan="2">Zone 3</th>
+            <th rowspan="2">Zone 6</th>
+            <th colspan="5">{{ 'main_zone'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'basement'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'desktop'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'west'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'north'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'south'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneOne[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneThree[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneSix[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainBasement[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainDesktop[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainWest[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainNorth[1]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainSouth[1]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneOne[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneThree[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.zoneSix[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainBasement[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainDesktop[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainWest[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainNorth[2]|raw }}</td>
+            <td>{{ optimizeProfitsForTwoPlayers.mainSouth[2]|raw }}</td>
+        </tr>
+        <tr>
+            <th rowspan="2">3 {{ 'players'|translateLocale|mbUcfirst }}</th>
+            <th rowspan="2">Zone 1</th>
+            <th rowspan="2">Zone 3</th>
+            <th rowspan="2">Zone 6</th>
+            <th colspan="5">{{ 'main_zone'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'basement'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'desktop'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'west'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'north'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'south'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td>{{ optimizeProfitsForThreePlayers.zoneOne[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneThree[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneSix[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainBasement[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainDesktop[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainWest[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainNorth[1]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainSouth[1]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td>{{ optimizeProfitsForThreePlayers.zoneOne[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneThree[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneSix[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainBasement[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainDesktop[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainWest[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainNorth[2]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainSouth[2]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J3</th>
+            <td>{{ optimizeProfitsForThreePlayers.zoneOne[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneThree[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.zoneSix[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainBasement[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainDesktop[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainWest[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainNorth[3]|raw }}</td>
+            <td>{{ optimizeProfitsForThreePlayers.mainSouth[3]|raw }}</td>
+        </tr>
+        <tr>
+            <th rowspan="2">4 {{ 'players'|translateLocale|mbUcfirst }}</th>
+            <th rowspan="2">Zone 1</th>
+            <th rowspan="2">Zone 3</th>
+            <th rowspan="2">Zone 6</th>
+            <th colspan="5">{{ 'main_zone'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'basement'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'desktop'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'west'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'north'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'south'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td>{{ optimizeProfitsForFourPlayers.zoneOne[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneThree[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneSix[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainBasement[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainDesktop[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainWest[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainNorth[1]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainSouth[1]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td>{{ optimizeProfitsForFourPlayers.zoneOne[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneThree[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneSix[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainBasement[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainDesktop[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainWest[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainNorth[2]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainSouth[2]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J3</th>
+            <td>{{ optimizeProfitsForFourPlayers.zoneOne[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneThree[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneSix[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainBasement[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainDesktop[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainWest[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainNorth[3]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainSouth[3]|raw }}</td>
+        </tr>
+        <tr>
+            <th>J4</th>
+            <td>{{ optimizeProfitsForFourPlayers.zoneOne[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneThree[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.zoneSix[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainBasement[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainDesktop[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainWest[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainNorth[4]|raw }}</td>
+            <td>{{ optimizeProfitsForFourPlayers.mainSouth[4]|raw }}</td>
+        </tr>
+        <tr>
+            <td colspan="9" style="border: 0 !important; padding: 0 !important;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th colspan="5">{{ 'breakdown_by_player_based_on_percentage'|translateLocale|mbUcfirst ~ (optimizeProfitsForOnePlayer.amountEliteChallenge ? ' (+ ' ~ optimizeProfitsForOnePlayer.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale ~ ')') }}</th>
+                        </tr>
+                        <tr>
+                            <th>{{ 'percentage'|translateLocale|mbUcfirst }}</th>
+                            <th>1 {{ 'player'|translateLocale|mbUcfirst }}</th>
+                            <th>2 {{ 'players'|translateLocale|mbUcfirst }}</th>
+                            <th>3 {{ 'players'|translateLocale|mbUcfirst }}</th>
+                            <th>4 {{ 'players'|translateLocale|mbUcfirst }}</th>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 15|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.15)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.15)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.15)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.15)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.15)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.15)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.15)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.15)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 20|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.2)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.2)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.2)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.2)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.2)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.2)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.2)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.2)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 25|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.25)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.25)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.25)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.25)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.25)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.25)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.25)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.25)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 30|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.3)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.3)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.3)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.3)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.3)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.3)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.3)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.3)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 35|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.35)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.35)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.35)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.35)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.35)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.35)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.35)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.35)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 40|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.4)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.4)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.4)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.4)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.4)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.4)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.4)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.4)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 45|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.45)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.45)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.45)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.45)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.45)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.45)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.45)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.45)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 50|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.5)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.5)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.5)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.5)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.5)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.5)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.5)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.5)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 55|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.55)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.55)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.55)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.55)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.55)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.55)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.55)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.55)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 60|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.6)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.6)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.6)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.6)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.6)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.6)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.6)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.6)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 65|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.65)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.65)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.65)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.65)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.65)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.65)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.65)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.65)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 70|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.7)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.7)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.7)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.7)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.7)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.7)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.7)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.7)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 75|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.75)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.75)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.75)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.75)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.75)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.75)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.75)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.75)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 80|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.8)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.8)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.8)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.8)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.8)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.8)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.8)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.8)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 85|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88 * 0.85)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88 * 0.85)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88 * 0.85)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88 * 0.85)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88 * 0.85)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88 * 0.85)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88 * 0.85)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88 * 0.85)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="white-space: nowrap;">{{ 100|formatPercent }}</td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88)|formatMoney }}
+                            </td>
+                            <td style="white-space: nowrap;">
+                                {{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88)|formatMoney }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'loot_on_the_exit'|translateLocale|mbUcfirst }} ({{ 100|formatPercent }})</th>
+                            <td>{{ optimizeProfitsForOnePlayer.totalMinimum|formatMoney }} - {{ optimizeProfitsForOnePlayer.totalMaximum|formatMoney }}</td>
+                            <td>{{ optimizeProfitsForTwoPlayers.totalMinimum|formatMoney }} - {{ optimizeProfitsForTwoPlayers.totalMaximum|formatMoney }}</td>
+                            <td>{{ optimizeProfitsForThreePlayers.totalMinimum|formatMoney }} - {{ optimizeProfitsForThreePlayers.totalMaximum|formatMoney }}</td>
+                            <td>{{ optimizeProfitsForFourPlayers.totalMinimum|formatMoney }} - {{ optimizeProfitsForFourPlayers.totalMaximum|formatMoney }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'without_the_slices'|translateLocale|mbUcfirst }} ({{ 88|formatPercent }})</th>
+                            <td>{{ (optimizeProfitsForOnePlayer.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.88)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.88)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForThreePlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.88)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForFourPlayers.totalMinimum * 0.88)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.88)|formatMoney }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'pavel_s_slice'|translateLocale|mbUcfirst }} ({{ 2|formatPercent }})</th>
+                            <td>{{ (optimizeProfitsForOnePlayer.totalMinimum * 0.02)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.02)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.02)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.02)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForThreePlayers.totalMinimum * 0.02)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.02)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForFourPlayers.totalMinimum * 0.02)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.02)|formatMoney }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'madrazo_cartel_s_slice'|translateLocale|mbUcfirst }} ({{ 10|formatPercent }})</th>
+                            <td>{{ (optimizeProfitsForOnePlayer.totalMinimum * 0.1)|formatMoney }} - {{ (optimizeProfitsForOnePlayer.totalMaximum * 0.1)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForTwoPlayers.totalMinimum * 0.1)|formatMoney }} - {{ (optimizeProfitsForTwoPlayers.totalMaximum * 0.1)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForThreePlayers.totalMinimum * 0.1)|formatMoney }} - {{ (optimizeProfitsForThreePlayers.totalMaximum * 0.1)|formatMoney }}</td>
+                            <td>{{ (optimizeProfitsForFourPlayers.totalMinimum * 0.1)|formatMoney }} - {{ (optimizeProfitsForFourPlayers.totalMaximum * 0.1)|formatMoney }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,57 @@
+<table class="loginSuccesses">
+    <thead>
+        <tr>
+            <th role="button" data-sort-key="login_success-date" onclick="orderFilter(this, event);"
+                {% if filter['order']['login_success-date'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_success-date']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'date'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-lastname" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-lastname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-lastname']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'last_name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-firstname" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-firstname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-firstname']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'first_name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-username" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-username'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-username']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'username'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-mail" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-mail'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-mail']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'mail'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="login_success-ip" onclick="orderFilter(this, event);"
+                {% if filter['order']['login_success-ip'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_success-ip']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'ip_address'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loginSuccess in loginSuccesses %}
+            <tr id="loginSuccess_{{ loginSuccess.id }}">
+                <td data-sort-value="{{ loginSuccess.date }}" class="date"><div class="cell">{{ 'date_time'|translateLocale({date: date(loginSuccess.date)}) }}</div></td>
+                <td data-sort-value="{{ loginSuccess.lastname }}" class="lastname"><div class="cell">{{ loginSuccess.lastname }}</div></td>
+                <td data-sort-value="{{ loginSuccess.firstname }}" class="firstname"><div class="cell">{{ loginSuccess.firstname }}</div></td>
+                <td data-sort-value="{{ loginSuccess.username }}" class="username"><div class="cell">{{ loginSuccess.username }}</div></td>
+                <td data-sort-value="{{ loginSuccess.mail }}" class="mail"><div class="cell">{{ loginSuccess.mail }}</div></td>
+                <td data-sort-value="{{ loginSuccess.ip }}" class="ip"><div class="cell">{{ loginSuccess.ip }}</div></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="6">
+                <div class="pagination">
+                    {{ include('Widget/pagination.html.twig') }}
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

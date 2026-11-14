@@ -1,0 +1,186 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'doomsday'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>{{ 'doomsday_heist'|translateLocale|mbUcfirst }}</h3>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ ('act'|translateLocale|mbUcfirst ~ ' 1')|colon }} {{ 'the_data_breaches'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            {{ 'requires_a_facility'|translateLocale|mbUcfirst }}
+                            <br/>
+                            2 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'dead_courier'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'signal_intercepts'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'server_farm'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1072305|formatMoney }}</td>
+                        <td>{{ 877500|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1340381|formatMoney }}</td>
+                        <td>{{ 1096875|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 5 min 30 s / {{ 'kill'|translateLocale|mbUcfirst }} 78 {{ 'enemies'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ ('act'|translateLocale|mbUcfirst ~ ' 2')|colon }} {{ 'the_bogdan_problem'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            {{ 'requires_a_facility'|translateLocale|mbUcfirst }}
+                            <br/>
+                            2 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">Avenger</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'rescue_ulp'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'salvage_hard_drives'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'submarine_recon'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1567215|formatMoney }}</td>
+                        <td>{{ 1282500|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1959019|formatMoney }}</td>
+                        <td>{{ 1603125|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 15 min / {{ 'vehicle_damages_less_than'|translateLocale|mbUcfirst }} {{ 5|formatPercent }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ ('act'|translateLocale|mbUcfirst ~ ' 3')|colon }} {{ 'the_doomsday_scenario'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            {{ 'requires_a_facility'|translateLocale|mbUcfirst }}
+                            <br/>
+                            2 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'rescue_agent_14'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'escort_ulp'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'dam'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">Khanjali</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'air_defenses'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1979640|formatMoney }}</td>
+                        <td>{{ 1620000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 2474550|formatMoney }}</td>
+                        <td>{{ 2025000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 30 min / {{ 'no_failed_hacking'|translateLocale|mbUcfirst }} / {{ 'at_least_150_headshots_in_total'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

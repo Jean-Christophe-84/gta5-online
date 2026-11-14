@@ -1,0 +1,75 @@
+<table class="users">
+    <thead>
+        <tr>
+            <th role="button" data-sort-key="user-lastname" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-lastname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-lastname']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'last_name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-firstname" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-firstname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-firstname']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'first_name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-mail" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-mail'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-mail']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'mail'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-username" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-username'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-username']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'username'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="user-active" onclick="orderFilter(this, event);"
+                {% if filter['order']['user-active'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-active']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'active'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="group_gta_locale-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['group_gta_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['group_gta_locale-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'group'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button"><div class="cell"><label>{{ 'role'|translateLocale|mbUcfirst }}</label></div></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr id="user_{{ user.id }}">
+                <td data-sort-value="{{ user.lastname }}" class="lastname"><div class="cell">{{ user.lastname }}</div></td>
+                <td data-sort-value="{{ user.firstname }}" class="firstname"><div class="cell">{{ user.firstname }}</div></td>
+                <td data-sort-value="{{ user.mail }}" class="mail"><div class="cell">{{ user.mail }}</div></td>
+                <td data-sort-value="{{ user.username }}" class="username"><div class="cell">{{ user.username }}</div></td>
+                <td data-sort-value="{{ user.active ? 1 : 0 }}" class="active">
+                    <div class="cell">
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" value="1"{% if user.active %} checked{% endif %} class="stylized" id="userActive_{{ user.id }}"
+                                   onchange="editUser({{ user.id }}, this);" />
+                        </div>
+                    </div>
+                </td>
+                <td data-sort-value="{{ user.groupGtaName }}" class="groupGtaName"><div class="cell">{{ user.groupGtaName }}</div></td>
+                <td data-sort-value="{{ user.roles|role|striptags }}" class="role">
+                    <div class="cell">{{ user.roles|role|striptags }}</div>
+                    <button class="btn btn-warning" data-modal-open="#userModal" data-user-id="{{ user.id }}"
+                            data-user-name="{{ user.lastname ~ ' ' ~ user.firstname }}" id="formUser_{{ user.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                            <path fill="#FFFFFF" d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2zM156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5zM510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                <div class="pagination">
+                    {{ include('Widget/pagination.html.twig') }}
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

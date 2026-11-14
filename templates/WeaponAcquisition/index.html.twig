@@ -1,0 +1,224 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'weapon_acquisitions'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <div class="include filters">
+            {{ include('WeaponAcquisition/_partial/filter.html.twig') }}
+        </div>
+        {% if is_granted('WEAPON_ACQUISITION_ADD') %}
+            <div class="addWeaponAcquisition" id="addWeaponAcquisition">
+                <button class="btn btn-primary" data-modal-open="#weaponAcquisitionModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                        <path fill="#FFFFFF" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
+                    </svg>
+                </button>
+            </div>
+        {% endif %}
+        <div class="table-scroll weaponAcquisitions">
+            {{ include('WeaponAcquisition/_partial/template.html.twig') }}
+        </div>
+        <div class="modal" id="weaponAcquisitionModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="weaponAcquisitionModalTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="weaponAcquisitionModalTitle"></h2>
+                        <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <div class="submit">
+                            <button class="btn btn-success" onclick="formWeaponAcquisition();">{{ 'validate'|translateLocale|mbUcfirst }}</button>
+                            {% if is_granted('WEAPON_ACQUISITION_DELETE') %}
+                                <button class="btn btn-danger" data-delete-confirm onclick="deleteWeaponAcquisition();">{{ 'confirm'|translateLocale|mbUcfirst }}</button>
+                            {% endif %}
+                            <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        tippy(document.getElementById('returnMenu'), {content: "{{ 'return_to_main_menu'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('addWeaponAcquisition'), {content: "{{ 'add_a_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('removeAllFilters'), {content: "{{ 'remove_all_filters'|translateLocale|mbUcfirst|e('js') }}"});
+
+        let filterSearch;
+        let reloadTimerId;
+
+        function removeAllFilters() {
+            showLoader();
+
+            fetch('{{ path('filter_weapon-acquisition') }}?search=&page=' + {{ filter['page'] }})
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkWeaponAcquisitions(data.weaponAcquisitions);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function reloadFilter(urlOrder = '', page = null) {
+            showLoader();
+
+            let urlPage = (page !== null) ? '&page=' + page : '&page=' + {{ filter['page'] }};
+
+            fetch('{{ path('filter_weapon-acquisition') }}?search=' + encodeURIComponent(filterSearch.value) + urlPage + urlOrder)
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkWeaponAcquisitions(data.weaponAcquisitions);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        checkFilter();
+        checkWeaponAcquisitions({{ weaponAcquisitions|json_encode|raw }});
+
+        function checkFilter() {
+            filterSearch  = document.getElementById('filterSearch');
+            reloadTimerId = null;
+
+            filterSearch.addEventListener("input", () => {
+                clearTimeout(reloadTimerId);
+                reloadTimerId = setTimeout(() => {
+                    reloadFilter();
+                }, 500);
+            });
+        }
+
+        function checkWeaponAcquisitions(weaponAcquisitions) {
+            weaponAcquisitions.forEach(weaponAcquisition => {
+                tippy(document.getElementById('formWeaponAcquisition_' + weaponAcquisition.id), {content: '{{ 'edit_the_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }} "' + weaponAcquisition.name + '"'});
+                {% if is_granted('WEAPON_ACQUISITION_DELETE') %}
+                    tippy(document.getElementById('deleteWeaponAcquisition_' + weaponAcquisition.id), {content: '{{ 'delete_the_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }} "' + weaponAcquisition.name + '"'});
+                {% endif %}
+            });
+        }
+
+        function formWeaponAcquisition() {
+            showLoader();
+
+            let name                = document.querySelector('#weaponAcquisitionModal').querySelector('input[name="name"]');
+            let weaponAcquisitionId = document.querySelector('#weaponAcquisitionModal').querySelector('input[name="id"]');
+            let promotion           = document.querySelector('#weaponAcquisitionModal').querySelector('input[name="promotion"]');
+
+            if (!name.value) {
+                document.querySelector('#weaponAcquisitionModal').querySelector('#error_name').classList.add('show');
+
+                hideLoader();
+            } else {
+                postRequest('{{ path('form_weapon-acquisition') }}?name=' + encodeURIComponent(name.value) + '&weaponAcquisitionId=' + weaponAcquisitionId.value
+                    + '&promotion=' + (promotion.checked ? 1 : 0)
+                )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#weaponAcquisitionModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkWeaponAcquisitions(data.weaponAcquisitions);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        }
+
+        {% if is_granted('WEAPON_ACQUISITION_DELETE') %}
+            function deleteWeaponAcquisition() {
+                showLoader();
+
+                postRequest('{{ path('delete_weapon-acquisition') }}?weaponAcquisitionId=' + document.querySelector('#weaponAcquisitionModal').querySelector('input[name="id"]').value)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#weaponAcquisitionModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkWeaponAcquisitions(data.weaponAcquisitions);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        {% endif %}
+
+        document.addEventListener("click", (event) => {
+            const opener = event.target.closest("[data-modal-open]");
+
+            if (!opener) return;
+
+            showLoader();
+
+            const id         = opener.getAttribute("data-weapon-acquisition-id") ?? '';
+            const modal      = document.querySelector(opener.getAttribute("data-modal-open"));
+            const deleteMode = opener.hasAttribute("data-delete");
+
+            openModal(modal);
+
+            if (deleteMode) {
+                modal.querySelector('#weaponAcquisitionModalTitle').textContent = '{{ 'delete_the_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-weapon-acquisition-name") + '"';
+            } else if (id) {
+                modal.querySelector('#weaponAcquisitionModalTitle').textContent = '{{ 'edit_the_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-weapon-acquisition-name") + '"';
+            } else {
+                modal.querySelector('#weaponAcquisitionModalTitle').textContent = '{{ 'add_a_weapon_acquisition'|translateLocale|mbUcfirst|e('js') }}';
+            }
+
+            fetch('{{ path('get_weapon-acquisition') }}?weaponAcquisitionId=' + id + (deleteMode ? '&delete=1' : ''))
+            .then(response => response.json())
+            .then(data => {
+                modal.querySelector('.modal-body').innerHTML = data.template;
+                setDeleteMode(modal, deleteMode, data.deletable);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        });
+    </script>
+{% endblock %}

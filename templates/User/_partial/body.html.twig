@@ -1,0 +1,59 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="lastname">{{ 'last_name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="lastname" id="lastname"{% if user and user.lastname %} value="{{ user.lastname }}"{% endif %} class="form-input" />
+        <div class="error" id="error_lastname">{{ 'please_enter_the_last_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="firstname">{{ 'first_name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="firstname" id="firstname"{% if user and user.firstname %} value="{{ user.firstname }}"{% endif %} class="form-input" />
+        <div class="error" id="error_firstname">{{ 'please_enter_the_first_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="mail">{{ 'mail'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="mail" id="mail"{% if user and user.mail %} value="{{ user.mail }}"{% endif %} class="form-input" />
+        <div class="error" id="error_mail">{{ 'please_enter_the_mail'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="password">{{ 'password'|translateLocale|mbUcfirst }}</label>
+        <input type="password" name="password" id="password" autocomplete="new-password" maxlength="255" class="form-input" />
+        <div class="error" id="error_password">{{ 'the_password_must_contain_at_least'|translateLocale({count: constant('App\\Helper\\UserHelper::PASSWORD_MIN_LENGTH')})|mbUcfirst }} !</div>
+        <span class="help">{{ 'leave_blank_if_there_are_no_changes'|translateLocale|mbUcfirst }}</span>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="username">{{ 'username'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="username" id="username"{% if user and user.username %} value="{{ user.username }}"{% endif %} class="form-input" />
+        <div class="error" id="error_username">{{ 'please_enter_the_username'|translateLocale|mbUcfirst }} !</div>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="active">{{ 'active'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="active" id="active" value="1"{% if user and user.active %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 45%;">
+        <label class="form-label" for="groupGtaId">{{ 'group'|translateLocale|mbUcfirst }}</label>
+        <select name="groupGtaId" id="groupGtaId">
+            <option value="">{{ 'select_the_group'|translateLocale|mbUcfirst }}</option>
+            {% for groupGtaLocale in groupGtaLocales %}
+                <option value="{{ groupGtaLocale.groupGta.id }}"
+                    {% if user and groupGtaLocale.groupGta.id == user.groupGtaId %} selected{% endif %}>{{ groupGtaLocale.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="error" id="error_groupGtaId">{{ 'please_select_the_group'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 45%;">
+        <label class="form-label" for="role">{{ 'role'|translateLocale|mbUcfirst }}</label>
+        <select name="role" id="role">
+            <option value="">{{ 'select_the_role'|translateLocale|mbUcfirst }}</option>
+            {% for role in roles %}
+                <option value="{{ role }}"
+                    {% if (user and role == user.roles|role|striptags) or (not user and role == 'ROLE_USER') %} selected{% endif %}>{{ role }}</option>
+            {% endfor %}
+        </select>
+        <div class="error" id="error_role">{{ 'please_select_the_role'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <input type="hidden" name="id" value="{{ user ? user.id : '' }}" />
+</div>

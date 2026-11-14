@@ -1,0 +1,233 @@
+<table>
+    <tbody>
+        <tr>
+            <th colspan="12">
+                <div class="resetHeistKortzCenter">
+                    <a onclick="resetHeistKortzCenter();" class="btn btn-danger" id="resetHeistKortzCenter"
+                        {% if not (heistKortzCenter.firstTimeInWeek is not same as(null) or heistKortzCenter.difficulty is not same as(null)
+                            or heistKortzCenter.material is not same as(null) or heistKortzCenter.mainLoot is not same as(null)
+                            or heistKortzCenter.weapon is not same as(null) or heistKortzCenter.vehicle is not same as(null))
+                        %} style="display: none;"{% endif %}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                            <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                        </svg>
+                    </a>
+                </div>
+                {{ 'emplacements'|translateLocale|mbUcfirst }}
+                <br/>
+                {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 100000|formatMoney }}
+                <br/>
+                {{ 'requires_a_villa_and_an_art_studio'|translateLocale|mbUcfirst }}
+                <br/>
+                1 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+            </th>
+        </tr>
+        <tr>
+            <th><label for="firstTimeInWeek">{{ 'first_heist_of_the_week'|translateLocale|mbUcfirst }}<br/>({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</label></th>
+            <th><label for="difficulty">{{ 'difficulty'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="material">{{ 'infiltration_equipment'|translateLocale({count: 1})|mbUcfirst }}</label></th>
+            <th><label for="weapon">{{ 'unmarked_weapons'|translateLocale|mbUcfirst }}</label></th>
+            <th><label for="vehicle">{{ 'getaway_vehicle'|translateLocale|mbUcfirst }}</label></th>
+            <th colspan="7">{{ 'loots'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <td>
+                <select class="form_kortz_center_heist" name="first_time_in_week" id="firstTimeInWeek">
+                    <option value="null"{% if heistKortzCenter.firstTimeInWeek is same as(null) %} selected{% endif %}>{{ 'choose'|translateLocale|mbUcfirst }}...</option>
+                    <option value="0"{% if heistKortzCenter.firstTimeInWeek is same as(false) %} selected{% endif %}>{{ 'no'|translateLocale|mbUcfirst }}</option>
+                    <option value="1"{% if heistKortzCenter.firstTimeInWeek is same as(true) %} selected{% endif %}>{{ 'yes'|translateLocale|mbUcfirst }}</option>
+                </select>
+            </td>
+            <td>
+                <select class="form_kortz_center_heist" name="difficulty" id="difficulty">
+                    <option value="0">{{ 'choose_the_difficulty'|translateLocale|mbUcfirst }}...</option>
+                    {% for difficulty in difficulties %}
+                        <option value="{{ difficulty.value }}"
+                            {% if heistKortzCenter.difficulty and heistKortzCenter.difficulty.value == difficulty.value %} selected{% endif %}>{{ difficulty|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_kortz_center_heist" name="material" id="material">
+                    <option value="0">{{ 'choose_the_infiltration_equipment'|translateLocale|mbUcfirst }}...</option>
+                    {% for material in materials %}
+                        <option value="{{ material.value }}"
+                            {% if heistKortzCenter.material and heistKortzCenter.material.value == material.value %} selected{% endif %}>{{ material|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_kortz_center_heist" name="weapon" id="weapon">
+                    <option value="0">{{ 'choose_the_unmarked_weapon'|translateLocale|mbUcfirst }}...</option>
+                    {% for weapon in weapons %}
+                        <option value="{{ weapon.value }}"
+                            {% if heistKortzCenter.weapon and heistKortzCenter.weapon.value == weapon.value %} selected{% endif %}>{{ weapon|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select class="form_kortz_center_heist" name="vehicle" id="vehicle">
+                    <option value="0">{{ 'choose_the_getaway_vehicle'|translateLocale|mbUcfirst }}...</option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.value }}"
+                            {% if heistKortzCenter.vehicle and heistKortzCenter.vehicle.value == vehicle.value %} selected{% endif %}>{{ vehicle|translateLocale|mbUcfirst }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td colspan="7" class="main-loot">
+                <label class="form-label" for="mainLoot">{{ 'main_painting'|translateLocale|mbUcfirst }}</label>
+                <select class="form_kortz_center_heist" name="main_loot_id" id="mainLoot">
+                    <option value="0">{{ 'choose_the_main_painting'|translateLocale|mbUcfirst }}...</option>
+                    {% if heistKortzCenterMainLoots is not empty %}
+                        {% for heistKortzCenterMainLoot in heistKortzCenterMainLoots %}
+                            <option value="{{ heistKortzCenterMainLoot.id }}"
+                                {% if heistKortzCenter.mainLoot and heistKortzCenter.mainLoot.id == heistKortzCenterMainLoot.id %} selected{% endif %}>{{ heistKortzCenterMainLoot.name ~ ' (' ~ heistKortzCenterMainLoot.price|formatMoney ~ ')' }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </td>
+        </tr>
+        <tr class="image-kortz-center">
+            <th colspan="5" rowspan="{{ heistKortzCenterSecondaryLoots|length + 1 }}">
+                <img src="{{ asset('assets/images/kortz_center.png') }}" alt="Kortz Center" />
+                <br/>
+                <span>{{ 'to_reach_loots_from_7_to_13'|translateLocale|mbUcfirst }}, {{ 'at_least_two_players_are_required'|translateLocale|mbUcfirst }}</span>
+            </th>
+            <th>N°</th>
+            <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'price'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'slice_in_the_bag'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'type'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'here_in_the_kortz_center'|translateLocale|mbUcfirst }}</th>
+            <th>{{ 'buyer_s_request'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        {% for heistKortzCenterSecondaryLoot in heistKortzCenterSecondaryLoots|sort((firstLoot, secondLoot) => firstLoot.id <=> secondLoot.id) %}
+            {% set heistKortzCenterSecondaryLootNameIds = [] %}
+            {% set heistKortzCenterSecondaryLootNameNames = [] %}
+            {% if heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameIds is not null %}
+                {% set heistKortzCenterSecondaryLootNameIds = heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameIds|split('+') %}
+            {% endif %}
+            {% if heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameNames is not null %}
+                {% set heistKortzCenterSecondaryLootNameNames = heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameNames|split('+') %}
+            {% endif %}
+            <tr class="secondary_loot_kortz_center_heist {{ heistKortzCenterSecondaryLoot.type }}">
+                <td>{{ heistKortzCenterSecondaryLoot.id }}</td>
+                <td class="secondary_loot_name">
+                    {% if heistKortzCenterSecondaryLootNameIds|length > 1 %}
+                        <select name="heistKortzCenterSecondaryLootNameId" id="heistKortzCenterSecondaryLootNameId_{{ heistKortzCenterSecondaryLoot.id }}"
+                                class="form_secondary_loot_kortz_center_heist" data-id="{{ heistKortzCenterSecondaryLoot.id }}"
+                                data-type="heist_kortz_center_secondary_loot_name_id" data-multi-select>
+                            {% for key, heistKortzCenterSecondaryLootNameId in heistKortzCenterSecondaryLootNameIds %}
+                                <option
+                                    value="{{ heistKortzCenterSecondaryLootNameId }}"{% if heistKortzCenterSecondaryLoot.name == heistKortzCenterSecondaryLootNameNames[key] %} selected{% endif %}>{{ heistKortzCenterSecondaryLootNameNames[key] ?? '' }}</option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        {{ heistKortzCenterSecondaryLootNameNames[0] }}
+                    {% endif %}
+                </td>
+                <td class="secondary_loot_price">
+                    <input type="number" min="0" step="500" class="form_secondary_loot_kortz_center_heist form-input"
+                           data-id="{{ heistKortzCenterSecondaryLoot.id }}" data-type="price" value="{{ heistKortzCenterSecondaryLoot.price }}" />
+                </td>
+                <td>{{ heistKortzCenterSecondaryLoot.percentageBag|formatPercent(2, true) }}</td>
+                <td>{{ heistKortzCenterSecondaryLoot.type|heistKortzCenterTypeLabel }}</td>
+                <td>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="form_secondary_loot_kortz_center_heist stylized" data-id="{{ heistKortzCenterSecondaryLoot.id }}"
+                               data-type="active" value="1"{% if heistKortzCenterSecondaryLoot.active %} checked{% endif %} />
+                    </div>
+                </td>
+                <td>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="form_secondary_loot_kortz_center_heist stylized" data-id="{{ heistKortzCenterSecondaryLoot.id }}"
+                               data-type="buyer_request" value="1"{% if heistKortzCenterSecondaryLoot.buyerRequest %} checked{% endif %} />
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="12">1 {{ 'player'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'player'|translateLocale|mbUcfirst }}</th>
+            <th colspan="4">{{ 'loots'|translateLocale|mbUcfirst }}</th>
+            <th colspan="7">{{ 'earnings'|translateLocale|mbUcfirst ~ (optimizeProfitsForOnePlayer.amountBuyerRequest ? ' (+ ' ~ optimizeProfitsForOnePlayer.amountBuyerRequest|formatMoney ~ ' ' ~ 'if_the_buyer_s_requests_have_been_retrieved'|translateLocale|mbUcfirst ~ ')') ~ (optimizeProfitsForOnePlayer.amountEliteChallenge ? ' (+ ' ~ optimizeProfitsForOnePlayer.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale|mbUcfirst ~ ')') }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td colspan="4">{{ optimizeProfitsForOnePlayer.kortzCenter[1]|raw }}</td>
+            <td colspan="7">{{ (optimizeProfitsForOnePlayer.totalMain)|formatMoney ~ ' (' ~ (optimizeProfitsForOnePlayer.totalMainSpotted)|formatMoney ~ ' ' ~ 'if_detected'|translateLocale ~ ')'}}</td>
+        </tr>
+        <tr>
+            <th colspan="12">2 {{ 'players'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'player'|translateLocale|mbUcfirst }}</th>
+            <th colspan="4">{{ 'loots'|translateLocale|mbUcfirst }}</th>
+            <th colspan="7">{{ 'earnings'|translateLocale|mbUcfirst ~ (optimizeProfitsForTwoPlayers.amountBuyerRequest ? ' (+ ' ~ optimizeProfitsForTwoPlayers.amountBuyerRequest|formatMoney ~ ' ' ~ 'if_the_buyer_s_requests_have_been_retrieved'|translateLocale|mbUcfirst ~ ')') ~ (optimizeProfitsForTwoPlayers.amountEliteChallenge ? ' (+ ' ~ optimizeProfitsForTwoPlayers.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale|mbUcfirst ~ ')') }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td colspan="4">{{ optimizeProfitsForTwoPlayers.kortzCenter[1]|raw }}</td>
+            <td colspan="7">{{ (optimizeProfitsForTwoPlayers.totalMain)|formatMoney ~ ' (' ~ (optimizeProfitsForTwoPlayers.totalMainSpotted)|formatMoney ~ ' ' ~ 'if_detected'|translateLocale ~ ')'}}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td colspan="4">{{ optimizeProfitsForTwoPlayers.kortzCenter[2]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForTwoPlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+        <tr>
+            <th colspan="12">3 {{ 'players'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'player'|translateLocale|mbUcfirst }}</th>
+            <th colspan="4">{{ 'loots'|translateLocale|mbUcfirst }}</th>
+            <th colspan="7">{{ 'earnings'|translateLocale|mbUcfirst ~ (optimizeProfitsForThreePlayers.amountBuyerRequest ? ' (+ ' ~ optimizeProfitsForThreePlayers.amountBuyerRequest|formatMoney ~ ' ' ~ 'if_the_buyer_s_requests_have_been_retrieved'|translateLocale|mbUcfirst ~ ')') ~ (optimizeProfitsForThreePlayers.amountEliteChallenge ? ' (+ ' ~ optimizeProfitsForThreePlayers.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale|mbUcfirst ~ ')') }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td colspan="4">{{ optimizeProfitsForThreePlayers.kortzCenter[1]|raw }}</td>
+            <td colspan="7">{{ (optimizeProfitsForThreePlayers.totalMain)|formatMoney ~ ' (' ~ (optimizeProfitsForThreePlayers.totalMainSpotted)|formatMoney ~ ' ' ~ 'if_detected'|translateLocale ~ ')'}}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td colspan="4">{{ optimizeProfitsForThreePlayers.kortzCenter[2]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForThreePlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+        <tr>
+            <th>J3</th>
+            <td colspan="4">{{ optimizeProfitsForThreePlayers.kortzCenter[3]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForThreePlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+        <tr>
+            <th colspan="12">4 {{ 'players'|translateLocale|mbUcfirst }}</th>
+        </tr>
+        <tr>
+            <th>{{ 'player'|translateLocale|mbUcfirst }}</th>
+            <th colspan="4">{{ 'loots'|translateLocale|mbUcfirst }}</th>
+            <th colspan="7">{{ 'earnings'|translateLocale|mbUcfirst ~ (optimizeProfitsForFourPlayers.amountBuyerRequest ? ' (+ ' ~ optimizeProfitsForFourPlayers.amountBuyerRequest|formatMoney ~ ' ' ~ 'if_the_buyer_s_requests_have_been_retrieved'|translateLocale|mbUcfirst ~ ')') ~ (optimizeProfitsForFourPlayers.amountEliteChallenge ? ' (+ ' ~ optimizeProfitsForFourPlayers.amountEliteChallenge|formatMoney ~ ' ' ~ 'if_elite_challenge'|translateLocale|mbUcfirst ~ ')') }}</th>
+        </tr>
+        <tr>
+            <th>J1</th>
+            <td colspan="4">{{ optimizeProfitsForFourPlayers.kortzCenter[1]|raw }}</td>
+            <td colspan="7">{{ (optimizeProfitsForFourPlayers.totalMain)|formatMoney ~ ' (' ~ (optimizeProfitsForFourPlayers.totalMainSpotted)|formatMoney ~ ' ' ~ 'if_detected'|translateLocale ~ ')'}}</td>
+        </tr>
+        <tr>
+            <th>J2</th>
+            <td colspan="4">{{ optimizeProfitsForFourPlayers.kortzCenter[2]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForFourPlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+        <tr>
+            <th>J3</th>
+            <td colspan="4">{{ optimizeProfitsForFourPlayers.kortzCenter[3]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForFourPlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+        <tr>
+            <th>J4</th>
+            <td colspan="4">{{ optimizeProfitsForFourPlayers.kortzCenter[4]|raw }}</td>
+            <td colspan="7">{{ optimizeProfitsForFourPlayers.totalSecondary|formatMoney }}</td>
+        </tr>
+    </tbody>
+</table>

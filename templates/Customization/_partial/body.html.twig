@@ -1,0 +1,9 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name" class="form-input"
+            {% if customization and customization.name %} value="{{ customization.name }}"{% endif %} />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <input type="hidden" name="id" value="{{ customization ? customization.id : '' }}">
+</div>

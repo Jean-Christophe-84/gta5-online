@@ -1,0 +1,315 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'apartment'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>{{ 'apartment'|translateLocale|mbUcfirst }}</h3>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ 'the_fleeca_job'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 11500|formatMoney }}
+                            <br/>
+                            2 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'scope_out'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">Kuruma</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'easy'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 150398|formatMoney }}</td>
+                        <td>{{ 100625|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 301875|formatMoney }}</td>
+                        <td>{{ 201250|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 377344|formatMoney }}</td>
+                        <td>{{ 250250|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    <tr>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 5 min 20 s / {{ 'vehicle_damages_less_than'|translateLocale|mbUcfirst }} {{ 6|formatPercent }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ 'the_prison_break'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'the_plane'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'the_bus'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'station'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'wet_work'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'easy'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 525000|formatMoney }}</td>
+                        <td>{{ 300000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1050000|formatMoney }}</td>
+                        <td>{{ 700000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1312500|formatMoney }}</td>
+                        <td>{{ 875000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'Rashkovsky'|colon }} {{ 'a_loss_of'|translateLocale|mbUcfirst }} {{ 1|formatPercent }} {{ 'or_less'|translateLocale }} / {{ 'extraction_in_less_than'|translateLocale|mbUcfirst }} 4 min 40 s / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ 'the_humane_labs_raid'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'key_codes'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'insurgents'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'emp'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">Valkyrie</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'deliver_the_emp'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'easy'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 708750|formatMoney }}</td>
+                        <td>{{ 472500|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1417500|formatMoney }}</td>
+                        <td>{{ 945000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1771875|formatMoney }}</td>
+                        <td>{{ 1181500|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 11 min / {{ 'vehicle_damages_less_than'|translateLocale|mbUcfirst }} {{ 2|formatPercent }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ 'series_a_funding'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'coke'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'trash_truck'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'bikers'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'weed'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'steal_meth'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'easy'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 530250|formatMoney }}</td>
+                        <td>{{ 353500|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 1060500|formatMoney }}</td>
+                        <td>{{ 707000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1325625|formatMoney }}</td>
+                        <td>{{ 883750|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 6 min 30 s / {{ 'kill'|translateLocale|mbUcfirst }} 75 {{ 'enemies'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">
+                            {{ 'the_pacific_standard_job'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'implementation_fees'|translateLocale|mbUcfirst|colon }} {{ 25000|formatMoney }}
+                            <br/>
+                            4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{ 'preparation_mission'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'vans'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'signal'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'hack'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'convoy'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">{{ 'bikes'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'easy'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 1125000|formatMoney }}</td>
+                        <td>{{ 750000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 2250000|formatMoney }}</td>
+                        <td>{{ 1500000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 2812500|formatMoney }}</td>
+                        <td>{{ 1875000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 10 min 15 s / {{ 'the_noose_is_not_called'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

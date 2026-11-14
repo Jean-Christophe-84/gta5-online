@@ -1,0 +1,94 @@
+<div class="filter" style="--filter-grow: 17;">
+    <label class="form-label" for="filterWeaponManufacturerId">
+        {{ 'weapon_manufacturer'|translateLocale|mbUcfirst }} ({{ filterWeaponManufacturerIds|length }})
+    </label>
+    <select id="filterWeaponManufacturerId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterWeaponManufacturerId in filterWeaponManufacturerIds %}
+            <option value="{{ filterWeaponManufacturerId.id }}"
+                {% if filter.weaponManufacturerId == filterWeaponManufacturerId.id %} selected{% endif %}>{{ filterWeaponManufacturerId.name ~ ' (' ~ filterWeaponManufacturerId.numberWeapons ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 19;">
+    <label class="form-label" for="filterTitleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }} ({{ filterTitleUpdateIds|length }})</label>
+    <select id="filterTitleUpdateId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterTitleUpdateId in filterTitleUpdateIds %}
+            <option value="{{ filterTitleUpdateId.id }}"
+                {% if filter.titleUpdateId == filterTitleUpdateId.id %} selected{% endif %}>{{ filterTitleUpdateId.name ~ ' (' ~ filterTitleUpdateId.numberWeapons ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% if is_granted('WEAPON_OWN') %}
+    <div class="filter" style="--filter-grow: 10;">
+        <label class="form-label" for="filterOwned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <select id="filterOwned">
+            <option value="null"{% if filter.owned is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+            {% for filterOwned in filterOwneds %}
+                <option value="{{ filterOwned.owned }}"
+                    {% if not filter.owned is same as(null) and filter.owned == filterOwned.owned %} selected{% endif %}>{{ (filterOwned.owned == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) ~ ' (' ~ filterOwned.numberWeapons ~ ')' }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterOwned" value="null" />
+{% endif %}
+<div class="filter" style="--filter-grow: 11;">
+    <label class="form-label" for="filterWeaponTwo">{{ 'variant'|translateLocale|mbUcfirst }}</label>
+    <select id="filterWeaponTwo">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterWeaponTwo in filterWeaponTwos %}
+            <option value="{{ filterWeaponTwo.weaponTwo }}"
+                {% if filter.weaponTwo == filterWeaponTwo.weaponTwo %} selected{% endif %}>{{ filterWeaponTwo.weaponTwo|weaponTwoLabelWeapon ~ ' (' ~ filterWeaponTwo.numberWeapons ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 11;">
+    <label class="form-label" for="filterEvolution">{{ 'evolution'|translateLocale|mbUcfirst }}</label>
+    <select id="filterEvolution">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterEvolution in filterEvolutions %}
+            <option value="{{ filterEvolution.evolution }}"
+                {% if filter.evolution == filterEvolution.evolution %} selected{% endif %}>{{ filterEvolution.evolution|evolutionLabelWeapon ~ ' (' ~ filterEvolution.numberWeapons ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 16;">
+    <label class="form-label" for="filterWeaponClassIds">{{ 'weapon_classes'|translateLocale|mbUcfirst }} ({{ filterWeaponClassIds|length }})</label>
+    <select id="filterWeaponClassIds" multiple data-multi-select>
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% if filterWeaponClassIds is not empty %}
+            {% for filterWeaponClassId in filterWeaponClassIds %}
+                <option value="{{ filterWeaponClassId.id }}"
+                    {% if filterWeaponClassId.id in filter.weaponClassIds %} selected{% endif %}>{{ filterWeaponClassId.name ~ ' (' ~ filterWeaponClassId.numberWeapons ~ ')' }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 18;">
+    <label class="form-label" for="filterWeaponAcquisitionIds">
+        {{ 'weapon_acquisitions'|translateLocale|mbUcfirst }} ({{ filterWeaponAcquisitionIds|length }})
+    </label>
+    <select id="filterWeaponAcquisitionIds" multiple data-multi-select>
+        {% if filterWeaponAcquisitionIds is not empty %}
+            {% for filterWeaponAcquisitionId in filterWeaponAcquisitionIds %}
+                <option value="{{ filterWeaponAcquisitionId.id }}"
+                    {% if filterWeaponAcquisitionId.id in filter.weaponAcquisitionIds %} selected{% endif %}>{{ filterWeaponAcquisitionId.name ~ ' (' ~ filterWeaponAcquisitionId.numberWeapons ~ ')' }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="removeAllFilters">
+    {% if filter.weaponManufacturerId != 0 or filter.titleUpdateId != 0 or filter.owned is not same as(null) or filter.weaponTwo != 0 or filter.evolution != 0
+        or filter.weaponClassIds is not empty or filter.weaponAcquisitionIds is not empty or filter.notWeaponClassIds is not empty
+        or filter.notWeaponAcquisitionIds or filter.search != ""
+    %}
+        <a onclick="removeAllFilters();" class="btn btn-danger" id="removeAllFilters">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+            </svg>
+        </a>
+    {% endif %}
+</div>

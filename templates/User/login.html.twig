@@ -1,0 +1,247 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ "connection"|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="login content">
+        <div class="elements">
+            <div class="element-left"></div>
+            <div class="element">
+                <form action="{{ path('login') }}" method="post" class="validation_login">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                    <div class="login-header">
+                        <h1>GTA 5 Online</h1>
+                        <p>{{ "connection"|translateLocale|mbUcfirst }}</p>
+                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="username">{{ "mail"|translateLocale|mbUcfirst }}</label>
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" autocomplete="username" required autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ "password"|translateLocale|mbUcfirst }}</label>
+                        <input type="password" class="form-control" id="password" name="_password" autocomplete="current-password" required />
+                    </div>
+                    <div class="remember-me checkbox-wrapper-2">
+                        <input type="checkbox" class="stylized" id="remember_me" name="_remember_me" checked />
+                        <label for="remember_me">{{ "stay_connected"|translateLocale|mbUcfirst }}</label>
+                    </div>
+                    <div class="turnstile">
+                        {{ turnstile_html({
+                            'data-action': 'login', 'data-callback': 'enableLoginSubmit', 'data-error-callback': 'disableLoginSubmit',
+                            'data-expired-callback': 'disableLoginSubmit', 'data-size': 'flexible', 'data-timeout-callback': 'disableLoginSubmit'
+                        }) }}
+                    </div>
+                    <div class="submit">
+                        <button type="submit" class="btn btn-primary" id="loginSubmit" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="iconSvg">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path d="M409 337C418.4 327.6 418.4 312.4 409 303.1L265 159C258.1 152.1 247.8 150.1 238.8 153.8C229.8 157.5 224 166.3 224 176L224 256L112 256C85.5 256 64 277.5 64 304L64 336C64 362.5 85.5 384 112 384L224 384L224 464C224 473.7 229.8 482.5 238.8 486.2C247.8 489.9 258.1 487.9 265 481L409 337zM416 480C398.3 480 384 494.3 384 512C384 529.7 398.3 544 416 544L480 544C533 544 576 501 576 448L576 192C576 139 533 96 480 96L416 96C398.3 96 384 110.3 384 128C384 145.7 398.3 160 416 160L480 160C497.7 160 512 174.3 512 192L512 448C512 465.7 497.7 480 480 480L416 480z"/>
+                            </svg>
+                            {{ "log_me_in"|translateLocale|mbUcfirst }}
+                        </button>
+                    </div>
+                    <div class="login-links">
+                        <button type="button" onclick="openAccountModal('forgotPasswordModal');">{{ 'i_forgot_my_password'|translateLocale|mbUcfirst }}</button>
+                        <button type="button" onclick="openAccountModal('registerModal');">{{ 'create_an_account'|translateLocale|mbUcfirst }}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="element-right"></div>
+        </div>
+    </div>
+    {{ include('_partial/alert.html.twig') }}
+    <div class="modal modal--auto-height" id="registerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="registerModalTitle">{{ 'create_an_account'|translateLocale|mbUcfirst }}</h2>
+                    <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                </div>
+                <div class="modal-body">
+                    <div class="group">
+                        <div class="form-group" style="--filter-width: 33%;">
+                            <label class="form-label required" for="registerLastname">{{ 'last_name'|translateLocale|mbUcfirst }}</label>
+                            <input type="text" name="lastname" id="registerLastname" autocomplete="family-name" maxlength="255" class="form-input" />
+                            <div class="error" id="error_registerLastname">{{ 'please_enter_the_last_name'|translateLocale|mbUcfirst }} !</div>
+                        </div>
+                        <div class="form-group" style="--filter-width: 33%;">
+                            <label class="form-label required" for="registerFirstname">{{ 'first_name'|translateLocale|mbUcfirst }}</label>
+                            <input type="text" name="firstname" id="registerFirstname" autocomplete="given-name" maxlength="255" class="form-input" />
+                            <div class="error" id="error_registerFirstname">{{ 'please_enter_the_first_name'|translateLocale|mbUcfirst }} !</div>
+                        </div>
+                        <div class="form-group" style="--filter-width: 34%;">
+                            <label class="form-label required" for="registerUsername">{{ 'username'|translateLocale|mbUcfirst }}</label>
+                            <input type="text" name="username" id="registerUsername" autocomplete="nickname" maxlength="255" class="form-input" />
+                            <div class="error" id="error_registerUsername">{{ 'please_enter_the_username'|translateLocale|mbUcfirst }} !</div>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="form-group" style="--filter-width: 50%;">
+                            <label class="form-label required" for="registerMail">{{ 'mail'|translateLocale|mbUcfirst }}</label>
+                            <input type="email" name="mail" id="registerMail" autocomplete="email" maxlength="255" class="form-input" />
+                            <div class="error" id="error_registerMail">{{ 'please_enter_the_mail'|translateLocale|mbUcfirst }} !</div>
+                        </div>
+                        <div class="form-group" style="--filter-width: 50%;">
+                            <label class="form-label required" for="registerPassword">{{ 'password'|translateLocale|mbUcfirst }}</label>
+                            <input type="password" name="password" id="registerPassword" autocomplete="new-password" maxlength="255" class="form-input" />
+                            <div class="error" id="error_registerPassword">{{ 'please_enter_a_valid_password'|translateLocale|mbUcfirst }} !</div>
+                            <span class="help">{{ 'the_password_must_contain_at_least'|translateLocale({count: passwordMinLength})|mbUcfirst }}, {{ 'without_your_personal_information'|translateLocale }}.</span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div class="form-group">
+                            <div class="remember-me checkbox-wrapper-2">
+                                <input type="checkbox" class="stylized" id="registerPersonalDatas" />
+                                <label for="registerPersonalDatas">
+                                    {{ 'i_agree_that_my_personal_datas_will_be_stored_according_to_the'|translateLocale|mbUcfirst }}
+                                    <a href="{{ path('legal_mentions') }}#privacy_policy" target="_blank">{{ 'privacy_policy'|translateLocale }}</a>
+                                </label>
+                            </div>
+                            <div class="error" id="error_registerPersonalDatas">{{ 'please_accept_the_privacy_policy_to_create_your_account'|translateLocale|mbUcfirst }} !</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="submit">
+                        <button class="btn btn-success" onclick="registerUser();">{{ 'create_my_account'|translateLocale|mbUcfirst }}</button>
+                        <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal--auto-height" id="forgotPasswordModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="forgotPasswordModalTitle">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="forgotPasswordModalTitle">{{ 'i_forgot_my_password'|translateLocale|mbUcfirst }}</h2>
+                    <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                </div>
+                <div class="modal-body">
+                    <div class="group">
+                        <div class="form-group" style="--filter-width: 100%;">
+                            <label class="form-label required" for="forgotPasswordMail">{{ 'mail'|translateLocale|mbUcfirst }}</label>
+                            <input type="email" name="mail" id="forgotPasswordMail" autocomplete="email" maxlength="255" class="form-input" />
+                            <div class="error" id="error_forgotPasswordMail">{{ 'please_enter_the_mail'|translateLocale|mbUcfirst }} !</div>
+                            <span class="help">{{ 'enter_your_mail_to_receive_a_link'|translateLocale|mbUcfirst }}.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="submit">
+                        <button class="btn btn-success" onclick="forgotPassword();">{{ 'send_me_a_link'|translateLocale|mbUcfirst }}</button>
+                        <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ include('_partial/footer.html.twig') }}
+{% endblock %}
+
+{% block stylesheets %}
+{#    {{ tippy_css() }}#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ turnstile_js() }}
+    <script type="text/javascript">
+        function disableLoginSubmit() {
+            document.getElementById('loginSubmit').disabled = true;
+        }
+
+        function enableLoginSubmit() {
+            document.getElementById('loginSubmit').disabled = false;
+        }
+
+        function openAccountModal(id) {
+            const modal = document.getElementById(id);
+
+            modal.querySelectorAll('input').forEach(input => input.value = '');
+            modal.querySelectorAll('input[type="checkbox"]').forEach(input => input.checked = false);
+            modal.querySelectorAll('div.error').forEach(error => error.classList.remove('show'));
+
+            openModal(modal);
+        }
+
+        function registerUser() {
+            const modal  = document.querySelector('#registerModal');
+            const fields = {
+                registerLastname     : modal.querySelector('#registerLastname').value.trim() !== '',
+                registerFirstname    : modal.querySelector('#registerFirstname').value.trim() !== '',
+                registerUsername     : modal.querySelector('#registerUsername').value.trim() !== '',
+                registerMail         : modal.querySelector('#registerMail').value.trim() !== '',
+                registerPassword     : isValidPassword(modal.querySelector('#registerPassword').value),
+                registerPersonalDatas: modal.querySelector('#registerPersonalDatas').checked
+            };
+
+            Object.entries(fields).forEach(([field, valid]) => {
+                modal.querySelector('#error_' + field).classList.toggle('show', !valid);
+            });
+
+            if (Object.values(fields).includes(false)) {
+                return;
+            }
+
+            showLoader();
+
+            postRequest('{{ path('register_user') }}'
+                + '?lastname=' + encodeURIComponent(modal.querySelector('#registerLastname').value)
+                + '&firstname=' + encodeURIComponent(modal.querySelector('#registerFirstname').value)
+                + '&username=' + encodeURIComponent(modal.querySelector('#registerUsername').value)
+                + '&mail=' + encodeURIComponent(modal.querySelector('#registerMail').value)
+                + '&password=' + encodeURIComponent(modal.querySelector('#registerPassword').value)
+                + '&personalDatas=1'
+            )
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    closeModal(modal);
+                }
+                showAlert(data.success, data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function forgotPassword() {
+            const modal = document.querySelector('#forgotPasswordModal');
+            const mail  = modal.querySelector('#forgotPasswordMail');
+
+            modal.querySelector('#error_forgotPasswordMail').classList.toggle('show', mail.value.trim() === '');
+
+            if (mail.value.trim() === '') {
+                return;
+            }
+
+            showLoader();
+
+            postRequest('{{ path('forgot_password_user') }}?mail=' + encodeURIComponent(mail.value))
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    closeModal(modal);
+                }
+                showAlert(data.success, data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+    </script>
+{% endblock %}

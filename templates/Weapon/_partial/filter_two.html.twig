@@ -1,0 +1,30 @@
+<div class="filter" style="--filter-grow: 55;">
+    <label class="form-label" for="filterSearch">{{ 'search'|translateLocale|mbUcfirst }} ({{ 'independent_of_other_filters'|translateLocale }})</label>
+    <input type="search" id="filterSearch" value="{{ filter.search }}" class="form-input" />
+</div>
+<div class="filter" style="--filter-grow: 11; text-align: right;">
+    <label class="form-label" style="padding-top: 32px;">{{ 'to_be_removed'|translateLocale|mbUcfirst|colon }}</label>
+</div>
+<div class="filter" style="--filter-grow: 16;">
+    <label class="form-label" for="filterNotWeaponClassIds">{{ 'weapon_classes'|translateLocale|mbUcfirst }} ({{ filterNotWeaponClassIds|length }})</label>
+    <select id="filterNotWeaponClassIds" multiple data-multi-select>
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterNotWeaponClassId in filterNotWeaponClassIds %}
+            <option value="{{ filterNotWeaponClassId.id }}"
+                {% if filterNotWeaponClassId.id in filter.notWeaponClassIds %} selected{% endif %}>{{ filterNotWeaponClassId.name ~ ' (' ~ filterNotWeaponClassId.numberWeapons ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 18;">
+    <label class="form-label" for="filterNotWeaponAcquisitionIds">
+        {{ 'weapon_acquisitions'|translateLocale|mbUcfirst }} ({{ filterNotWeaponAcquisitionIds|length }})
+    </label>
+    <select id="filterNotWeaponAcquisitionIds" multiple data-multi-select>
+        {% if filterNotWeaponAcquisitionIds is not empty %}
+            {% for filterNotWeaponAcquisitionId in filterNotWeaponAcquisitionIds %}
+                <option value="{{ filterNotWeaponAcquisitionId.id }}"
+                    {% if filterNotWeaponAcquisitionId.id in filter.notWeaponAcquisitionIds %} selected{% endif %}>{{ filterNotWeaponAcquisitionId.name ~ ' (' ~ filterNotWeaponAcquisitionId.numberWeapons ~ ')' }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>

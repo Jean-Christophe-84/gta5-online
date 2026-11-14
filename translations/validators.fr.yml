@@ -1,0 +1,10 @@
+##########
+# GROUPE #
+##########
+this_name_already_exists: ce nom existe déjà
+
+###############
+# UTILISATEUR #
+###############
+this_mail_already_exists: ce mail existe déjà
+this_mail_is_not_valid: ce mail n'est pas valide

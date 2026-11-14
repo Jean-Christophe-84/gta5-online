@@ -1,0 +1,312 @@
+<table class="properties">
+    <thead>
+        <tr>
+            <th role="button" data-sort-key="property-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['property-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            {% if is_granted('PROPERTY_OWN') %}
+                <th role="button" data-sort-key="property_user-owned" onclick="orderFilter(this, event);"
+                    {% if filter['order']['property_user-owned'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_user-owned']|lower }}"{% endif %}>
+                    <div class="cell"><label>{{ 'owned'|translateLocale|mbUcfirst }}</label></div>
+                    {{ include('_partial/arrows.html.twig') }}
+                </th>
+                <th role="button" data-sort-key="property_user-wanted" onclick="orderFilter(this, event);"
+                    {% if filter['order']['property_user-wanted'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_user-wanted']|lower }}"{% endif %}>
+                    <div class="cell"><label>{{ 'wanted'|translateLocale|mbUcfirst }}</label></div>
+                    {{ include('_partial/arrows.html.twig') }}
+                </th>
+            {% endif %}
+            <th role="button" data-sort-key="property_type_locale-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['property_type_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_type_locale-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'property_type'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="business_locale-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['business_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_locale-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'business'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="property_area-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['property_area-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_area-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'property_area'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="property_location-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['property_location-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_location-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'property_location'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="property-price" onclick="orderFilter(this, event);"
+                {% if filter['order']['property-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-price']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'price'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="property-capacity_vehicles" onclick="orderFilter(this, event);"
+                {% if filter['order']['property-capacity_vehicles'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-capacity_vehicles']|lower }}"{% endif %}>
+                <div class="cell">
+                    <label>{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'vehicles_short'|translateLocale|mbUcfirst }}.)</label>
+                </div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="property-capacity_bicycles" onclick="orderFilter(this, event);"
+                {% if filter['order']['property-capacity_bicycles'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-capacity_bicycles']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'bicycles_short'|translateLocale|mbUcfirst }}.)</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button"><div class="cell"><label>{{ 'property_acquisitions'|translateLocale|mbUcfirst }}</label></div></th>
+            {% if is_granted('PROPERTY_OWN') %}
+                <th role="button" data-sort-key="property-vehicles_price" onclick="orderFilter(this, event);" title="{{ 'vehicles_price_help'|translateLocale|mbUcfirst }}"
+                    {% if filter['order']['property-vehicles_price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-vehicles_price']|lower }}"{% endif %}>
+                    <div class="cell"><label>{{ 'vehicles_price'|translateLocale|mbUcfirst }}{{ ' (' ~ sumVehiclesPrices ~ ')' }}</label></div>
+                    {{ include('_partial/arrows.html.twig') }}
+                </th>
+            {% endif %}
+            <th role="button"><div class="cell"><label>{{ 'vehicles'|translateLocale|mbUcfirst }}</label></div></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for property in properties %}
+            {% set propertyAcquisitionNames = property.propertyAcquisitionNames is not null ? property.propertyAcquisitionNames|split('+') : [] %}
+            {% set vehicleNames = property.vehicleNames is not null ? property.vehicleNames|split('+') : [] %}
+
+            <tr id="propertyId_{{ property.id }}">
+                <td data-sort-value="{{ property.name }}" class="name" id="propertyName_{{ property.id }}">
+                    <div class="cell">
+                        {% if property.url %}
+                            <a href="{{ property.url }}" target="_blank">{{ property.name }}</a>
+                        {% else %}
+                            {{ property.name }}
+                        {% endif %}
+                    </div>
+                </td>
+                {% if is_granted('PROPERTY_OWN') %}
+                    {% set ownedMaximumReached = property.businessMaximumNumber is not null and property.parentPropertyNames is null and not property.owned
+                        and property.businessOwned >= property.businessMaximumNumber %}
+                    {% set wantedMaximumReached = property.businessMaximumNumber is not null and property.parentPropertyNames is null and not property.wanted
+                        and property.businessWanted >= property.businessMaximumNumber %}
+                    {% set parentPropertyMissing = property.parentPropertyNames is not null and not property.parentPropertyOwned and not property.owned %}
+                    <td data-sort-value="{{ property.owned ? 1 : 0 }}" class="owned key">
+                        <div class="cell"{% if ownedMaximumReached %} data-maximum-message="{{ 'you_can_not_select_this_property_maximum_reached'|translateLocale({
+                            business: property.businessName, maximum: property.businessMaximumNumber, type: 'owned'
+                        })|mbUcfirst }}"{% elseif parentPropertyMissing %} data-maximum-message="{{
+                            'you_can_not_own_this_property_without_its_parent_property'|translateLocale({names: property.parentPropertyNames})|mbUcfirst
+                        }}"{% endif %}>
+                            <div class="checkbox-wrapper-2">
+                                <input type="checkbox" value="1"{% if property.owned %} checked{% endif %}{% if ownedMaximumReached or parentPropertyMissing %} disabled{% endif %} class="stylized"
+                                       id="propertyOwned_{{ property.id }}" onchange="editProperty({{ property.id }}, this);" />
+                            </div>
+                        </div>
+                    </td>
+                    <td data-sort-value="{{ property.wanted ? 1 : 0 }}" class="wanted">
+                        <div class="cell"{% if wantedMaximumReached %} data-maximum-message="{{ 'you_can_not_select_this_property_maximum_reached'|translateLocale({
+                            business: property.businessName, maximum: property.businessMaximumNumber, type: 'wanted'
+                        })|mbUcfirst }}"{% endif %}>
+                            <div class="checkbox-wrapper-2">
+                                <input type="checkbox" value="1"{% if property.wanted %} checked{% endif %}{% if wantedMaximumReached %} disabled{% endif %}
+                                       class="stylized" id="propertyWanted_{{ property.id }}" onchange="editProperty({{ property.id }}, this);" />
+                            </div>
+                        </div>
+                    </td>
+                {% endif %}
+                <td data-sort-value="{{ property.propertyTypeName }}" class="propertyTypeName key"><div class="cell">{{ property.propertyTypeName }}</div></td>
+                <td data-sort-value="{{ property.businessName }}" class="businessName"><div class="cell">{{ property.businessName }}</div></td>
+                <td data-sort-value="{{ property.propertyAreaName }}" class="propertyAreaName">
+                    <div class="cell">{{ property.propertyAreaName }}</div>
+                </td>
+                <td data-sort-value="{{ property.propertyLocationName }}" class="propertyLocationName">
+                    <div class="cell">{{ property.propertyLocationName }}</div>
+                </td>
+                <td data-sort-value="{{ property.titleUpdateName }}" class="titleUpdateName"><div class="cell">{{ property.titleUpdateName }}</div></td>
+                <td data-sort-value="{{ property.price }}" class="price key">
+                    <div class="cell{% if property.discountedPrice or property.discountedPercentage or property.comment %} cell_info{% endif %}">
+                        {{ property.price ? property.price|formatNumber : '' }}
+                        {% if property.discountedPercentage %}
+                            <br/>
+                            {{ 'promo'|translateLocale|mbUcfirst|colon }} {{ (property.price * (100 - property.discountedPercentage) / 100)|formatNumber }}
+                            ({{ property.discountedPercentage|formatPercent }})
+                        {% endif %}
+                        {% if property.discountedPrice %}
+                            <br/>
+                            {{ 'discount'|translateLocale|mbUcfirst|colon }} {{ property.discountedPrice|formatNumber }}
+                            ({{ (100 - (property.discountedPrice / property.price * 100))|formatPercent }})
+                            {% if property.discountedPercentage %}
+                                <br/>
+                                {{ 'promo_discount'|translateLocale|mbUcfirst|colon }} {{ (property.discountedPrice * (100 - property.discountedPercentage) / 100)|formatNumber }}
+                                ({{ (100 - (property.discountedPrice * (100 - property.discountedPercentage) / property.price))|formatPercent }})
+                            {% endif %}
+                        {% endif %}
+                        {% if property.comment %}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="svgInfo_{{ property.id }}">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
+                            </svg>
+                        {% endif %}
+                    </div>
+                </td>
+                <td data-sort-value="{{ property.capacityVehicles }}" class="capacityVehicles"><div class="cell">{{ property.capacityVehicles }}</div></td>
+                <td data-sort-value="{{ property.capacityBicycles }}" class="capacityBicycles"><div class="cell">{{ property.capacityBicycles }}</div></td>
+                <td>
+                    <div class="cell">
+                        {% if propertyAcquisitionNames is not empty %}
+                            {% for propertyAcquisitionName in propertyAcquisitionNames %}
+                                <span class="nowrap">{{ propertyAcquisitionName }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
+                {% if is_granted('PROPERTY_OWN') %}
+                    <td data-sort-value="{{ property.vehiclesPrice ?? 0 }}" class="vehiclesPrice">
+                        <div class="cell">{{ property.vehiclesPrice ? property.vehiclesPrice|formatNumber : '' }}</div>
+                    </td>
+                {% endif %}
+                <td>
+                    <div class="cell">
+                        {% if vehicleNames is not empty %}
+                            {% for vehicleName in vehicleNames %}
+                                <span class="nowrap">{{ vehicleName }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% if is_granted('PROPERTY_EDIT') %}
+                        <button class="btn btn-warning" data-modal-open="#propertyModal" data-property-id="{{ property.id }}"
+                                data-property-name="{{ property.name }}" id="formProperty_{{ property.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2zM156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5zM510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                    {% if is_granted('PROPERTY_DELETE') %}
+                        <button class="btn btn-danger" data-modal-open="#propertyModal" data-delete data-property-id="{{ property.id }}"
+                                data-property-name="{{ property.name }}" id="deleteProperty_{{ property.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% if property.owned and property.propertyTwos is not empty %}
+                {% for propertyTwo in property.propertyTwos %}
+                    {% if propertyTwo.storageLocationIds %}
+                        {% set propertyTwoPropertyAcquisitionNames = propertyTwo.propertyAcquisitionNames is not null ? propertyTwo.propertyAcquisitionNames|split('+') : [] %}
+                        {% set propertyTwoVehicleNames = propertyTwo.vehicleNames is not null ? propertyTwo.vehicleNames|split('+') : [] %}
+
+                        <tr id="propertyId_{{ propertyTwo.id }}">
+                            <td data-sort-value="{{ propertyTwo.name }}" class="name"><div class="cell italic">{{ '--- ' ~ propertyTwo.name }}</div></td>
+                            {% if is_granted('PROPERTY_OWN') %}
+                                <td data-sort-value="{{ propertyTwo.owned ? 1 : 0 }}" class="owned key">
+                                    <div class="cell">
+                                        <div class="checkbox-wrapper-2">
+                                            <input type="checkbox" value="1"{% if propertyTwo.owned %} checked{% endif %} class="stylized"
+                                                   id="propertyOwned_{{ propertyTwo.id }}" onchange="editProperty({{ propertyTwo.id }}, this);" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-sort-value="{{ propertyTwo.wanted ? 1 : 0 }}" class="wanted">
+                                    <div class="cell">
+                                        <div class="checkbox-wrapper-2">
+                                            <input type="checkbox" value="1"{% if propertyTwo.wanted %} checked{% endif %} class="stylized"
+                                                   id="propertyWanted_{{ propertyTwo.id }}" onchange="editProperty({{ propertyTwo.id }}, this);" />
+                                        </div>
+                                    </div>
+                                </td>
+                            {% endif %}
+                            <td data-sort-value="{{ propertyTwo.propertyTypeName }}" class="propertyTypeName key">
+                                <div class="cell">{{ propertyTwo.propertyTypeName }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.businessName }}" class="businessName">
+                                <div class="cell">{{ propertyTwo.businessName }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.propertyAreaName }}" class="propertyAreaName">
+                                <div class="cell">{{ propertyTwo.propertyAreaName }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.propertyLocationName }}" class="propertyLocationName">
+                                <div class="cell">{{ propertyTwo.propertyLocationName }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.titleUpdateName }}" class="titleUpdateName">
+                                <div class="cell">{{ propertyTwo.titleUpdateName }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.price }}" class="price key">
+                                <div class="cell{% if propertyTwo.comment %} cell_info{% endif %}">
+                                    {{ propertyTwo.price ? propertyTwo.price|formatNumber : '' }}
+                                    {% if propertyTwo.comment %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="svgInfo_{{ propertyTwo.id }}">
+                                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                            <path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.capacityVehicles }}" class="capacityVehicles">
+                                <div class="cell">{{ propertyTwo.capacityVehicles }}</div>
+                            </td>
+                            <td data-sort-value="{{ propertyTwo.capacityBicycles }}" class="capacityBicycles">
+                                <div class="cell">{{ propertyTwo.capacityBicycles }}</div>
+                            </td>
+                            <td>
+                                <div class="cell">
+                                    {% if propertyTwoPropertyAcquisitionNames is not empty %}
+                                        {% for propertyTwoPropertyAcquisitionName in propertyTwoPropertyAcquisitionNames %}
+                                            <span class="nowrap">{{ propertyTwoPropertyAcquisitionName }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            {% if is_granted('PROPERTY_OWN') %}
+                                <td data-sort-value="{{ propertyTwo.vehiclesPrice ?? 0 }}" class="vehiclesPrice">
+                                    <div class="cell">{{ propertyTwo.vehiclesPrice ? propertyTwo.vehiclesPrice|formatNumber : '' }}</div>
+                                </td>
+                            {% endif %}
+                            <td>
+                                <div class="cell">
+                                    {% if propertyTwoVehicleNames is not empty %}
+                                        {% for propertyTwoVehicleName in propertyTwoVehicleNames %}
+                                            <span class="nowrap">{{ propertyTwoVehicleName }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                {% if is_granted('PROPERTY_EDIT') %}
+                                    <button class="btn btn-warning" data-modal-open="#propertyModal" data-property-id="{{ propertyTwo.id }}"
+                                            data-property-name="{{ propertyTwo.name }}" id="formProperty_{{ propertyTwo.id }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                            <path fill="#FFFFFF" d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2zM156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5zM510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" />
+                                        </svg>
+                                    </button>
+                                {% endif %}
+                                {% if is_granted('PROPERTY_DELETE') %}
+                                    <button class="btn btn-danger" data-modal-open="#propertyModal" data-delete data-property-id="{{ propertyTwo.id }}"
+                                            data-property-name="{{ propertyTwo.name }}" id="deleteProperty_{{ propertyTwo.id }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                            <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                                        </svg>
+                                    </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                <div class="pagination">
+                    {{ include('Widget/pagination.html.twig') }}
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

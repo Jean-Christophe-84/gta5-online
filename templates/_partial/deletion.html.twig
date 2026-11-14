@@ -1,0 +1,26 @@
+<div class="deletion">
+    {% if blockers is empty %}
+        <div class="deletion-message deletion-message--definitive">{{ 'deletion_definitive'|translateLocale|mbUcfirst }}.</div>
+    {% else %}
+        <div class="deletion-message deletion-message--impossible">
+            <strong>{{ 'deletion_impossible'|translateLocale|mbUcfirst|colon }}</strong>
+            <ul>
+                {% for blocker in blockers %}
+                    {% set names = blocker.names|filter(name => name is not empty) %}
+                    <li>
+                        {{ 'deletion_linked'|translateLocale({count: blocker.count, type: blocker.type}) }}
+                        {% if names is not empty %}
+                            ({{ names|join(', ') }}{% if blocker.count > names|length %}, {{ 'deletion_and_more'|translateLocale({count: blocker.count - names|length}) }}{% endif %})
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% for warning in warnings %}
+        <div class="deletion-message deletion-message--warning">{{ warning|mbUcfirst }}.</div>
+    {% endfor %}
+</div>
+<fieldset class="deletion-detail" disabled>
+    {{ body|raw }}
+</fieldset>

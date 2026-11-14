@@ -1,0 +1,10 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        contact_mail: 'contact@gta5-online.fr'
+        per_page: '%env(PER_PAGE)%'
+        url_site: '%env(URL_SITE)%'
+
+when@test:
+    twig:
+        strict_variables: true

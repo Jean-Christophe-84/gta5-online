@@ -1,0 +1,369 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Casino - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>Casino</h3>
+        {% if is_granted('HEIST_CASINO_EDIT') %}
+            <div class="tables" id="loots">
+                {{ include('Heist/Casino/_partial/loots.html.twig') }}
+            </div>
+        {% endif %}
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    {% for heistCasinoMainLoot in heistCasinoMainLoots %}
+                        <tr>
+                            <td rowspan="2">{{ heistCasinoMainLoot.name }}</td>
+                            <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                            <td>{{ heistCasinoMainLoot.price|formatMoney }}</td>
+                            <td>{{ (heistCasinoMainLoot.price / 1.86)|formatMoney }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                            <td>{{ (heistCasinoMainLoot.price * 1.1)|formatMoney }}</td>
+                            <td>{{ (heistCasinoMainLoot.price * 1.1 / 1.86)|formatMoney }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="4">{{ 'preparation'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                        <th colspan="2">{{ 'missions'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'details'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ 'arcade_equipment'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ 'reconnaissance_of_the_casino'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ 'content_of_the_vault'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'unmarked_weapons'|translateLocale|mbUcfirst }} ({{ 'random'|translateLocale }})</td>
+                        <td colspan="2">
+                            {{ 'gand_hideout'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'merryweather_s_weapons'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'military_weapons'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'noose_s_van'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'police_seizure'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'dealers'|translateLocale|mbUcfirst }}
+                        </td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'cost'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'approach'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'weapons'|translateLocale|mbUcfirst }}</th>
+                                    </tr>
+                                    {% for heistCasinoGunman in heistCasinoGunmen %}
+                                        {{ heistCasinoGunman.heistCasinoGunmanWeapons|raw }}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'getaway_vehicle'|translateLocale|mbUcfirst }} ({{ 'random'|translateLocale }})</td>
+                        <td colspan="2">
+                            {{ 'drag_race'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'underground_imports'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'the_lost_mc'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'merryweather_expedition'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'police_station'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'test_site'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'valet_service'|translateLocale|mbUcfirst }}
+                        </td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'cost'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'vehicles'|translateLocale|mbUcfirst }}</th>
+                                    </tr>
+                                    {% for heistCasinoDriver in heistCasinoDrivers %}
+                                        {{ heistCasinoDriver.heistCasinoDriverVehicles|raw }}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hacking_device'|translateLocale|mbUcfirst }} ({{ 'random'|translateLocale }})</td>
+                        <td colspan="2">
+                            FIB
+                            <br/>
+                            NOOSE
+                        </td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="4">{{ 'hackers'|translateLocale|mbUcfirst }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'cost'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'time_given'|translateLocale|mbUcfirst }} ({{ 'not_detected'|translateLocale|mbUcfirst }})</th>
+                                        <th>{{ 'time_given'|translateLocale|mbUcfirst }} ({{ 'detected'|translateLocale|mbUcfirst }})</th>
+                                    </tr>
+                                    {% for heistCasinoHacker in heistCasinoHackers %}
+                                        <tr>
+                                            <td>{{ heistCasinoHacker.name }}</td>
+                                            <td>{{ heistCasinoHacker.percent|formatPercent(2, true) }}</td>
+                                            <td>
+                                                {{ (heistCasinoHacker.timeIfNotDetected / 60)|round(0, 'floor') ~ ':' ~ "%02d"|format(heistCasinoHacker.timeIfNotDetected % 60) }}
+                                            </td>
+                                            <td>
+                                                {{ (heistCasinoHacker.timeIfDetected / 60)|round(0, 'floor') ~ ':' ~ "%02d"|format(heistCasinoHacker.timeIfDetected % 60) }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">{{ 'preparation_mission'|translateLocale|mbUcfirst }} ({{ 'the_big_con'|translateLocale({gender: 'feminine'})|mbUcfirst }})</td>
+                        <td colspan="2">
+                            {{ 'magnetic_cards'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'costumes_to_enter'|translateLocale|mbUcfirst }} (2 {{ 'missions'|translateLocale|mbUcfirst }})
+                            <br/>
+                            {{ 'drills_of_the_vault'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'patrols'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'duggan_cargo'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'information_on_the_security'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'drills'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'security_passes'|translateLocale|mbUcfirst ~ ' (' ~ 'choice_between_level_1_and_level_2'|translateLocale|mbUcfirst ~ ')'}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'masks'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'costumes_to_exit'|translateLocale|mbUcfirst}) }}
+                        </td>
+                        <td rowspan="4"></td>
+                    </tr>
+{#                    <tr>#}
+{#                        <td>Rusée</td>#}
+{#                        <td colspan="1">#}
+{#                            Gruppe Sechs Gear - 1ère partie#}
+{#                            <br/>#}
+{#                            Gruppe Sechs Gear - 2ème partie#}
+{#                            <br/>#}
+{#                            Bugstars Gear - 1ère partie#}
+{#                            <br/>#}
+{#                            Bugstars Gear - 2ème partie#}
+{#                            <br/>#}
+{#                            Équipement d'entretien - 1ère partie#}
+{#                            <br/>#}
+{#                            Équipement d'entretien - 2ème partie#}
+{#                            <br/>#}
+{#                            Camion de pompiers : les pyromanes#}
+{#                            <br/>#}
+{#                            Camion de pompiers : service d'incendie#}
+{#                            <br/>#}
+{#                            NOOSE Gear#}
+{#                            <br/>#}
+{#                            Exercices dans le coffre-fort : refuge#}
+{#                            <br/>#}
+{#                            Exercices de sécurité dans les chambres fortes : Fleeca Bank#}
+{#                            <br/>#}
+{#                            Yung Ancestor : Un poids mort#}
+{#                            <br/>#}
+{#                            Yung Ancestor : L'After#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td>Furtive</td>#}
+{#                        <td colspan="1">#}
+{#                            Nano-drones#}
+{#                            <br/>#}
+{#                            Lasers de la chambre forte#}
+{#                            <br/>#}
+{#                            Dispositif IEM#}
+{#                            <br/>#}
+{#                            Tenues d'infiltration#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td>Brutale</td>#}
+{#                        <td colspan="1">#}
+{#                            Charges thermiques#}
+{#                            <br/>#}
+{#                            Explosifs de la chambre forte#}
+{#                            <br/>#}
+{#                            Armure renforcée#}
+{#                            <br/>#}
+{#                            Tunnelier#}
+{#                        </td>#}
+{#                    </tr>#}
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                <tr>
+                    <th colspan="2">{{ 'start_hard_mode'|translateLocale|mbUcfirst }}</th>
+                </tr>
+                <tr>
+                    <td>{{ 'heist_completed_in_solo'|translateLocale|mbUcfirst }}</td>
+                    <td>{{ 'we_have_to_wait'|translateLocale|mbUcfirst }} 3 {{ 'days_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 2h24 {{ 'in_real_time_before_lester_contacts_you_again'|translateLocale }}. {{ 'no_time_here'|translateLocale|mbUcfirst }}, {{ 'all_you_have_to_do_is_choose_the_approach_used_during_the_second_to_last_turn'|translateLocale }} ({{ 'so_you_must_have_completed_at_least_two_heists'|translateLocale }})</td>
+                </tr>
+                <tr>
+                    <td>{{ 'heist_completed_in_team'|translateLocale|mbUcfirst }}</td>
+                    <td>{{ 'we_have_to_wait'|translateLocale|mbUcfirst }} 1 {{ 'day_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 48 {{ 'minutes_in_real_time_before_lester_contacts_you_again'|translateLocale }}. {{ 'no_time_here'|translateLocale|mbUcfirst }}, {{ 'all_you_have_to_do_is_choose_the_approach_used_during_the_second_to_last_turn'|translateLocale }} ({{ 'so_you_must_have_completed_at_least_two_heists'|translateLocale }})</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="4">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'approach'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">{{ 'the_big_con'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td rowspan="2">{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 15 {{ 'minutes_in_real_time'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }} / {{ 'do_not_get_detected'|translateLocale|mbUcfirst }} ({{ 'until_you_exit_from_the_casino'|translateLocale }})</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">{{ 'silent_and_sneaky'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td rowspan="2">{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 15 {{ 'minutes_in_real_time'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }} / {{ 'no_failed_hacking'|translateLocale|mbUcfirst }} / {{ 'do_not_get_detected'|translateLocale|mbUcfirst }} ({{ 'until_you_exit_from_the_casino'|translateLocale }})</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">{{ 'aggressive'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td rowspan="2">{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 15 {{ 'minutes_in_real_time'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }} / {{ 'at_least_80_headshots_in_total'|translateLocale|mbUcfirst }} ({{ 'total_of_all_players'|translateLocale }})</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        {% if is_granted('HEIST_CASINO_EDIT') %}
+            checkTemplate();
+        {% endif %}
+
+        function resetHeistCasino() {
+            postRequest('{{ path('reset_casino_heist') }}')
+            .then(response => response.json())
+            .then(data => {
+                showAlert(data.success, data.message);
+                document.querySelector('div#loots').innerHTML = data.template;
+                checkTemplate();
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function checkTemplate() {
+            tippy(document.getElementById('resetHeistCasino'), {content: "{{ 'reset_the_heist'|translateLocale|mbUcfirst|e('js') }}"});
+
+            new TomSelect("#firstTimeInWeek", { maxOptions: null });
+            new TomSelect("#mainLootId", { maxOptions: null });
+            new TomSelect("#difficulty", { maxOptions: null });
+            new TomSelect("#approach", { maxOptions: null });
+            new TomSelect("#hackerId", { maxOptions: null });
+            new TomSelect("#driverId", { maxOptions: null });
+            new TomSelect("#gunmanId", { maxOptions: null });
+
+            document.querySelectorAll('.form_casino_heist[name]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    if (this.value == '') {
+                        this.value = 0;
+                    }
+                    postRequest('{{ path('form_casino_heist') }}?place=' + this.getAttribute('name') + '&value=' + this.value)
+                    .then(response => response.json())
+                    .then(data => {
+                        showAlert(data.success, data.message);
+                        document.querySelector('div#loots').innerHTML = data.template;
+                        checkTemplate();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+                })
+            });
+        }
+    </script>
+{% endblock %}

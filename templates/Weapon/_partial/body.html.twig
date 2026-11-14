@@ -1,0 +1,217 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if weapon and weapon.name %} value="{{ weapon.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="weaponManufacturerId">{{ 'weapon_manufacturer'|translateLocale|mbUcfirst }}</label>
+        <select name="weaponManufacturerId" id="weaponManufacturerId">
+            <option value="">{{ 'select_a_weapon_manufacturer'|translateLocale|mbUcfirst }}</option>
+            {% for weaponManufacturer in weaponManufacturers %}
+                <option value="{{ weaponManufacturer.id }}"
+                    {% if weapon and weaponManufacturer.id == weapon.weaponManufacturerId %} selected{% endif %}>{{ weaponManufacturer.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="evolution">{{ 'evolution'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="evolution" id="evolution" value="1"{% if weapon and weapon.evolution %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        {% set weaponOneIds = [] %}
+        {% set weaponOneNames = [] %}
+        {% if weapon %}
+            {% if weapon.weaponOneIds is not null %}
+                {% set weaponOneIds = weapon.weaponOneIds|split('+') %}
+            {% endif %}
+            {% if weapon.weaponOneNames is not null %}
+                {% set weaponOneNames = weapon.weaponOneNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="weaponOneIds">{{ 'parents'|translateLocale|mbUcfirst }}</label>
+        <select name="weaponOneIds[]" id="weaponOneIds" multiple data-multi-select>
+            {% if weaponOneIds is not empty %}
+                {% for key, weaponOneId in weaponOneIds %}
+                    <option value="{{ weaponOneId }}" selected>{{ weaponOneNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if weaponOneLocales is not empty %}
+                {% for weaponOneLocale in weaponOneLocales %}
+                    {% if weaponOneLocale.weapon.id not in weaponOneIds and (not weapon or weapon.id != weaponOneLocale.weapon.id) %}
+                        <option value="{{ weaponOneLocale.weapon.id }}">{{ weaponOneLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        {% set weaponClassIds = [] %}
+        {% set weaponClassNames = [] %}
+        {% if weapon %}
+            {% if weapon.weaponClassIds is not null %}
+                {% set weaponClassIds = weapon.weaponClassIds|split('+') %}
+            {% endif %}
+            {% if weapon.weaponClassNames is not null %}
+                {% set weaponClassNames = weapon.weaponClassNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="weaponClassIds">{{ 'weapon_classes'|translateLocale|mbUcfirst }}</label>
+        <select name="weaponClassIds[]" id="weaponClassIds" multiple data-multi-select>
+            {% if weaponClassIds is not empty %}
+                {% for key, weaponClassId in weaponClassIds %}
+                    <option value="{{ weaponClassId }}" selected>{{ weaponClassNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if weaponClassLocales is not empty %}
+                {% for weaponClassLocale in weaponClassLocales %}
+                    {% if weaponClassLocale.weaponClass.id not in weaponClassIds %}
+                        <option value="{{ weaponClassLocale.weaponClass.id }}">{{ weaponClassLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="price">{{ 'price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="price" id="price" value="{{ weapon ? weapon.price : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="discountedPrice">{{ 'discounted_price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPrice" id="discountedPrice" value="{{ weapon ? weapon.discountedPrice : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="discountedPercentage">{{ 'discounted_percentage'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPercentage" id="discountedPercentage" value="{{ weapon ? weapon.discountedPercentage : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="owned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="owned" id="owned" value="1"{% if weapon and weapon.owned %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 30%;">
+        <label class="form-label" for="titleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }}</label>
+        <select name="titleUpdateId" id="titleUpdateId">
+            <option value="">{{ 'select_a_title_update'|translateLocale|mbUcfirst }}</option>
+            {% for titleUpdate in titleUpdates %}
+                <option value="{{ titleUpdate.id }}"
+                    {% if weapon and titleUpdate.id == weapon.titleUpdateId %} selected{% endif %}>{{ titleUpdate.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="unlockRank">{{ 'unlock_rank'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="1" step="1" name="unlockRank" id="unlockRank" value="{{ weapon ? weapon.unlockRank : '' }}" class="form-input" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="damage">{{ 'damage'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="damage" id="damage" value="{{ weapon ? weapon.damage : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="fireRate">{{ 'fire_rate'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="fireRate" id="fireRate" value="{{ weapon ? weapon.fireRate : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="accuracy">{{ 'accuracy'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="accuracy" id="accuracy" value="{{ weapon ? weapon.accuracy : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="rangeWeapon">{{ 'range'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="rangeWeapon" id="rangeWeapon" value="{{ weapon ? weapon.rangeWeapon : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="clipSize">{{ 'magazine_capacity'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="clipSize" id="clipSize" value="{{ weapon ? weapon.clipSize : '' }}" class="form-input" />
+    </div>
+</div>
+<div class="group">
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="form-group" style="--filter-width: 50%;">
+            <label class="form-label" for="url">{{ 'url'|translateLocale|mbUcfirst }}</label>
+            <input type="text" name="url" id="url"{% if weapon and weapon.url %} value="{{ weapon.url }}"{% endif %} class="form-input" />
+        </div>
+    {% endif %}
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="realLifeWeapon">{{ 'weapon_in_real_life'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="realLifeWeapon" id="realLifeWeapon"
+            {% if weapon and weapon.realLifeWeapon %} value="{{ weapon.realLifeWeapon }}"{% endif %} class="form-input" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set weaponAcquisitionIds = [] %}
+        {% set weaponAcquisitionNames = [] %}
+        {% if weapon %}
+            {% if weapon.weaponAcquisitionIds is not null %}
+                {% set weaponAcquisitionIds = weapon.weaponAcquisitionIds|split('+') %}
+            {% endif %}
+            {% if weapon.weaponAcquisitionNames is not null %}
+                {% set weaponAcquisitionNames = weapon.weaponAcquisitionNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="weaponAcquisitionIds">{{ 'weapon_acquisitions'|translateLocale|mbUcfirst }}</label>
+        <select name="weaponAcquisitionIds[]" id="weaponAcquisitionIds" multiple data-multi-select>
+            {% if weaponAcquisitionIds is not empty %}
+                {% for key, weaponAcquisitionId in weaponAcquisitionIds %}
+                    <option value="{{ weaponAcquisitionId }}" selected>{{ weaponAcquisitionNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if weaponAcquisitionLocales is not empty %}
+                {% for weaponAcquisitionLocale in weaponAcquisitionLocales %}
+                    {% if weaponAcquisitionLocale.weaponAcquisition.id not in weaponAcquisitionIds %}
+                        <option value="{{ weaponAcquisitionLocale.weaponAcquisition.id }}">{{ weaponAcquisitionLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set customizationIds = [] %}
+        {% set customizationNames = [] %}
+        {% if weapon %}
+            {% if weapon.customizationIds is not null %}
+                {% set customizationIds = weapon.customizationIds|split('+') %}
+            {% endif %}
+            {% if weapon.customizationNames is not null %}
+                {% set customizationNames = weapon.customizationNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="customizationIds">{{ 'weapon_customizations'|translateLocale|mbUcfirst }}</label>
+        <select name="customizationIds[]" id="customizationIds" multiple data-multi-select>
+            {% if customizationIds is not empty %}
+                {% for key, customizationId in customizationIds %}
+                    <option value="{{ customizationId }}" selected>{{ customizationNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if customizationLocales is not empty %}
+                {% for customizationLocale in customizationLocales %}
+                    {% if customizationLocale.customization.id not in customizationIds %}
+                        <option value="{{ customizationLocale.customization.id }}">{{ customizationLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="comment">{{ 'comment'|translateLocale|mbUcfirst }}</label>
+        <textarea name="comment" id="comment" class="form-textarea" rows="10">{{ weapon ? weapon.comment : '' }}</textarea>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="unlockWeapon">{{ 'unlock'|translateLocale|mbUcfirst }}</label>
+        <textarea name="unlockWeapon" id="unlockWeapon" class="form-textarea" rows="10">{{ weapon ? weapon.unlockWeapon : '' }}</textarea>
+    </div>
+    <input type="hidden" name="id" value="{{ weapon ? weapon.id : '' }}" />
+</div>

@@ -1,0 +1,150 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if property and property.name %} value="{{ property.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="propertyTypeId">{{ 'property_type'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyTypeId" id="propertyTypeId">
+            <option value="">{{ 'select_a_property_type'|translateLocale|mbUcfirst }}</option>
+            {% for propertyTypeLocale in propertyTypeLocales %}
+                <option value="{{ propertyTypeLocale.propertyType.id }}"
+                    {% if property and propertyTypeLocale.propertyType.id == property.propertyTypeId %} selected{% endif %}>{{ propertyTypeLocale.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="businessId">{{ 'business'|translateLocale|mbUcfirst }}</label>
+        <select name="businessId" id="businessId">
+            <option value="">{{ 'select_a_business'|translateLocale|mbUcfirst }}</option>
+            {% for business in businesses %}
+                <option value="{{ business.id }}" data-property-type-id="{{ business.propertyTypeId }}" data-owned-message="{{ business.ownedMessage }}"
+                        data-wanted-message="{{ business.wantedMessage }}"
+                    {% if property and business.id == property.businessId %} selected{% endif %}>{{ business.businessName }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="propertyAreaId">{{ 'property_area'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyAreaId" id="propertyAreaId">
+            <option value="">{{ 'select_a_property_area'|translateLocale|mbUcfirst }}</option>
+            {% for propertyArea in propertyAreas %}
+                <option value="{{ propertyArea.id }}"
+                    {% if property and propertyArea.id == property.propertyAreaId %} selected{% endif %}>{{ propertyArea.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="propertyLocationId">{{ 'property_location'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyLocationId" id="propertyLocationId">
+            <option value="">{{ 'select_a_property_location'|translateLocale|mbUcfirst }}</option>
+            {% for propertyLocation in propertyLocations %}
+                <option value="{{ propertyLocation.id }}"
+                    {% if property and propertyLocation.id == property.propertyLocationId %} selected{% endif %}>{{ propertyLocation.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="titleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }}</label>
+        <select name="titleUpdateId" id="titleUpdateId">
+            <option value="">{{ 'select_a_title_update'|translateLocale|mbUcfirst }}</option>
+            {% for titleUpdate in titleUpdates %}
+                <option value="{{ titleUpdate.id }}"
+                    {% if property and titleUpdate.id == property.titleUpdateId %} selected{% endif %}>{{ titleUpdate.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="owned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="owned" id="owned" value="1"{% if property and property.owned %} checked{% endif %} class="stylized"
+                   {%- if parentPropertyMessage and not property.owned %} data-parent-message="{{ parentPropertyMessage }}"{% endif %} />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="wanted">{{ 'wanted'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="wanted" id="wanted" value="1"{% if property and property.wanted %} checked{% endif %}
+                   class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label required" for="price">{{ 'price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="price" id="price" value="{{ property ? property.price : '' }}" class="form-input" />
+        <div class="error" id="error_price">{{ 'please_enter_the_price'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="discountedPrice">{{ 'discounted_price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPrice" id="discountedPrice" value="{{ property ? property.discountedPrice : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="discountedPercentage">{{ 'discounted_percentage'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPercentage" id="discountedPercentage" value="{{ property ? property.discountedPercentage : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="capacityVehicles">{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'vehicles_short'|translateLocale|mbUcfirst }}.)</label>
+        <input type="number" min="0" step="1" name="capacityVehicles" id="capacityVehicles" value="{{ property ? property.capacityVehicles : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="capacityBicycles">{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'bicycles_short'|translateLocale|mbUcfirst }}.)</label>
+        <input type="number" min="0" step="1" name="capacityBicycles" id="capacityBicycles" value="{{ property ? property.capacityBicycles : '' }}"
+               class="form-input" />
+    </div>
+</div>
+<div class="group">
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="form-group" style="--filter-width: 50%;">
+            <label class="form-label" for="url">{{ 'url'|translateLocale|mbUcfirst }}</label>
+            <input type="text" name="url" id="url"{% if property and property.url %} value="{{ property.url }}"{% endif %} class="form-input" />
+        </div>
+    {% endif %}
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set propertyAcquisitionIds = [] %}
+        {% if property %}
+            {% if property.propertyAcquisitionIds is not null %}
+                {% set propertyAcquisitionIds = property.propertyAcquisitionIds|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="propertyAcquisitionIds">{{ 'property_acquisitions'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyAcquisitionIds[]" id="propertyAcquisitionIds" multiple data-multi-select>
+            {% if propertyAcquisitionLocales is not empty %}
+                {% for propertyAcquisitionLocale in propertyAcquisitionLocales %}
+                    <option value="{{ propertyAcquisitionLocale.propertyAcquisition.id }}"
+                        {% if propertyAcquisitionLocale.propertyAcquisition.id in propertyAcquisitionIds %} selected{% endif %}>{{ propertyAcquisitionLocale.name }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        {% set propertyTwoIds = [] %}
+        {% if property %}
+            {% if property.propertyTwoIds is not null %}
+                {% set propertyTwoIds = property.propertyTwoIds|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="propertyTwoIds">{{ 'subproperties'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyTwoIds[]" id="propertyTwoIds" multiple data-multi-select>
+            {% if propertyTwos is not empty %}
+                {% for propertyTwo in propertyTwos %}
+                    <option value="{{ propertyTwo.id }}"
+                        {% if propertyTwo.id in propertyTwoIds %} selected{% endif %}>{{ propertyTwo.name }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label" for="comment">{{ 'comment'|translateLocale|mbUcfirst }}</label>
+        <textarea name="comment" id="comment" class="form-textarea" rows="10">{{ property ? property.comment : '' }}</textarea>
+    </div>
+    <input type="hidden" name="id" value="{{ property ? property.id : '' }}" />
+</div>

@@ -1,0 +1,363 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if vehicle and vehicle.name %} value="{{ vehicle.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="vehicleManufacturerId">{{ 'vehicle_manufacturer'|translateLocale|mbUcfirst }}</label>
+        <select name="vehicleManufacturerId" id="vehicleManufacturerId">
+            <option value="">{{ 'select_a_vehicle_manufacturer'|translateLocale|mbUcfirst }}</option>
+            {% for vehicleManufacturer in vehicleManufacturers %}
+                <option value="{{ vehicleManufacturer.id }}"
+                    {% if vehicle and vehicleManufacturer.id == vehicle.vehicleManufacturerId %} selected{% endif %}>{{ vehicleManufacturer.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="evolution">{{ 'evolution'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="evolution" id="evolution" value="1"{% if vehicle and vehicle.evolution %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        {% set vehicleOneIds = [] %}
+        {% set vehicleOneNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.vehicleOneIds is not null %}
+                {% set vehicleOneIds = vehicle.vehicleOneIds|split('+') %}
+            {% endif %}
+            {% if vehicle.vehicleOneNames is not null %}
+                {% set vehicleOneNames = vehicle.vehicleOneNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="vehicleOneIds">{{ 'parents'|translateLocale|mbUcfirst }}</label>
+        <select name="vehicleOneIds[]" id="vehicleOneIds" multiple data-multi-select>
+            {% if vehicleOneIds is not empty %}
+                {% for key, vehicleOneId in vehicleOneIds %}
+                    <option value="{{ vehicleOneId }}" selected>{{ vehicleOneNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if vehicleOnes is not empty %}
+                {% for vehicleOne in vehicleOnes %}
+                    {% if vehicleOne.id not in vehicleOneIds and (not vehicle or copy or vehicle.id != vehicleOne.id) %}
+                        <option value="{{ vehicleOne.id }}">{{ vehicleOne.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        {% set vehicleClassIds = [] %}
+        {% set vehicleClassNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.vehicleClassIds is not null %}
+                {% set vehicleClassIds = vehicle.vehicleClassIds|split('+') %}
+            {% endif %}
+            {% if vehicle.vehicleClassNames is not null %}
+                {% set vehicleClassNames = vehicle.vehicleClassNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="vehicleClassIds">{{ 'vehicle_classes'|translateLocale|mbUcfirst }}</label>
+        <select name="vehicleClassIds[]" id="vehicleClassIds" multiple data-multi-select>
+            {% if vehicleClassIds is not empty %}
+                {% for key, vehicleClassId in vehicleClassIds %}
+                    <option value="{{ vehicleClassId }}" selected>{{ vehicleClassNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if vehicleClassLocales is not empty %}
+                {% for vehicleClassLocale in vehicleClassLocales %}
+                    {% if vehicleClassLocale.vehicleClass.id not in vehicleClassIds %}
+                        <option value="{{ vehicleClassLocale.vehicleClass.id }}">{{ vehicleClassLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="price">{{ 'price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="price" id="price" value="{{ vehicle ? vehicle.price : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="discountedPrice">{{ 'discounted_price'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPrice" id="discountedPrice" value="{{ vehicle ? vehicle.discountedPrice : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="topSpeedKilometers">{{ 'top_speed'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="0.01" name="topSpeedKilometers" id="topSpeedKilometers" value="{{ vehicle ? vehicle.topSpeedKilometers : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="topSpeedKilometersMaximum">{{ 'top_speed_maximum'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="topSpeedKilometersMaximum" id="topSpeedKilometersMaximum"
+               value="{{ vehicle ? vehicle.topSpeedKilometersMaximum : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="owned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="owned" id="owned" value="1"{% if vehicle and vehicle.owned %} checked{% endif %} class="stylized"
+                   onclick="checkVehicleModal();" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="propertyId">{{ 'property'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyId" id="propertyId">
+            <option value="" data-storage-location-ids="[]" data-number-vehicles-not-bicycles="0" data-number-max-vehicles="0" data-number-vehicles-bicycles="0"
+                    data-number-max-bicycles="0">{{ 'select_the_property'|translateLocale|mbUcfirst }}</option>
+            {% for property in properties %}
+                <option value="{{ property.id }}" data-storage-location-ids="[{{ property.storageLocationIds }}]" data-property-name="{{ property.name }}"
+                        data-number-vehicles-not-bicycles="{{ property.numberVehiclesNotBicycles }}"
+                        data-number-max-vehicles="{{ property.capacityVehicles }}"
+                        data-number-vehicles-bicycles="{{ property.numberVehiclesBicycles }}" data-number-max-bicycles="{{ property.capacityBicycles }}"
+                        data-search="{{ property.name }} {% for propertyTwo in property.propertyTwos %} {{ propertyTwo.name }}{% endfor %}"
+                    {% if vehicle and property.id == vehicle.propertyId %} selected{% endif %}>{{ property.name ~ ' (' ~ (constant('App\\Entity\\VehicleClass::BICYCLES_ID') ~ '' in vehicleClassIds ? (property.numberVehiclesBicycles ~ '/' ~ property.capacityBicycles) : (property.numberVehiclesNotBicycles ~ '/' ~ property.capacityVehicles)) ~ ')' }}</option>
+                {% if property.propertyTwos is not empty %}
+                    {% for propertyTwo in property.propertyTwos %}
+                        {% if propertyTwo.storageLocationIds %}
+                            <option value="{{ propertyTwo.id }}" data-storage-location-ids="[{{ propertyTwo.storageLocationIds }}]"
+                                    data-property-name="{{ propertyTwo.name }}"
+                                    data-number-vehicles-not-bicycles="{{ propertyTwo.numberVehiclesNotBicycles }}"
+                                    data-number-max-vehicles="{{ propertyTwo.capacityVehicles }}"
+                                    data-number-vehicles-bicycles="{{ propertyTwo.numberVehiclesBicycles }}"
+                                    data-number-max-bicycles="{{ propertyTwo.capacityBicycles }}"
+                                    data-search="{{ propertyTwo.name }} {{ property.name }}"
+                                {% if vehicle and vehicle.propertyId == propertyTwo.id %} selected{% endif %}>{{ '--- ' ~ propertyTwo.name ~ ' (' ~ (constant('App\\Entity\\VehicleClass::BICYCLES_ID') ~ '' in vehicleClassIds ? (propertyTwo.numberVehiclesBicycles ~ '/' ~ propertyTwo.capacityBicycles) : (propertyTwo.numberVehiclesNotBicycles ~ '/' ~ propertyTwo.capacityVehicles)) ~ ')' }}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="wantedPropertyId">{{ 'wanted_property'|translateLocale|mbUcfirst }}</label>
+        <select name="wantedPropertyId" id="wantedPropertyId">
+            <option value="" data-storage-location-ids="[]" data-number-vehicles-not-bicycles="0" data-number-max-vehicles="0" data-number-vehicles-bicycles="0"
+                    data-number-max-bicycles="0">{{ 'select_the_wanted_property'|translateLocale|mbUcfirst }}</option>
+            {% for wantedProperty in wantedProperties %}
+                <option value="{{ wantedProperty.id }}" data-storage-location-ids="[{{ wantedProperty.storageLocationIds }}]"
+                        data-wanted-property-name="{{ wantedProperty.name }}"
+                        data-number-vehicles-not-bicycles="{{ wantedProperty.numberVehiclesNotBicycles }}"
+                        data-number-max-vehicles="{{ wantedProperty.capacityVehicles }}"
+                        data-number-vehicles-bicycles="{{ wantedProperty.numberVehiclesBicycles }}"
+                        data-number-max-bicycles="{{ wantedProperty.capacityBicycles }}"
+                    {% if vehicle and wantedProperty.id == vehicle.wantedPropertyId %} selected{% endif %}>{{ wantedProperty.name ~ ' (' ~ (constant('App\\Entity\\VehicleClass::BICYCLES_ID') ~ '' in vehicleClassIds ? (wantedProperty.numberVehiclesBicycles ~ '/' ~ wantedProperty.capacityBicycles) : (wantedProperty.numberVehiclesNotBicycles ~ '/' ~ wantedProperty.capacityVehicles)) ~ ')' }}</option>
+                {% if wantedProperty.propertyTwos is not empty %}
+                    {% for wantedPropertyTwo in wantedProperty.propertyTwos %}
+                        {% if wantedPropertyTwo.storageLocationIds %}
+                            <option value="{{ wantedPropertyTwo.id }}" data-storage-location-ids="[{{ wantedPropertyTwo.storageLocationIds }}]"
+                                    data-wanted-property-name="{{ '--- ' ~ wantedPropertyTwo.name }}"
+                                    data-number-vehicles-not-bicycles="{{ wantedPropertyTwo.numberVehiclesNotBicycles }}"
+                                    data-number-max-vehicles="{{ wantedPropertyTwo.capacityVehicles }}"
+                                    data-number-vehicles-bicycles="{{ wantedPropertyTwo.numberVehiclesBicycles }}"
+                                    data-number-max-bicycles="{{ wantedPropertyTwo.capacityBicycles }}"
+                                {% if vehicle and vehicle.wantedPropertyId == wantedPropertyTwo.id %} selected{% endif %}>{{ '--- ' ~ wantedPropertyTwo.name ~ ' (' ~ (constant('App\\Entity\\VehicleClass::BICYCLES_ID') ~ '' in vehicleClassIds ? (wantedPropertyTwo.numberVehiclesBicycles ~ '/' ~ wantedPropertyTwo.capacityBicycles) : (wantedPropertyTwo.numberVehiclesNotBicycles ~ '/' ~ wantedPropertyTwo.capacityVehicles)) ~ ')' }}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="discountedPercentage">{{ 'discounted_percentage'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="discountedPercentage" id="discountedPercentage" value="{{ vehicle ? vehicle.discountedPercentage : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="weight">{{ 'weight'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="weight" id="weight" value="{{ vehicle ? vehicle.weight : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="gears">{{ 'gears'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="gears" id="gears" value="{{ vehicle ? vehicle.gears : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="seats">{{ 'seats'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" step="1" name="seats" id="seats" value="{{ vehicle ? vehicle.seats : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 10%;">
+        <label class="form-label" for="optimized">{{ 'optimized'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="optimized" id="optimized" value="1"{% if vehicle and vehicle.optimized %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="vehicleDrivetrainId">{{ 'vehicle_drivetrain'|translateLocale|mbUcfirst }}</label>
+        <select name="vehicleDrivetrainId" id="vehicleDrivetrainId">
+            <option value="">{{ 'select_the_vehicle_drivetrain'|translateLocale|mbUcfirst }}</option>
+            {% for vehicleDrivetrainLocale in vehicleDrivetrainLocales %}
+                <option value="{{ vehicleDrivetrainLocale.vehicleDrivetrain.id }}"
+                    {% if vehicle and vehicleDrivetrainLocale.vehicleDrivetrain.id == vehicle.vehicleDrivetrainId %} selected{% endif %}>{{ vehicleDrivetrainLocale.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label required" for="titleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }}</label>
+        <select name="titleUpdateId" id="titleUpdateId">
+            <option value="">{{ 'select_a_title_update'|translateLocale|mbUcfirst }}</option>
+            {% for titleUpdate in titleUpdates %}
+                <option value="{{ titleUpdate.id }}"
+                    {% if vehicle and titleUpdate.id == vehicle.titleUpdateId %} selected{% endif %}>{{ titleUpdate.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="speed">{{ 'speed'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="speed" id="speed" value="{{ vehicle ? vehicle.speed : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="acceleration">{{ 'acceleration'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="acceleration" id="acceleration" value="{{ vehicle ? vehicle.acceleration : '' }}"
+               class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="braking">{{ 'braking'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="braking" id="braking" value="{{ vehicle ? vehicle.braking : '' }}" class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="handling">{{ 'handling'|translateLocale|mbUcfirst }}</label>
+        <input type="number" min="0" max="100" step="0.01" name="handling" id="handling" value="{{ vehicle ? vehicle.handling : '' }}" class="form-input" />
+    </div>
+</div>
+<div class="group">
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="form-group" style="--filter-width: 50%;">
+            <label class="form-label" for="url">{{ 'url'|translateLocale|mbUcfirst }}</label>
+            <input type="text" name="url" id="url"{% if vehicle and vehicle.url %} value="{{ vehicle.url }}"{% endif %} class="form-input" />
+        </div>
+    {% endif %}
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="realLifeVehicle">{{ 'vehicle_in_real_life'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="realLifeVehicle" id="realLifeVehicle"
+            {% if vehicle and vehicle.realLifeVehicle %} value="{{ vehicle.realLifeVehicle }}"{% endif %} class="form-input" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set vehicleAcquisitionIds = [] %}
+        {% set vehicleAcquisitionNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.vehicleAcquisitionIds is not null %}
+                {% set vehicleAcquisitionIds = vehicle.vehicleAcquisitionIds|split('+') %}
+            {% endif %}
+            {% if vehicle.vehicleAcquisitionNames is not null %}
+                {% set vehicleAcquisitionNames = vehicle.vehicleAcquisitionNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="vehicleAcquisitionIds">{{ 'vehicle_acquisitions'|translateLocale|mbUcfirst }}</label>
+        <select name="vehicleAcquisitionIds[]" id="vehicleAcquisitionIds" multiple data-multi-select>
+            {% if vehicleAcquisitionIds is not empty %}
+                {% for key, vehicleAcquisitionId in vehicleAcquisitionIds %}
+                    <option value="{{ vehicleAcquisitionId }}" selected>{{ vehicleAcquisitionNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if vehicleAcquisitionLocales is not empty %}
+                {% for vehicleAcquisitionLocale in vehicleAcquisitionLocales %}
+                    {% if vehicleAcquisitionLocale.vehicleAcquisition.id not in vehicleAcquisitionIds %}
+                        <option value="{{ vehicleAcquisitionLocale.vehicleAcquisition.id }}">{{ vehicleAcquisitionLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set storageLocationIds = [] %}
+        {% set storageLocationNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.storageLocationIds is not null %}
+                {% set storageLocationIds = vehicle.storageLocationIds|split('+') %}
+            {% endif %}
+            {% if vehicle.storageLocationNames is not null %}
+                {% set storageLocationNames = vehicle.storageLocationNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="storageLocationIds">{{ 'storage_locations'|translateLocale|mbUcfirst }}</label>
+        <select name="storageLocationIds[]" id="storageLocationIds" multiple data-multi-select>
+            {% if storageLocationIds is not empty %}
+                {% for key, storageLocationId in storageLocationIds %}
+                    <option value="{{ storageLocationId }}" selected>{{ storageLocationNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if storageLocationLocales is not empty %}
+                {% for storageLocationLocale in storageLocationLocales %}
+                    {% if storageLocationLocale.storageLocation.id not in storageLocationIds %}
+                        <option value="{{ storageLocationLocale.storageLocation.id }}">{{ storageLocationLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set deliveryMethodIds = [] %}
+        {% set deliveryMethodNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.deliveryMethodIds is not null %}
+                {% set deliveryMethodIds = vehicle.deliveryMethodIds|split('+') %}
+            {% endif %}
+            {% if vehicle.deliveryMethodNames is not null %}
+                {% set deliveryMethodNames = vehicle.deliveryMethodNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="deliveryMethodIds">{{ 'delivery_methods'|translateLocale|mbUcfirst }}</label>
+        <select name="deliveryMethodIds[]" id="deliveryMethodIds" multiple data-multi-select>
+            {% if deliveryMethodIds is not empty %}
+                {% for key, deliveryMethodId in deliveryMethodIds %}
+                    <option value="{{ deliveryMethodId }}" selected>{{ deliveryMethodNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if deliveryMethodLocales is not empty %}
+                {% for deliveryMethodLocale in deliveryMethodLocales %}
+                    {% if deliveryMethodLocale.deliveryMethod.id not in deliveryMethodIds %}
+                        <option value="{{ deliveryMethodLocale.deliveryMethod.id }}">{{ deliveryMethodLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        {% set modificationLocationIds = [] %}
+        {% set modificationLocationNames = [] %}
+        {% if vehicle %}
+            {% if vehicle.modificationLocationIds is not null %}
+                {% set modificationLocationIds = vehicle.modificationLocationIds|split('+') %}
+            {% endif %}
+            {% if vehicle.modificationLocationNames is not null %}
+                {% set modificationLocationNames = vehicle.modificationLocationNames|split('+') %}
+            {% endif %}
+        {% endif %}
+        <label class="form-label" for="modificationLocationIds">{{ 'modification_locations'|translateLocale|mbUcfirst }}</label>
+        <select name="modificationLocationIds[]" id="modificationLocationIds" multiple data-multi-select>
+            {% if modificationLocationIds is not empty %}
+                {% for key, modificationLocationId in modificationLocationIds %}
+                    <option value="{{ modificationLocationId }}" selected>{{ modificationLocationNames[key] ?? '' }}</option>
+                {% endfor %}
+            {% endif %}
+            {% if modificationLocationLocales is not empty %}
+                {% for modificationLocationLocale in modificationLocationLocales %}
+                    {% if modificationLocationLocale.modificationLocation.id not in modificationLocationIds %}
+                        <option value="{{ modificationLocationLocale.modificationLocation.id }}">{{ modificationLocationLocale.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="comment">{{ 'comment'|translateLocale|mbUcfirst }}</label>
+        <textarea name="comment" id="comment" class="form-textarea" rows="10">{{ vehicle ? vehicle.comment : '' }}</textarea>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="unlockVehicle">{{ 'unlock'|translateLocale|mbUcfirst }}</label>
+        <textarea name="unlockVehicle" id="unlockVehicle" class="form-textarea" rows="10">{{ vehicle ? vehicle.unlockVehicle : '' }}</textarea>
+    </div>
+    <input type="hidden" name="id" value="{{ vehicle and not copy ? vehicle.id : '' }}" />
+</div>

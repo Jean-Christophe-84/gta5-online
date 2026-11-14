@@ -1,0 +1,159 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label required" for="businessId">{{ 'business'|translateLocale|mbUcfirst }}</label>
+        <select name="businessId" id="businessId">
+            <option value="">{{ 'select_a_business'|translateLocale|mbUcfirst }}</option>
+            {% for businessLocale in businessLocales %}
+                <option value="{{ businessLocale.business.id }}"
+                    {% if businessGood and businessGood.businessId == businessLocale.business.id %} selected{% endif %}>{{ businessLocale.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="error" id="error_businessId">{{ 'please_select_a_business'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 25%;">
+        <label class="form-label" for="additionalInformations">{{ 'additional_information'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="additionalInformations" id="additionalInformations"
+               {% if businessGood and businessGood.additionalInformations %} value="{{ businessGood.additionalInformations }}"{% endif %} class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="stockDealer">{{ 'stock_for_dealer'|translateLocale|mbUcfirst }}</label>
+        <input type="number" name="stockDealer" id="stockDealer"
+               {% if businessGood and businessGood.stockDealer %} value="{{ businessGood.stockDealer }}"{% endif %} class="form-input" min="0" step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 15%;">
+        <label class="form-label" for="stockDealerTotal">{{ 'total_stock_for_dealer'|translateLocale|mbUcfirst }}</label>
+        <input type="number" name="stockDealerTotal" id="stockDealerTotal"
+               {% if businessGood and businessGood.stockDealerTotal %} value="{{ businessGood.stockDealerTotal }}"{% endif %} class="form-input" min="0"
+               step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="costOfRestock">{{ 'cost_of_a_restock'|translateLocale|mbUcfirst }} ({{ 'in'|translateLocale }} $)</label>
+        <input type="number" name="costOfRestock" id="costOfRestock"
+               {% if businessGood and businessGood.costOfRestock %} value="{{ businessGood.costOfRestock }}"{% endif %} class="form-input" min="0" step="1" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <hr/>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 30%;">
+        <label class="form-label" for="replenishmentRate">{{ 'replenishment_rate'|translateLocale|mbUcfirst }} ({{ 'in'|translateLocale }} %)</label>
+        <input type="number" name="replenishmentRate" id="replenishmentRate"
+               {% if businessGood and businessGood.replenishmentRate %} value="{{ businessGood.replenishmentRate }}"{% endif %} class="form-input" min="0"
+               step="0.01" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="replenishmentRateWithUpgradedEquipment">
+            {{ 'replenishment_rate_with_upgraded_equipment'|translateLocale|mbUcfirst }} ({{ 'in'|translateLocale }} %)
+        </label>
+        <input type="number" name="replenishmentRateWithUpgradedEquipment" id="replenishmentRateWithUpgradedEquipment"
+               {% if businessGood and businessGood.replenishmentRateWithUpgradedEquipment %} value="{{ businessGood.replenishmentRateWithUpgradedEquipment }}"{% endif %}
+               class="form-input" min="0" step="0.01" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="replenishmentRateWithUpgradedStaff">
+            {{ 'replenishment_rate_with'|translateLocale|mbUcfirst }} "{{ 'upgraded_staff_or_boost'|translateLocale }}" ({{ 'in'|translateLocale }} %)
+        </label>
+        <input type="number" name="replenishmentRateWithUpgradedStaff" id="replenishmentRateWithUpgradedStaff"
+               {% if businessGood and businessGood.replenishmentRateWithUpgradedStaff %} value="{{ businessGood.replenishmentRateWithUpgradedStaff }}"{% endif %}
+               class="form-input" min="0" step="0.01" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label" for="replenishmentRateWithUpgradedEquipmentAndStaff">
+            {{ 'replenishment_rate_with_upgraded_equipment_and'|translateLocale|mbUcfirst ~ ' "' ~ 'upgraded_staff_or_boost'|translateLocale ~ '" (' ~ 'in'|translateLocale ~ ' %)' }}
+        </label>
+        <input type="number" name="replenishmentRateWithUpgradedEquipmentAndStaff" id="replenishmentRateWithUpgradedEquipmentAndStaff"
+               {% if businessGood and businessGood.replenishmentRateWithUpgradedEquipmentAndStaff %} value="{{ businessGood.replenishmentRateWithUpgradedEquipmentAndStaff }}"{% endif %}
+               class="form-input" min="0" step="0.01" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <hr/>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 30%;">
+        <label class="form-label" for="sale">
+            {{ 'sale'|translateLocale|mbUcfirst }} ({{ 'in'|translateLocale }} $)
+        </label>
+        <input type="number" name="sale" id="sale"{% if businessGood and businessGood.sale %} value="{{ businessGood.sale }}"{% endif %} class="form-input"
+               min="0" step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="saleWithUpgradedEquipment">
+            {{ 'sale_with_upgraded_equipment'|translateLocale|mbUcfirst }} ({{ 'in'|translateLocale }} $)
+        </label>
+        <input type="number" name="saleWithUpgradedEquipment" id="saleWithUpgradedEquipment"
+               {% if businessGood and businessGood.saleWithUpgradedEquipment %} value="{{ businessGood.saleWithUpgradedEquipment }}"{% endif %}
+               class="form-input" min="0" step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="saleWithUpgradedStaff">
+            {{ 'sale_with'|translateLocale|mbUcfirst }} "{{ 'upgraded_staff_or_boost'|translateLocale }}" ({{ 'in'|translateLocale }} $)
+        </label>
+        <input type="number" name="saleWithUpgradedStaff" id="saleWithUpgradedStaff"
+               {% if businessGood and businessGood.saleWithUpgradedStaff %} value="{{ businessGood.saleWithUpgradedStaff }}"{% endif %} class="form-input"
+               min="0" step="1" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label" for="saleWithUpgradedEquipmentAndStaff">
+            {{ 'sale_with_upgraded_equipment_and'|translateLocale|mbUcfirst }} "{{ 'upgraded_staff_or_boost'|translateLocale }}" ({{ 'in'|translateLocale ~ ' $)' }}
+        </label>
+        <input type="number" name="saleWithUpgradedEquipmentAndStaff" id="saleWithUpgradedEquipmentAndStaff"
+               {% if businessGood and businessGood.saleWithUpgradedEquipmentAndStaff %} value="{{ businessGood.saleWithUpgradedEquipmentAndStaff }}"{% endif %}
+               class="form-input" min="0" step="1" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <hr/>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 30%;">
+        <label class="form-label" for="timeForRestock">
+            {{ 'time_for_restock'|translateLocale|mbUcfirst }} ({{ 'in_real_minutes'|translateLocale }})
+        </label>
+        <input type="number" name="timeForRestock" id="timeForRestock"
+               {% if businessGood and businessGood.timeForRestock %} value="{{ businessGood.timeForRestock }}"{% endif %} class="form-input" min="0" step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="timeForRestockWithUpgradedEquipment">
+            {{ 'time_for_restock_with_upgraded_equipment'|translateLocale|mbUcfirst }} ({{ 'in_real_minutes'|translateLocale }})
+        </label>
+        <input type="number" name="timeForRestockWithUpgradedEquipment" id="timeForRestockWithUpgradedEquipment"
+               {% if businessGood and businessGood.timeForRestockWithUpgradedEquipment %} value="{{ businessGood.timeForRestockWithUpgradedEquipment }}"{% endif %}
+               class="form-input" min="0" step="1" />
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="timeForRestockWithUpgradedStaff">
+            {{ 'time_for_restock_with'|translateLocale|mbUcfirst }} "{{ 'upgraded_staff_or_boost'|translateLocale }}" ({{ 'in_real_minutes'|translateLocale }})
+        </label>
+        <input type="number" name="timeForRestockWithUpgradedStaff" id="timeForRestockWithUpgradedStaff"
+               {% if businessGood and businessGood.timeForRestockWithUpgradedStaff %} value="{{ businessGood.timeForRestockWithUpgradedStaff }}"{% endif %}
+               class="form-input" min="0" step="1" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label" for="timeForRestockWithUpgradedEquipmentAndStaff">
+            {{ 'time_for_restock_with_upgraded_equipment_and'|translateLocale|mbUcfirst }} "{{ 'upgraded_staff_or_boost'|translateLocale }}" ({{ 'in_real_minutes'|translateLocale }})
+        </label>
+        <input type="number" name="timeForRestockWithUpgradedEquipmentAndStaff" id="timeForRestockWithUpgradedEquipmentAndStaff"
+               {% if businessGood and businessGood.timeForRestockWithUpgradedEquipmentAndStaff %} value="{{ businessGood.timeForRestockWithUpgradedEquipmentAndStaff }}"{% endif %}
+               class="form-input" min="0" step="1" />
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <hr/>
+    </div>
+    <input type="hidden" name="id" value="{{ businessGood ? businessGood.id : '' }}" />
+</div>

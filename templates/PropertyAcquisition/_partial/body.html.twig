@@ -1,0 +1,15 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 80%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name" class="form-input"
+            {% if propertyAcquisition and propertyAcquisition.name %} value="{{ propertyAcquisition.name }}"{% endif %} />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="promotion">{{ 'promotion'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="promotion" id="promotion" value="1"{% if propertyAcquisition and propertyAcquisition.promotion %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{{ propertyAcquisition ? propertyAcquisition.id : '' }}">
+</div>

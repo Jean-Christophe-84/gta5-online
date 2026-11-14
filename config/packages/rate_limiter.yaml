@@ -1,0 +1,21 @@
+framework:
+    rate_limiter:
+        # Envois de mails (création de compte, mot de passe oublié, nouveau lien de vérification) par adresse IP
+        account_mail:
+            policy: 'sliding_window'
+            limit: 5
+            interval: '15 minutes'
+
+        # Mails reçus par un même compte, quelle que soit l'adresse IP de la demande (évite d'inonder une boîte)
+        account_mail_recipient:
+            policy: 'sliding_window'
+            limit: 3
+            interval: '1 hour'
+
+when@test:
+    framework:
+        rate_limiter:
+            account_mail:
+                policy: 'no_limit'
+            account_mail_recipient:
+                policy: 'no_limit'

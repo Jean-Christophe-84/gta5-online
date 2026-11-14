@@ -1,0 +1,217 @@
+<table class="weapons">
+    <thead>
+        <tr>
+            <th role="button" data-sort-key="weapon_locale-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon_locale-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
+                {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            {% if is_granted('WEAPON_OWN') %}
+                <th role="button" data-sort-key="weapon_user-owned" onclick="orderFilter(this, event);"
+                    {% if filter['order']['weapon_user-owned'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon_user-owned']|lower }}"{% endif %}>
+                    <div class="cell"><label>{{ 'owned'|translateLocale|mbUcfirst }}</label></div>
+                    {{ include('_partial/arrows.html.twig') }}
+                </th>
+            {% endif %}
+            <th role="button"><div class="cell"><label>{{ 'weapon_class'|translateLocale|mbUcfirst }}</label></div></th>
+            <th role="button" data-sort-key="weapon-price" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-price']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'price'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-unlock_rank" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-unlock_rank'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-unlock_rank']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'unlock_rank'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-damage" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-damage'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-damage']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'damage'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-fire_rate" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-fire_rate'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-fire_rate']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'fire_rate'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-accuracy" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-accuracy'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-accuracy']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'accuracy'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-range_weapon" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-range_weapon'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-range_weapon']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'range'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-clip_size" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-clip_size'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-clip_size']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'magazine_capacity'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button" data-sort-key="weapon-average" onclick="orderFilter(this, event);"
+                {% if filter['order']['weapon-average'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-average']|lower }}"{% endif %}>
+                <div class="cell"><label>{{ 'average'|translateLocale|mbUcfirst }}</label></div>
+                {{ include('_partial/arrows.html.twig') }}
+            </th>
+            <th role="button"><div class="cell"><label>{{ 'weapon_acquisitions'|translateLocale|mbUcfirst }}</label></div></th>
+            <th role="button"><div class="cell"><label>{{ 'weapon_customizations'|translateLocale|mbUcfirst }}</label></div></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for weapon in weapons %}
+            {% set weaponOneNames = weapon.weaponOneNames is not null ? weapon.weaponOneNames|split('+') : [] %}
+            {% set weaponClassNames = weapon.weaponClassNames is not null ? weapon.weaponClassNames|split('+') : [] %}
+            {% set weaponAcquisitionNames = weapon.weaponAcquisitionNames is not null ? weapon.weaponAcquisitionNames|split('+') : [] %}
+            {% set customizationNames = weapon.customizationNames is not null ? weapon.customizationNames|split('+') : [] %}
+            {% set average = weapon.damage + weapon.fireRate + weapon.accuracy + weapon.rangeWeapon + weapon.clipSize %}
+            {% set countAverage = 0 %}
+            {% if weapon.damage is not null %}{% set countAverage = countAverage + 1 %}{% endif %}
+            {% if weapon.fireRate is not null %}{% set countAverage = countAverage + 1 %}{% endif %}
+            {% if weapon.accuracy is not null %}{% set countAverage = countAverage + 1 %}{% endif %}
+            {% if weapon.rangeWeapon is not null %}{% set countAverage = countAverage + 1 %}{% endif %}
+            {% if weapon.clipSize is not null %}{% set countAverage = countAverage + 1 %}{% endif %}
+
+            <tr id="weapon_{{ weapon.id }}">
+                <td data-sort-value="{{ weapon.name }}" class="name" id="weaponName_{{ weapon.id }}">
+                    <div class="cell{% if weaponOneNames is not empty %} cell_parents{% endif %}{% if weapon.evolution %} cell_evolution{% endif %}">
+                        {% if weapon.url %}
+                            <a href="{{ weapon.url }}" target="_blank">{{ weapon.weaponManufacturerName ~ ' ' ~ weapon.name }}</a>
+                        {% else %}
+                            {{ weapon.name }}
+                        {% endif %}
+                        {% if weaponOneNames is not empty %}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="svgParent_{{ weapon.id }}" class="svgParent">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
+                            </svg>
+                        {% endif %}
+                        {% if weapon.evolution %}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="svgEvolution_{{ weapon.id }}" class="svgEvolution">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path d="M297.4 73.4C309.9 60.9 330.2 60.9 342.7 73.4L470.7 201.4C479.9 210.6 482.6 224.3 477.6 236.3C472.6 248.3 460.9 256 448 256L384 256L384 416C384 504.4 312.4 576 224 576L160 576C142.3 576 128 561.7 128 544L128 480C128 462.3 142.3 448 160 448L224 448C241.7 448 256 433.7 256 416L256 256L192 256C179.1 256 167.4 248.2 162.4 236.2C157.4 224.2 160.2 210.5 169.3 201.3L297.3 73.3z" />
+                            </svg>
+                        {% endif %}
+                    </div>
+                </td>
+                <td data-sort-value="{{ weapon.titleUpdateName }}" class="titleUpdateName"><div class="cell">{{ weapon.titleUpdateName }}</div></td>
+                {% if is_granted('WEAPON_OWN') %}
+                    <td data-sort-value="{{ weapon.owned ? 1 : 0 }}" class="owned key">
+                        <div class="cell">
+                            <div class="checkbox-wrapper-2">
+                                <input type="checkbox" value="1"{% if weapon.owned %} checked{% endif %} class="stylized" id="weaponOwned_{{ weapon.id }}"
+                                       onchange="editWeapon({{ weapon.id }}, this);" />
+                            </div>
+                        </div>
+                    </td>
+                {% endif %}
+                <td class="className key">
+                    <div class="cell">
+                        {% if weaponClassNames is not empty %}
+                            {% for weaponClassName in weaponClassNames %}
+                                <span class="nowrap">{{ weaponClassName }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
+                <td data-sort-value="{{ weapon.price ? weapon.price : 0 }}" class="price key">
+                    <div class="cell{% if weapon.discountedPrice or weapon.discountedPercentage or weapon.comment or weapon.unlockWeapon %} cell_info{% endif %}">
+                        {{ weapon.price ? weapon.price|formatNumber : '' }}
+                        {% if weapon.discountedPercentage %}
+                            <br/>
+                            {{ 'promo'|translateLocale|mbUcfirst|colon }} {{ (weapon.price * (100 - weapon.discountedPercentage) / 100)|formatNumber }}
+                            ({{ weapon.discountedPercentage|formatPercent }})
+                        {% endif %}
+                        {% if weapon.discountedPrice %}
+                            <br/>
+                            {{ 'discount'|translateLocale|mbUcfirst|colon }} {{ weapon.discountedPrice|formatNumber }}
+                            ({{ (100 - (weapon.discountedPrice / weapon.price * 100))|formatPercent }})
+                            {% if weapon.discountedPercentage %}
+                                <br/>
+                                {{ 'promo_discount'|translateLocale|mbUcfirst|colon }} {{ (weapon.discountedPrice * (100 - weapon.discountedPercentage) / 100)|formatNumber }}
+                                ({{ (100 - (weapon.discountedPrice * (100 - weapon.discountedPercentage) / weapon.price))|formatPercent }})
+                            {% endif %}
+                        {% endif %}
+                        {% if weapon.comment or weapon.unlockWeapon %}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="svgInfo_{{ weapon.id }}">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z" />
+                            </svg>
+                        {% endif %}
+                    </div>
+                </td>
+                <td data-sort-value="{{ weapon.unlockRank ? weapon.unlockRank : 0 }}" class="damage">
+                    <div class="cell">{{ weapon.unlockRank is not null ? weapon.unlockRank|formatNumber : '' }}</div>
+                </td>
+                <td data-sort-value="{{ weapon.damage ? weapon.damage : 0 }}" class="damage">
+                    <div class="cell">{{ weapon.damage is not null ? weapon.damage|formatPercent(2) : '' }}</div>
+                </td>
+                <td data-sort-value="{{ weapon.fireRate ? weapon.fireRate : 0 }}" class="fireRate">
+                    <div class="cell">{{ weapon.fireRate is not null ? weapon.fireRate|formatPercent(2) : '' }}</div>
+                </td>
+                <td data-sort-value="{{ weapon.accuracy ? weapon.accuracy : 0 }}" class="accuracy">
+                    <div class="cell">{{ weapon.accuracy is not null ? weapon.accuracy|formatPercent(2) : '' }}</div>
+                </td>
+                <td data-sort-value="{{ weapon.rangeWeapon ? weapon.rangeWeapon : 0 }}" class="rangeWeapon">
+                    <div class="cell">{{ weapon.rangeWeapon is not null ? weapon.rangeWeapon|formatPercent(2) : '' }}</div>
+                </td>
+                <td data-sort-value="{{ weapon.clipSize ? weapon.clipSize : 0 }}" class="clipSize">
+                    <div class="cell">{{ weapon.clipSize is not null ? weapon.clipSize|formatPercent(2) : '' }}</div>
+                </td>
+                <td data-sort-value="{{ countAverage ? average / countAverage : 0 }}" class="average key">
+                    <div class="cell">{{ countAverage ? (average / countAverage)|formatPercent(2) : '' }}</div>
+                </td>
+                <td>
+                    <div class="cell">
+                        {% if weaponAcquisitionNames is not empty %}
+                            {% for weaponAcquisitionName in weaponAcquisitionNames %}
+                                <span class="nowrap">{{ weaponAcquisitionName }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <div class="cell">
+                        {% if customizationNames is not empty %}
+                            {% for customizationName in customizationNames %}
+                                <span class="nowrap">{{ customizationName }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% if is_granted('WEAPON_EDIT') %}
+                        <button class="btn btn-warning" data-modal-open="#weaponModal" data-weapon-id="{{ weapon.id }}" data-weapon-name="{{ weapon.name }}"
+                                id="formWeapon_{{ weapon.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2zM156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5zM510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                    {% if is_granted('WEAPON_DELETE') %}
+                        <button class="btn btn-danger" data-modal-open="#weaponModal" data-delete data-weapon-id="{{ weapon.id }}" data-weapon-name="{{ weapon.name }}"
+                                id="deleteWeapon_{{ weapon.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                            </svg>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                <div class="pagination">
+                    {{ include('Widget/pagination.html.twig') }}
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,70 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'legal_mentions'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="legal-mentions">
+        <h1>{{ 'legal_mentions'|translateLocale|mbUcfirst }}</h1>
+
+        <h2>{{ 'legal_publisher'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'legal_publisher_text'|translateLocale|mbUcfirst }} Jean-Christophe SANNA, <a href="mailto:{{ contact_mail }}">{{ contact_mail }}</a>.</p>
+
+        <h2>{{ 'legal_hosting'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'legal_hosting_text'|translateLocale|mbUcfirst }} Infomaniak Network SA, Rue Eugène Marziano 25, 1227 Les Acacias (GE), Suisse.</p>
+
+        <h2>{{ 'legal_status'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'unofficial_site_not_affiliated_with_rockstar_games'|translateLocale|mbUcfirst }}</p>
+
+        <h2>{{ 'gdpr_cookies_title'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'gdpr_cookies_intro'|translateLocale|mbUcfirst }} :</p>
+        <ul>
+            <li>{{ 'gdpr_cookie_session'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_cookie_turnstile'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_cookie_remember'|translateLocale|mbUcfirst }}</li>
+        </ul>
+
+        <h2 id="privacy_policy">{{ 'privacy_policy'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'gdpr_controller'|translateLocale|mbUcfirst }} : Jean-Christophe SANNA, <a href="mailto:{{ contact_mail }}">{{ contact_mail }}</a>.</p>
+
+        <h3>{{ 'gdpr_datas_title'|translateLocale|mbUcfirst }}</h3>
+        <ul>
+            <li>{{ 'gdpr_datas_account'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_datas_game'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_datas_technical'|translateLocale|mbUcfirst }}</li>
+        </ul>
+
+        <h3>{{ 'gdpr_purposes_title'|translateLocale|mbUcfirst }}</h3>
+        <ul>
+            <li>{{ 'gdpr_purpose_account'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_purpose_security'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_purpose_statistics'|translateLocale|mbUcfirst }}</li>
+        </ul>
+
+        <h3>{{ 'gdpr_recipients_title'|translateLocale|mbUcfirst }}</h3>
+        <ul>
+            <li>{{ 'gdpr_recipient_host'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_recipient_turnstile'|translateLocale|mbUcfirst }}</li>
+        </ul>
+        <p>{{ 'gdpr_no_sale'|translateLocale|mbUcfirst }}.</p>
+
+        <h3>{{ 'gdpr_retention_title'|translateLocale|mbUcfirst }}</h3>
+        <ul>
+            <li>{{ 'gdpr_retention_inactive'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_retention_unverified'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_retention_logins'|translateLocale|mbUcfirst }}</li>
+            <li>{{ 'gdpr_retention_host_logs'|translateLocale|mbUcfirst }}</li>
+        </ul>
+
+        <h3>{{ 'gdpr_rights_title'|translateLocale|mbUcfirst }}</h3>
+        <p>
+            {{ 'gdpr_rights_list'|translateLocale|mbUcfirst }}.
+            {{ 'gdpr_rights_account_page'|translateLocale|mbUcfirst }}.
+            {{ 'gdpr_rights_contact'|translateLocale|mbUcfirst }} <a href="mailto:{{ contact_mail }}">{{ contact_mail }}</a>.
+            {{ 'gdpr_rights_delay'|translateLocale|mbUcfirst }}.
+            {{ 'gdpr_rights_complaint'|translateLocale|mbUcfirst }} (<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>).
+        </p>
+        <p>{{ 'gdpr_minors'|translateLocale|mbUcfirst }}.</p>
+
+        <p><a href="{{ path('homepage') }}">{{ 'back_to_the_homepage'|translateLocale|mbUcfirst }}</a></p>
+    </div>
+{% endblock %}

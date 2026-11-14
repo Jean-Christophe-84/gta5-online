@@ -1,0 +1,326 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Kortz Center - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        {{ include('_partial/tips.html.twig', {tips: tips('kortz_center')}) }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>Kortz Center</h3>
+        {% if is_granted('HEIST_KORTZ_CENTER_EDIT') %}
+            <div class="tables" id="loots">
+                {{ include('Heist/KortzCenter/_partial/loots.html.twig') }}
+            </div>
+        {% endif %}
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th rowspan="3">
+                            {{ 'example'|translateLocale|mbUcfirst|colon }}
+                            <br/>
+                            {{ (heistKortzCenterMainLoots|filter(heistKortzCenterMainLoot => heistKortzCenterMainLoot.id == 1)|first).name }}
+                        </th>
+                        <th colspan="4">{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }}</th>
+                        <th colspan="4">{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">{{ 'not_detected'|translateLocale|mbUcfirst }}</th>
+                        <th colspan="2">{{ 'detected'|translateLocale|mbUcfirst }}</th>
+                        <th colspan="2">{{ 'not_detected'|translateLocale|mbUcfirst }}</th>
+                        <th colspan="2">{{ 'detected'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</th>
+                        <th>{{ 'hard'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</th>
+                        <th>{{ 'hard'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</th>
+                        <th>{{ 'hard'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</th>
+                        <th>{{ 'hard'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">{{ 'price'|translateLocale|mbUcfirst }}</th>
+                        <td>{{ 100|formatPercent }}</td>
+                        <td>{{ 110|formatPercent }}</td>
+                        <td>{{ 75|formatPercent }}</td>
+                        <td>{{ 82.5|formatPercent(1) }}</td>
+                        <td>{{ 25|formatPercent }}</td>
+                        <td>{{ 27.5|formatPercent(1) }}</td>
+                        <td>{{ 18.75|formatPercent(2) }}</td>
+                        <td>{{ 20.625|formatPercent(3) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 1925000|formatMoney }}</td>
+                        <td>{{ 2117500|formatMoney }}</td>
+                        <td>{{ 1443750|formatMoney }}</td>
+                        <td>{{ 1588125|formatMoney }}</td>
+                        <td>{{ 481250|formatMoney }}</td>
+                        <td>{{ 529375|formatMoney }}</td>
+                        <td>{{ 360938|formatMoney }}</td>
+                        <td>{{ 397031|formatMoney }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="2">{{ 'preparation'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'details'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ 'gather_intel'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'infiltration_equipment'|translateLocale({count: 2})|mbUcfirst }}</td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>{{ 'entry_point'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'infiltration_equipment'|translateLocale({count: 1})|mbUcfirst }}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'staff_entrance'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 'employee_access_card'|translateLocale|mbUcfirst }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'glass_roof'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 'tactical_equipment'|translateLocale|mbUcfirst }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'cargo_zone'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 'alpha_mail_outfit'|translateLocale|mbUcfirst }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'sewer'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 'safety_suit'|translateLocale|mbUcfirst }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'unmarked_weapons'|translateLocale|mbUcfirst }}</td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                                        <th>{{ 'weapons'|translateLocale|mbUcfirst }}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'street_arsenal'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 5|nameAndAverageWeapon }} / {{ 40|nameAndAverageWeapon }} / {{ 106|nameAndAverageWeapon }} / {{ 38|nameAndAverageWeapon }} / {{ 47|nameAndAverageWeapon }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'security_arsenal'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 64|nameAndAverageWeapon }} / {{ 59|nameAndAverageWeapon }} / {{ 97|nameAndAverageWeapon }} / {{ 102|nameAndAverageWeapon }} / {{ 105|nameAndAverageWeapon }} / {{ 84|nameAndAverageWeapon }} / {{ 44|nameAndAverageWeapon }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'military_arsenal'|translateLocale|mbUcfirst }}</td>
+                                        <td>{{ 15|nameAndAverageWeapon }} / {{ 99|nameAndAverageWeapon }} / {{ 102|nameAndAverageWeapon }} / {{ 6|nameAndAverageWeapon }} / {{ 83|nameAndAverageWeapon }} / {{ 79|nameAndAverageWeapon }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'getaway_vehicle'|translateLocale|mbUcfirst }}</td>
+                        <td style="border: 0 !important; padding: 0 !important;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>{{ 'name'|translateLocale|mbUcfirst }}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 407|nameAndAverageVehicle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 835|nameAndAverageVehicle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 621|nameAndAverageVehicle }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ 'access_code'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ 'hacking_device'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ include('_partial/optional_mission.html.twig', {name: 'cargo'|translateLocale|mbUcfirst}) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ include('_partial/optional_mission.html.twig', {name: 'itineraries'|translateLocale|mbUcfirst}) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ include('_partial/optional_mission.html.twig', {name: 'glass_cutter'|translateLocale|mbUcfirst}) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ include('_partial/optional_mission.html.twig', {name: 'drills'|translateLocale|mbUcfirst}) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ include('_partial/optional_mission.html.twig', {name: 'emp_loads'|translateLocale|mbUcfirst}) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{{ 'start_hard_mode'|translateLocale }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'you_will_have_to_wait_about_10_minutes_in_real_time_before_raf_contacts_you_again'|translateLocale|mbUcfirst }}. {{ 'you_have_48_minutes_in_real_time_to_go_back_to_see_him_again_and_restart_the_heist'|translateLocale|mbUcfirst }}.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="4">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'buyer_s_requests'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td rowspan="2">{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 17 {{ 'minutes_in_real_time'|translateLocale|mbUcfirst }} / {{ 'limit_the_loss_in_value_to'|translateLocale|mbUcfirst }} {{ 15000|formatMoney }} / {{ 'average_accuracy_of'|translateLocale|mbUcfirst }} {{ 90|formatPercent }} {{ 'minimum'|translateLocale }} / {{ 'retrieve_the_loots_of_the_list_of_the_buyer_s_request'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 50000|formatMoney }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 100000|formatMoney }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        {% if is_granted('HEIST_KORTZ_CENTER_EDIT') %}
+            checkTemplate();
+        {% endif %}
+
+        function resetHeistKortzCenter() {
+            postRequest('{{ path('reset_kortz_center_heist') }}')
+            .then(response => response.json())
+            .then(data => {
+                showAlert(data.success, data.message);
+                document.querySelector('div#loots').innerHTML = data.template;
+                checkTemplate();
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function checkTemplate() {
+            tippy(document.getElementById('resetHeistKortzCenter'), {content: "{{ 'reset_the_heist'|translateLocale|mbUcfirst|e('js') }}"});
+
+            new TomSelect("#firstTimeInWeek", { maxOptions: null });
+            new TomSelect("#difficulty", { maxOptions: null });
+            new TomSelect("#material", { maxOptions: null });
+            new TomSelect("#weapon", { maxOptions: null });
+            new TomSelect("#vehicle", { maxOptions: null });
+            new TomSelect("#mainLoot", { maxOptions: null });
+
+            {% for heistKortzCenterSecondaryLoot in heistKortzCenterSecondaryLoots|sort((firstLoot, secondLoot) => firstLoot.id <=> secondLoot.id) %}
+                {% set heistKortzCenterSecondaryLootNameIds = [] %}
+                {% if heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameIds is not null %}
+                    {% set heistKortzCenterSecondaryLootNameIds = heistKortzCenterSecondaryLoot.heistKortzCenterSecondaryLootNameIds|split('+') %}
+                {% endif %}
+                {% if heistKortzCenterSecondaryLootNameIds|length > 1 %}
+                    new TomSelect("#heistKortzCenterSecondaryLootNameId_{{ heistKortzCenterSecondaryLoot.id }}", { maxOptions: null });
+                {% endif %}
+            {% endfor %}
+
+            document.querySelectorAll('.form_kortz_center_heist[name]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    showLoader();
+
+                    postRequest('{{ path('form_kortz_center_heist') }}?place=' + this.getAttribute('name') + '&value=' + this.value)
+                    .then(response => response.json())
+                    .then(data => {
+                        showAlert(data.success, data.message);
+                        document.querySelector('div#loots').innerHTML = data.template;
+                        checkTemplate();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+                })
+            });
+
+            document.querySelectorAll('.form_secondary_loot_kortz_center_heist[data-type]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    showLoader();
+
+                    let value;
+
+                    if (this.getAttribute('data-type') == 'active' || this.getAttribute('data-type') == 'buyer_request') {
+                        value = this.checked ? 1 : 0;
+                    } else {
+                        value = this.value;
+                    }
+
+                    postRequest('{{ path('form_secondary_loot_kortz_center_heist') }}'
+                        + '?type=' + this.getAttribute('data-type')
+                        + '&value=' + value
+                        + '&id=' + this.getAttribute('data-id')
+                    )
+                    .then(response => response.json())
+                    .then(data => {
+                        showAlert(data.success, data.message);
+                        document.querySelector('div#loots').innerHTML = data.template;
+                        checkTemplate();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+                })
+            });
+        }
+    </script>
+{% endblock %}

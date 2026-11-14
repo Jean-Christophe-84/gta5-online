@@ -1,0 +1,76 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'mail_verification'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="login content">
+        <div class="elements">
+            <div class="element">
+                <div class="login-header">
+                    <h1>GTA 5 Online</h1>
+                    <p>{{ 'mail_verification'|translateLocale|mbUcfirst }}</p>
+                </div>
+                <p class="login-text">{{ 'click_on_the_button_below_to_validate_your_mail'|translateLocale|mbUcfirst }}.</p>
+                <div class="submit">
+                    <button type="button" class="btn btn-primary" id="verifyMail" onclick="verifyMail();">{{ 'i_validate_my_mail'|translateLocale|mbUcfirst }}</button>
+                    <button type="button" class="btn btn-primary" id="resendVerifyMail" onclick="resendVerifyMail();" hidden>{{ 'receive_a_new_link'|translateLocale|mbUcfirst }}</button>
+                </div>
+                <div class="login-links">
+                    <a href="{{ path('login') }}">{{ 'back_to_the_login'|translateLocale|mbUcfirst }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('_partial/alert.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function verifyMail() {
+            showLoader();
+
+            postRequest('{{ path('check_verify_mail_user') }}?userId={{ userId }}&code={{ code }}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    window.location.href = data.redirect;
+
+                    return;
+                }
+
+                if (data.resend) {
+                    document.getElementById('verifyMail').hidden       = true;
+                    document.getElementById('resendVerifyMail').hidden = false;
+                }
+                showAlert(false, data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function resendVerifyMail() {
+            showLoader();
+
+            postRequest('{{ path('resend_verify_mail_user') }}?userId={{ userId }}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    document.getElementById('resendVerifyMail').hidden = true;
+                }
+                showAlert(data.success, data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+    </script>
+{% endblock %}

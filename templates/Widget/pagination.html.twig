@@ -1,0 +1,51 @@
+{% set firstPage = max(1, (filter['page'] - 2)) %}
+{% set endPage = 4 %}
+{% if filter['page'] != 1 or (totalNames / per_page)|round(0, 'ceil') != 4 %}
+    {% set endPage = (filter['page'] + 2) == 5 and (totalNames / per_page)|round(0, 'ceil') == 6 ? 6 : (min((filter['page'] + 2), (totalNames / per_page)|round(0, 'ceil'))) %}
+{% endif %}
+<nav aria-label="Pagination">
+    <ul class="pagination">
+        <li{% if filter['page'] == 1 or not totalNames %} class="disabled"{% endif %}>
+            {% if filter['page'] == 1 or not totalNames %}
+                <span class="page-link">{{ 'previous'|translateLocale|mbUcfirst }}</span>
+            {% else %}
+                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] - 1 }});">{{ 'previous'|translateLocale|mbUcfirst }}</a>
+            {% endif %}
+        </li>
+        {% if totalNames %}
+            {% if filter['page'] >= 4 %}
+                <li class="page-item">
+                    <a href="#" class="page-link" onclick="reloadFilter('', 1);">1</a>
+                </li>
+                {% if filter['page'] >= 5 %}
+                    <li class="disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+            {% for i in firstPage..endPage %}
+                <li class="page-item{% if filter['page'] == i %} active{% endif %}">
+                    <a href="#" class="page-link"  onclick="reloadFilter('', {{ i }});">{{ i }}</a>
+                </li>
+            {% endfor %}
+            {% if filter['page'] <= (((totalNames / per_page)|round(0, 'ceil')) - 4) %}
+                <li class="disabled">
+                    <span class="page-link">...</span>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link" onclick="reloadFilter('', {{ (totalNames / per_page)|round(0, 'ceil') }});">
+                        {{ (totalNames / per_page)|round(0, 'ceil') }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endif %}
+        <li class="{% if filter['page'] == ((totalNames / per_page)|round(0, 'ceil')) or not totalNames %}disabled {% endif %}">
+            {% if filter['page'] == ((totalNames / per_page)|round(0, 'ceil')) or not totalNames %}
+                <span class="page-link">{{ 'next'|translateLocale|mbUcfirst }}</span>
+            {% else %}
+                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] + 1 }});">{{ 'next'|translateLocale|mbUcfirst }}</a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>
+{{ 'displaying_the_item'|translateLocale|mbUcfirst ~ " " ~ (totalNames ? ((per_page * filter['page']) - per_page + 1) : 0) ~ " " ~ 'to'|translateLocale ~ " " ~ ((totalNames < (per_page * filter['page'])) ? totalNames : (per_page * filter['page'])) ~ " " ~ 'on'|translateLocale ~ " " ~ totalNames ~ " " ~ 'items'|translateLocale }}

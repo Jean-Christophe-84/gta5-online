@@ -1,0 +1,831 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'vehicles'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        {{ include('_partial/alert.html.twig') }}
+        {{ include('_partial/tips.html.twig', {tips: tips('vehicles')}) }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a onclick="launchCommandVehicle();" id="launchCommandVehicle"
+                   class="btn btn-success{% if not configuration.percentageVehicles and not configuration.percentageProperties and not configuration.percentageWeapons and not configuration.percentagePromotions %} is-visible{% endif %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                        <path fill="#FFFFFF" d="M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z" />
+                    </svg>
+                </a>
+                <a onclick="stopCommandVehicle();" class="btn btn-danger{% if configuration.percentageVehicles %} is-visible{% endif %}" id="stopCommandVehicle">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                        <path fill="#FFFFFF" d="M352 96C352 78.3 337.7 64 320 64C302.3 64 288 78.3 288 96L288 304C288 312.8 280.8 320 272 320C263.2 320 256 312.8 256 304L256 128C256 110.3 241.7 96 224 96C206.3 96 192 110.3 192 128L192 400C192 401.5 192 403.1 192.1 404.6L131.6 347C115.6 331.8 90.3 332.4 75 348.4C59.7 364.4 60.4 389.7 76.4 405L188.8 512C231.9 553.1 289.2 576 348.8 576L368 576C465.2 576 544 497.2 544 400L544 192C544 174.3 529.7 160 512 160C494.3 160 480 174.3 480 192L480 304C480 312.8 472.8 320 464 320C455.2 320 448 312.8 448 304L448 128C448 110.3 433.7 96 416 96C398.3 96 384 110.3 384 128L384 304C384 312.8 376.8 320 368 320C359.2 320 352 312.8 352 304L352 96z" />
+                    </svg>
+                </a>
+                <div id="configuration-loader-vehicle" class="configuration-loader{% if configuration.percentageVehicles %} is-visible{% endif %}" role="status"
+                     aria-live="polite">
+                    <div class="configuration-loader__spinner" aria-hidden="true"></div>
+                    <div id="configuration-loader-vehicle__text" class="configuration-loader__text">{{ configuration.percentageVehicles|formatPercent(2, true) }}</div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="include filters">
+            {{ include('Vehicle/_partial/filter.html.twig') }}
+        </div>
+        {% if is_granted('VEHICLE_ADD') %}
+            <div class="addVehicle" id="addVehicle">
+                <button class="btn btn-primary" data-modal-open="#vehicleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                        <path fill="#FFFFFF" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
+                    </svg>
+                </button>
+            </div>
+        {% endif %}
+        <div class="include filters filters_two">
+            {{ include('Vehicle/_partial/filter_two.html.twig') }}
+        </div>
+        {% if is_granted('VEHICLE_OWN') %}
+            <div class="include summary">
+                {{ include('_partial/summary.html.twig', {entity: 'vehicles'}) }}
+            </div>
+        {% endif %}
+        <div class="table-scroll vehicles">
+            {{ include('Vehicle/_partial/template.html.twig') }}
+        </div>
+        <div class="modal" id="vehicleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="vehicleModalTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="vehicleModalTitle"></h2>
+                        <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <div class="submit">
+                            <button class="btn btn-success" onclick="formVehicle();">{{ 'validate'|translateLocale|mbUcfirst }}</button>
+                            {% if is_granted('VEHICLE_DELETE') %}
+                                <button class="btn btn-danger" data-delete-confirm onclick="deleteVehicle();">{{ 'confirm'|translateLocale|mbUcfirst }}</button>
+                            {% endif %}
+                            <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        tippy(document.getElementById('returnMenu'), {content: "{{ 'return_to_main_menu'|translateLocale|mbUcfirst|e('js') }}"});
+        {% if is_granted('ROLE_ADMIN') %}
+            tippy(document.getElementById('launchCommandVehicle'), {content: "{{ 'launch_the_vehicles_retrieval_command'|translateLocale|mbUcfirst|e('js') }}"});
+            tippy(document.getElementById('stopCommandVehicle'), {content: "{{ 'stop_the_vehicles_retrieval_command'|translateLocale|mbUcfirst|e('js') }}"});
+        {% endif %}
+        tippy(document.getElementById('addVehicle'), {content: "{{ 'add_a_vehicle'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('removeAllFilters'), {content: "{{ 'remove_all_filters'|translateLocale|mbUcfirst|e('js') }}"});
+
+        let filterVehicleManufacturerId;
+        let filterTitleUpdateId;
+        let filterOwned;
+        let filterPropertyId;
+        let filterWantedPropertyId;
+        let filterSeats;
+        let filterVehicleClassIds;
+        let filterVehicleAcquisitionIds;
+        let filterStorageLocationIds;
+        let filterSearch;
+        let filterVehicleTwo;
+        let filterOptimized;
+        let filterEvolution;
+        let filterWantedProperty;
+        let filterNotVehicleClassIds;
+        let filterNotVehicleAcquisitionIds;
+        let filterNotStorageLocationIds;
+        let reloadTimerId;
+
+        {% if is_granted('ROLE_ADMIN') %}
+            if (document.getElementById('configuration-loader-vehicle').classList.contains('is-visible')) {
+                checkCommandVehicle();
+            }
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            function checkCommandVehicle() {
+                fetch('{{ path('check_command_vehicle') }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showAlert(false, data.message, data.error);
+                    } else {
+                        if (data.percentage !== "0") {
+                            document.getElementById('launchCommandVehicle').classList.remove('is-visible');
+                            document.getElementById('configuration-loader-vehicle').classList.add('is-visible');
+                            document.getElementById('stopCommandVehicle').classList.add('is-visible');
+                            document.getElementById('configuration-loader-vehicle__text').textContent = data.percentageFormatted;
+
+                            setTimeout("checkCommandVehicle();", 5000);
+                        } else {
+                            document.getElementById('stopCommandVehicle').classList.remove('is-visible');
+                            document.getElementById('configuration-loader-vehicle').classList.remove('is-visible');
+                            document.getElementById('launchCommandVehicle').classList.add('is-visible');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                });
+            }
+
+            function launchCommandVehicle() {
+                showLoader();
+
+                postRequest('{{ path('launch_command_vehicle') }}')
+                .then(response => response.json())
+                .then(data => {
+                    showAlert(data.success, data.message);
+                    checkCommandVehicle();
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+
+            function stopCommandVehicle() {
+                showLoader();
+
+                postRequest('{{ path('stop_command_vehicle') }}')
+                .then(response => response.json())
+                .then(data => {
+                    showAlert(data.success, data.message);
+                    checkCommandVehicle();
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        {% endif %}
+
+        function removeAllFilters() {
+            showLoader();
+
+            fetch('{{ path('filter_vehicle') }}'
+                + '?vehicleManufacturerId=0'
+                + '&titleUpdateId=0'
+                + '&owned=null'
+                + '&propertyId=0'
+                + '&wantedPropertyId=0'
+                + '&seats=0'
+                + '&search='
+                + '&vehicleTwo=0'
+                + '&optimized=null'
+                + '&evolution=0'
+                + '&wantedProperty=null'
+                + '&page=' + {{ filter['page'] }}
+            )
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkVehicles(data.vehicles);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function reloadFilter(urlOrder = '', page = null) {
+            showLoader();
+
+            let urlVehicleClassIds          = '';
+            let urlVehicleAcquisitionIds    = '';
+            let urlStorageLocationIds       = '';
+            let urlNotVehicleClassIds       = '';
+            let urlNotVehicleAcquisitionIds = '';
+            let urlNotStorageLocationIds    = '';
+            let urlPage                     = (page !== null) ? '&page=' + page : '&page=' + {{ filter['page'] }};
+
+            if (filterVehicleClassIds) {
+                filterVehicleClassIds.tomselect.items.forEach(vehicleClassId => {
+                    urlVehicleClassIds += '&vehicleClassIds[]=' + vehicleClassId;
+                });
+            }
+
+            if (filterVehicleAcquisitionIds) {
+                filterVehicleAcquisitionIds.tomselect.items.forEach(vehicleAcquisitionId => {
+                    urlVehicleAcquisitionIds += '&vehicleAcquisitionIds[]=' + vehicleAcquisitionId;
+                });
+            }
+
+            if (filterStorageLocationIds) {
+                filterStorageLocationIds.tomselect.items.forEach(storageLocationId => {
+                    urlStorageLocationIds += '&storageLocationIds[]=' + storageLocationId;
+                });
+            }
+
+            if (filterNotVehicleClassIds) {
+                filterNotVehicleClassIds.tomselect.items.forEach(notVehicleClassId => {
+                    urlNotVehicleClassIds += '&notVehicleClassIds[]=' + notVehicleClassId;
+                });
+            }
+
+            if (filterNotVehicleAcquisitionIds) {
+                filterNotVehicleAcquisitionIds.tomselect.items.forEach(notVehicleAcquisitionId => {
+                    urlNotVehicleAcquisitionIds += '&notVehicleAcquisitionIds[]=' + notVehicleAcquisitionId;
+                });
+            }
+
+            if (filterNotStorageLocationIds) {
+                filterNotStorageLocationIds.tomselect.items.forEach(notStorageLocationId => {
+                    urlNotStorageLocationIds += '&notStorageLocationIds[]=' + notStorageLocationId;
+                });
+            }
+
+            fetch('{{ path('filter_vehicle') }}'
+                + '?vehicleManufacturerId=' + filterVehicleManufacturerId.value
+                + '&titleUpdateId=' + filterTitleUpdateId.value
+                + '&owned=' + filterOwned.value
+                + '&propertyId=' + filterPropertyId.value
+                + '&wantedPropertyId=' + filterWantedPropertyId.value
+                + '&seats=' + filterSeats.value
+                + urlVehicleClassIds
+                + urlVehicleAcquisitionIds
+                + urlStorageLocationIds
+                + '&search=' + filterSearch.value
+                + '&vehicleTwo=' + filterVehicleTwo.value
+                + '&optimized=' + filterOptimized.value
+                + '&evolution=' + filterEvolution.value
+                + '&wantedProperty=' + filterWantedProperty.value
+                + urlNotVehicleClassIds
+                + urlNotVehicleAcquisitionIds
+                + urlNotStorageLocationIds
+                + urlPage
+                + urlOrder
+            )
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkVehicles(data.vehicles);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        checkFilter();
+        checkVehicles({{ vehicles|json_encode|raw }});
+
+        function checkFilter() {
+            filterVehicleManufacturerId    = document.getElementById('filterVehicleManufacturerId');
+            filterTitleUpdateId            = document.getElementById('filterTitleUpdateId');
+            filterOwned                    = document.getElementById('filterOwned');
+            filterPropertyId               = document.getElementById('filterPropertyId');
+            filterWantedPropertyId         = document.getElementById('filterWantedPropertyId');
+            filterSeats                    = document.getElementById('filterSeats');
+            filterVehicleClassIds          = document.getElementById('filterVehicleClassIds');
+            filterVehicleAcquisitionIds    = document.getElementById('filterVehicleAcquisitionIds');
+            filterStorageLocationIds       = document.getElementById('filterStorageLocationIds');
+            filterSearch                   = document.getElementById('filterSearch');
+            filterVehicleTwo               = document.getElementById('filterVehicleTwo');
+            filterOptimized                = document.getElementById('filterOptimized');
+            filterEvolution                = document.getElementById('filterEvolution');
+            filterWantedProperty           = document.getElementById('filterWantedProperty');
+            filterNotVehicleClassIds       = document.getElementById('filterNotVehicleClassIds');
+            filterNotVehicleAcquisitionIds = document.getElementById('filterNotVehicleAcquisitionIds');
+            filterNotStorageLocationIds    = document.getElementById('filterNotStorageLocationIds');
+
+            new TomSelect("#filterVehicleManufacturerId", { maxOptions: null });
+            new TomSelect("#filterTitleUpdateId", { maxOptions: null });
+            {% if is_granted('VEHICLE_OWN') %}
+                new TomSelect("#filterOwned", { maxOptions: null });
+                new TomSelect("#filterPropertyId", { labelField: 'text', maxOptions: null, searchField: ['text', 'search'], valueField: 'value' });
+                new TomSelect("#filterWantedPropertyId", { labelField: 'text', maxOptions: null, searchField: ['text', 'search'], valueField: 'value' });
+            {% endif %}
+            new TomSelect("#filterSeats", { maxOptions: null });
+            new TomSelect("#filterVehicleClassIds", { maxOptions: null, plugins: ['remove_button'] });
+            new TomSelect("#filterVehicleAcquisitionIds", { maxOptions: null, plugins: ['remove_button'] });
+            new TomSelect("#filterStorageLocationIds", { maxOptions: null, plugins: ['remove_button'] });
+            new TomSelect("#filterVehicleTwo", { maxOptions: null });
+            new TomSelect("#filterOptimized", { maxOptions: null });
+            new TomSelect("#filterEvolution", { maxOptions: null });
+            {% if is_granted('VEHICLE_OWN') %}
+                new TomSelect("#filterWantedProperty", { maxOptions: null });
+            {% endif %}
+            new TomSelect("#filterNotVehicleClassIds", { maxOptions: null, plugins: ['remove_button'] });
+            new TomSelect("#filterNotVehicleAcquisitionIds", { maxOptions: null, plugins: ['remove_button'] });
+            new TomSelect("#filterNotStorageLocationIds", { maxOptions: null, plugins: ['remove_button'] });
+
+            filterVehicleManufacturerId.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterTitleUpdateId.addEventListener('change', () => {
+                reloadFilter();
+            });
+            {% if is_granted('VEHICLE_OWN') %}
+                filterOwned.addEventListener('change', () => {
+                    reloadFilter();
+                });
+                filterPropertyId.addEventListener('change', () => {
+                    reloadFilter();
+                });
+                filterWantedPropertyId.addEventListener('change', () => {
+                    reloadFilter();
+                });
+            {% endif %}
+            filterSeats.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterVehicleClassIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterVehicleAcquisitionIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterStorageLocationIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterSearch.addEventListener("input", () => {
+                clearTimeout(reloadTimerId);
+                reloadTimerId = setTimeout(() => {
+                    reloadFilter();
+                }, 500);
+            });
+            filterVehicleTwo.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterOptimized.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterEvolution.addEventListener('change', () => {
+                reloadFilter();
+            });
+            {% if is_granted('VEHICLE_OWN') %}
+                filterWantedProperty.addEventListener('change', () => {
+                    reloadFilter();
+                });
+            {% endif %}
+            filterNotVehicleClassIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterNotVehicleAcquisitionIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterNotStorageLocationIds.addEventListener('change', () => {
+                reloadFilter();
+            });
+        }
+
+        function checkVehicles(vehicles) {
+            vehicles.forEach(vehicle => {
+                {% if is_granted('VEHICLE_OWN') %}
+                    new TomSelect("#vehiclePropertyId_" + vehicle.id, { allowEmptyOption: true, labelField: 'text', maxOptions: null, searchField: ['text', 'search'], valueField: 'value' });
+                    new TomSelect("#vehicleWantedPropertyId_" + vehicle.id, { allowEmptyOption: true, labelField: 'text', maxOptions: null, searchField: ['text', 'search'], valueField: 'value' });
+                {% endif %}
+
+                let content = '';
+
+                if (vehicle.realLifeVehicle) {
+                    content += '{{ 'real_name'|translateLocale|mbUcfirst|colon|e('js') }} ' + escapeHtml(vehicle.realLifeVehicle);
+                }
+
+                if (vehicle.webPath) {
+                    content += '<img src="' + escapeHtml(vehicle.webPath) + '" alt="' + escapeHtml(vehicle.name) + '" class="img-fluid" style="height: 154px; margin-top: 10px; width: 274px;" />';
+                }
+
+                tippy(document.getElementById('vehicleName_' + vehicle.id), {content: content, allowHTML: true});
+                tippy(document.getElementById('formVehicle_' + vehicle.id), {content: '{{ 'edit_the_vehicle'|translateLocale|mbUcfirst|e('js') }} "' + vehicle.name + '"'});
+                {% if is_granted('VEHICLE_DELETE') %}
+                    tippy(document.getElementById('deleteVehicle_' + vehicle.id), {content: '{{ 'delete_the_vehicle'|translateLocale|mbUcfirst|e('js') }} "' + vehicle.name + '"'});
+                {% endif %}
+                tippy(document.getElementById('duplicateVehicle_' + vehicle.id), {content: '{{ 'duplicate_the_vehicle'|translateLocale|mbUcfirst|e('js') }} "' + vehicle.name + '"'});
+
+                if (vehicle.comment || vehicle.unlockVehicle) {
+                    let infoContent = '';
+
+                    if (vehicle.comment) {
+                        infoContent += '<strong>{{ 'comment'|translateLocale|mbUcfirst|colon|e('js') }} </strong><br/>' + escapeHtml(vehicle.comment).replace(/\r?\n/g, '<br/>');
+                    }
+
+                    if (vehicle.unlockVehicle) {
+                        if (vehicle.comment) {
+                            infoContent += '<br/><br/>';
+                        }
+
+                        infoContent += '<strong>{{ 'unlock'|translateLocale|mbUcfirst|colon|e('js') }} </strong><br/>' + escapeHtml(vehicle.unlockVehicle).replace(/\r?\n/g, '<br/>');
+                    }
+
+                    tippy(document.getElementById('svgInfo_' + vehicle.id), {content: infoContent, allowHTML: true});
+                }
+
+                if (vehicle.vehicleOneNames) {
+                    let vehicleOneNames = vehicle.vehicleOneNames ? vehicle.vehicleOneNames.split('+') : [];
+                    let parentContent   = '<strong>{{ 'parents'|translateLocale|mbUcfirst|colon|e('js') }} </strong><br/>' + vehicleOneNames.map(vehicleOneName => escapeHtml(vehicleOneName)).join('<br/>');
+
+                    tippy(document.getElementById('svgParent_' + vehicle.id), {content: parentContent, allowHTML: true});
+                }
+
+                tippy(document.getElementById('svgEvolution_' + vehicle.id), {content: "{{ 'evolution_of_another_vehicle'|translateLocale|mbUcfirst|e('js') }}", allowHTML: true});
+
+                tippy(document.getElementById('svgOptimized_' + vehicle.id), {content: "{{ 'totally_optimized_vehicle'|translateLocale|mbUcfirst|e('js') }}", allowHTML: true});
+
+                {% if is_granted('VEHICLE_OWN') %}
+                    checkVehicle(vehicle.id);
+                {% endif %}
+            });
+        }
+
+        function editVehicle(vehicleId) {
+            showLoader();
+            checkVehicle(vehicleId);
+
+            let owned            = document.getElementById('vehicleOwned_' + vehicleId);
+            let propertyId       = document.getElementById('vehiclePropertyId_' + vehicleId);
+            let wantedPropertyId = document.getElementById('vehicleWantedPropertyId_' + vehicleId);
+
+            postRequest('{{ path('update_vehicle') }}'
+                + '?vehicleId=' + vehicleId
+                + '&owned=' + (owned.checked ? 1 : 0)
+                + '&propertyId=' + propertyId.value
+                + '&wantedPropertyId=' + wantedPropertyId.value
+            )
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    refreshList(data);
+                    checkFilter();
+                    checkVehicles(data.vehicles);
+                }
+                showAlert(data.success, data.message);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function formVehicle() {
+            showLoader();
+
+            let name                      = document.querySelector('#vehicleModal').querySelector('input[name="name"]');
+            let vehicleManufacturerId     = document.querySelector('#vehicleModal').querySelector('select[name="vehicleManufacturerId"]');
+            let owned                     = document.querySelector('#vehicleModal').querySelector('input[name="owned"]');
+            let propertyId                = document.querySelector('#vehicleModal').querySelector('select[name="propertyId"]');
+            let vehicleOneIds             = document.querySelector('#vehicleModal').querySelector('select[name="vehicleOneIds[]"]');
+            let vehicleClassIds           = document.querySelector('#vehicleModal').querySelector('select[name="vehicleClassIds[]"]');
+            let vehicleDrivetrainId       = document.querySelector('#vehicleModal').querySelector('select[name="vehicleDrivetrainId"]');
+            let titleUpdateId             = document.querySelector('#vehicleModal').querySelector('select[name="titleUpdateId"]');
+            let wantedPropertyId          = document.querySelector('#vehicleModal').querySelector('select[name="wantedPropertyId"]');
+            let price                     = document.querySelector('#vehicleModal').querySelector('input[name="price"]');
+            let discountedPrice           = document.querySelector('#vehicleModal').querySelector('input[name="discountedPrice"]');
+            let seats                     = document.querySelector('#vehicleModal').querySelector('input[name="seats"]');
+            let discountedPercentage      = document.querySelector('#vehicleModal').querySelector('input[name="discountedPercentage"]');
+            let weight                    = document.querySelector('#vehicleModal').querySelector('input[name="weight"]');
+            let gears                     = document.querySelector('#vehicleModal').querySelector('input[name="gears"]');
+            let topSpeedKilometers        = document.querySelector('#vehicleModal').querySelector('input[name="topSpeedKilometers"]');
+            let topSpeedKilometersMaximum = document.querySelector('#vehicleModal').querySelector('input[name="topSpeedKilometersMaximum"]');
+            let speed                     = document.querySelector('#vehicleModal').querySelector('input[name="speed"]');
+            let acceleration              = document.querySelector('#vehicleModal').querySelector('input[name="acceleration"]');
+            let braking                   = document.querySelector('#vehicleModal').querySelector('input[name="braking"]');
+            let handling                  = document.querySelector('#vehicleModal').querySelector('input[name="handling"]');
+            let url                       = document.querySelector('#vehicleModal').querySelector('input[name="url"]');
+            let realLifeVehicle           = document.querySelector('#vehicleModal').querySelector('input[name="realLifeVehicle"]');
+            let vehicleAcquisitionIds     = document.querySelector('#vehicleModal').querySelector('select[name="vehicleAcquisitionIds[]"]');
+            let storageLocationIds        = document.querySelector('#vehicleModal').querySelector('select[name="storageLocationIds[]"]');
+            let deliveryMethodIds         = document.querySelector('#vehicleModal').querySelector('select[name="deliveryMethodIds[]"]');
+            let modificationLocationIds   = document.querySelector('#vehicleModal').querySelector('select[name="modificationLocationIds[]"]');
+            let optimized                 = document.querySelector('#vehicleModal').querySelector('input[name="optimized"]');
+            let comment                   = document.querySelector('#vehicleModal').querySelector('textarea[name="comment"]');
+            let unlockVehicle             = document.querySelector('#vehicleModal').querySelector('textarea[name="unlockVehicle"]');
+            let evolution                 = document.querySelector('#vehicleModal').querySelector('input[name="evolution"]');
+            let vehicleId                 = document.querySelector('#vehicleModal').querySelector('input[name="id"]');
+
+            document.querySelector('#vehicleModal').querySelector('#error_name').classList.remove('show');
+
+            if (!name.value) {
+                document.querySelector('#vehicleModal').querySelector('#error_name').classList.add('show');
+
+                hideLoader();
+            } else {
+                let urlVehicleOneIds           = '';
+                let urlVehicleClassIds         = '';
+                let urlVehicleAcquisitionIds   = '';
+                let urlStorageLocationIds      = '';
+                let urlDeliveryMethodIds       = '';
+                let urlModificationLocationIds = '';
+
+                if (vehicleOneIds) {
+                    vehicleOneIds.tomselect.items.forEach(vehicleOneId => {
+                        urlVehicleOneIds += '&vehicleOneIds[]=' + vehicleOneId;
+                    });
+                }
+
+                if (vehicleClassIds) {
+                    vehicleClassIds.tomselect.items.forEach(vehicleClassId => {
+                        urlVehicleClassIds += '&vehicleClassIds[]=' + vehicleClassId;
+                    });
+                }
+
+                if (vehicleAcquisitionIds) {
+                    vehicleAcquisitionIds.tomselect.items.forEach(vehicleAcquisitionId => {
+                        urlVehicleAcquisitionIds += '&vehicleAcquisitionIds[]=' + vehicleAcquisitionId;
+                    });
+                }
+
+                if (storageLocationIds) {
+                    storageLocationIds.tomselect.items.forEach(storageLocationId => {
+                        urlStorageLocationIds += '&storageLocationIds[]=' + storageLocationId;
+                    });
+                }
+
+                if (deliveryMethodIds) {
+                    deliveryMethodIds.tomselect.items.forEach(deliveryMethodId => {
+                        urlDeliveryMethodIds += '&deliveryMethodIds[]=' + deliveryMethodId;
+                    });
+                }
+
+                if (modificationLocationIds) {
+                    modificationLocationIds.tomselect.items.forEach(modificationLocationId => {
+                        urlModificationLocationIds += '&modificationLocationIds[]=' + modificationLocationId;
+                    });
+                }
+
+                postRequest('{{ path('form_vehicle') }}'
+                    + '?name=' + encodeURIComponent(name.value)
+                    + '&vehicleManufacturerId=' + vehicleManufacturerId.value
+                    + '&owned=' + (owned.checked ? 1 : 0)
+                    + '&propertyId=' + propertyId.value
+                    + urlVehicleOneIds
+                    + urlVehicleClassIds
+                    + '&vehicleDrivetrainId=' + vehicleDrivetrainId.value
+                    + '&titleUpdateId=' + titleUpdateId.value
+                    + '&wantedPropertyId=' + wantedPropertyId.value
+                    + '&price=' + price.value
+                    + '&discountedPrice=' + discountedPrice.value
+                    + '&seats=' + seats.value
+                    + '&discountedPercentage=' + discountedPercentage.value
+                    + '&weight=' + weight.value
+                    + '&gears=' + gears.value
+                    + '&topSpeedKilometers=' + topSpeedKilometers.value
+                    + '&topSpeedKilometersMaximum=' + topSpeedKilometersMaximum.value
+                    + '&speed=' + speed.value
+                    + '&acceleration=' + acceleration.value
+                    + '&braking=' + braking.value
+                    + '&handling=' + handling.value
+                    + '&url=' + (url ? url.value : '')
+                    + '&realLifeVehicle=' + realLifeVehicle.value
+                    + urlVehicleAcquisitionIds
+                    + urlStorageLocationIds
+                    + urlDeliveryMethodIds
+                    + urlModificationLocationIds
+                    + '&optimized=' + (optimized.checked ? 1 : 0)
+                    + '&comment=' + encodeURIComponent(comment.value)
+                    + '&unlockVehicle=' + encodeURIComponent(unlockVehicle.value)
+                    + '&evolution=' + (evolution.checked ? 1 : 0)
+                    + '&vehicleId=' + vehicleId.value
+                )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#vehicleModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkVehicles(data.vehicles);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        }
+
+        function checkVehicle(vehicleId) {
+            let owned      = document.getElementById('vehicleOwned_' + vehicleId);
+            let propertyId = document.getElementById('vehiclePropertyId_' + vehicleId);
+
+            let propertyTd = propertyId.parentElement;
+
+            if (owned.checked) {
+                propertyId.tomselect.enable();
+
+                if (propertyTd?._tippy) {
+                    propertyTd._tippy.destroy();
+                }
+            } else {
+                propertyId.tomselect.disable();
+
+                tippy(propertyTd, {content: "{{ 'you_can_not_select_a_property_on_a_vehicle_that_you_do_not_own'|translateLocale|mbUcfirst|e('js') }}"});
+            }
+        }
+
+        function checkVehicleModal() {
+            let vehicleClassIds    = document.querySelector('#vehicleModal').querySelector('#vehicleClassIds');
+            let owned              = document.querySelector('#vehicleModal').querySelector('#owned');
+            let propertyId         = document.querySelector('#vehicleModal').querySelector('#propertyId');
+            let wantedPropertyId   = document.querySelector('#vehicleModal').querySelector('#wantedPropertyId');
+            let storageLocationIds = document.querySelector('#vehicleModal').querySelector('#storageLocationIds');
+            let propertyDiv        = propertyId.parentElement;
+            let disabled;
+
+            if (owned.checked) {
+                propertyId.tomselect.enable();
+
+                if (propertyDiv?._tippy) {
+                    propertyDiv._tippy.destroy();
+                }
+
+                if (propertyId.querySelectorAll('option').length > 0) {
+                    propertyId.querySelectorAll('option').forEach((option) => {
+                        if (option.getAttribute('selected') !== null) {
+                            disabled = false;
+                        } else {
+                            disabled = true;
+                            const dataStorageLocationIds = JSON.parse(option.getAttribute("data-storage-location-ids"));
+                            let dataNumberVehicles       = option.getAttribute("data-number-vehicles-not-bicycles") ?? 0;
+                            let dataNumberMaxVehicles    = option.getAttribute("data-number-max-vehicles") ?? 0;
+
+                            if ((vehicleClassIds.tomselect.items).includes("9")) {
+                                dataNumberVehicles    = option.getAttribute("data-number-vehicles-bicycles") ?? 0;
+                                dataNumberMaxVehicles = option.getAttribute("data-number-max-bicycles") ?? 0;
+                            }
+
+                            if (option.getAttribute("data-property-name")) {
+                                option.textContent = option.getAttribute("data-property-name") + ' (' + dataNumberVehicles + '/' + dataNumberMaxVehicles + ')';
+                            }
+
+                            storageLocationIds.tomselect.items.forEach(storageLocationId => {
+                                if (!option.getAttribute('value')
+                                    || (dataStorageLocationIds.length > 0 && dataStorageLocationIds.includes(parseInt(storageLocationId))
+                                        && (parseInt(dataNumberVehicles) < parseInt(dataNumberMaxVehicles))
+                                    )
+                                ) {
+                                    disabled = false;
+                                }
+                            });
+                        }
+
+                        option.disabled = disabled;
+                        syncTomSelectOption(propertyId.tomselect, option);
+                    });
+
+                    propertyId.tomselect.refreshOptions(false);
+                }
+            } else {
+                propertyId.tomselect.disable();
+
+                tippy(propertyDiv, {content: "{{ 'you_can_not_select_a_property_on_a_vehicle_that_you_do_not_own'|translateLocale|mbUcfirst|e('js') }}"});
+            }
+
+            if (wantedPropertyId.querySelectorAll('option').length > 0) {
+                wantedPropertyId.querySelectorAll('option').forEach((option) => {
+                    if (option.getAttribute('selected') !== null) {
+                        disabled = false;
+                    } else {
+                        disabled                     = true;
+                        const dataStorageLocationIds = JSON.parse(option.getAttribute("data-storage-location-ids"));
+                        let dataNumberVehicles       = option.getAttribute("data-number-vehicles-not-bicycles") ?? 0;
+                        let dataNumberMaxVehicles    = option.getAttribute("data-number-max-vehicles") ?? 0;
+
+                        if ((vehicleClassIds.tomselect.items).includes("9")) {
+                            dataNumberVehicles    = option.getAttribute("data-number-vehicles-bicycles") ?? 0;
+                            dataNumberMaxVehicles = option.getAttribute("data-number-max-bicycles") ?? 0;
+                        }
+
+                        if (option.getAttribute("data-wanted-property-name")) {
+                            option.textContent = option.getAttribute("data-wanted-property-name") + ' (' + dataNumberVehicles + '/' + dataNumberMaxVehicles + ')';
+                        }
+
+                        storageLocationIds.tomselect.items.forEach(storageLocationId => {
+                            if (!option.getAttribute('value')
+                                || (dataStorageLocationIds.length > 0 && dataStorageLocationIds.includes(parseInt(storageLocationId))
+                                    && (parseInt(dataNumberVehicles) < parseInt(dataNumberMaxVehicles))
+                                )
+                            ) {
+                                disabled = false;
+                            }
+                        });
+                    }
+
+                    option.disabled = disabled;
+                    syncTomSelectOption(wantedPropertyId.tomselect, option);
+                });
+
+                wantedPropertyId.tomselect.refreshOptions(false);
+            }
+        }
+
+        {% if is_granted('VEHICLE_DELETE') %}
+            function deleteVehicle() {
+                showLoader();
+
+                postRequest('{{ path('delete_vehicle') }}?vehicleId=' + document.querySelector('#vehicleModal').querySelector('input[name="id"]').value)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#vehicleModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkVehicles(data.vehicles);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        {% endif %}
+
+        document.addEventListener("click", (event) => {
+            const opener = event.target.closest("[data-modal-open]");
+
+            if (!opener) return;
+
+            showLoader();
+
+            const id         = opener.getAttribute("data-vehicle-id") ?? '';
+            const copyId     = opener.getAttribute("data-vehicle-copy-id") ?? '';
+            const modal      = document.querySelector(opener.getAttribute("data-modal-open"));
+            const deleteMode = opener.hasAttribute("data-delete");
+
+            openModal(modal);
+
+            if (deleteMode) {
+                modal.querySelector('#vehicleModalTitle').textContent = '{{ 'delete_the_vehicle'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-vehicle-name") + '"';
+            } else if (id) {
+                modal.querySelector('#vehicleModalTitle').textContent = '{{ 'edit_the_vehicle'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-vehicle-name") + '"';
+            } else {
+                modal.querySelector('#vehicleModalTitle').textContent = '{{ 'add_a_vehicle'|translateLocale|mbUcfirst|e('js') }}';
+            }
+
+            fetch('{{ path('get_vehicle') }}?vehicleId=' + id + '&vehicleCopyId=' + copyId + (deleteMode ? '&delete=1' : ''))
+            .then(response => response.json())
+            .then(data => {
+                modal.querySelector('.modal-body').innerHTML = data.template;
+                document.getElementById('owned').onchange = () => { checkVehicleModal(); };
+                new TomSelect("#vehicleManufacturerId", { allowEmptyOption: true, maxOptions: null });
+                new TomSelect("#propertyId", { allowEmptyOption: true, labelField: 'text', maxOptions: null, searchField: ['text', 'search'], valueField: 'value' });
+                new TomSelect("#vehicleOneIds", { maxOptions: null, plugins: ['remove_button'] });
+                new TomSelect("#vehicleClassIds", {
+                    onChange: function() { checkVehicleModal(); },
+                    maxOptions: null,
+                    plugins: ['remove_button']
+                });
+                new TomSelect("#vehicleDrivetrainId", { allowEmptyOption: true, maxOptions: null });
+                new TomSelect("#titleUpdateId", { allowEmptyOption: true, maxOptions: null });
+                new TomSelect("#wantedPropertyId", { allowEmptyOption: true, maxOptions: null });
+                new TomSelect("#vehicleAcquisitionIds", { maxOptions: null, plugins: ['remove_button'] });
+                new TomSelect("#storageLocationIds", {
+                    onChange: function() { checkVehicleModal(); },
+                    maxOptions: null,
+                    plugins: ['remove_button']
+                });
+                new TomSelect("#deliveryMethodIds", { maxOptions: null, plugins: ['remove_button'] });
+                new TomSelect("#modificationLocationIds", { maxOptions: null, plugins: ['remove_button'] });
+                checkVehicleModal();
+                setDeleteMode(modal, deleteMode, data.deletable);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        });
+    </script>
+{% endblock %}

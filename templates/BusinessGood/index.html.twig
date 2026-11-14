@@ -1,0 +1,258 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'business_goods'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        {{ include('_partial/alert.html.twig') }}
+        {{ include('_partial/tips.html.twig', {tips: tips('business_goods')}) }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <div class="include filters">
+            {{ include('BusinessGood/_partial/filter.html.twig') }}
+        </div>
+        {% if is_granted('BUSINESS_GOOD_ADD') %}
+            <div class="addBusinessGood" id="addBusinessGood">
+                <button class="btn btn-primary" data-modal-open="#businessGoodModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                        <path fill="#FFFFFF" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
+                    </svg>
+                </button>
+            </div>
+        {% endif %}
+        <div class="table-scroll businessGoods">
+            {{ include('BusinessGood/_partial/template.html.twig') }}
+        </div>
+        <div class="modal" id="businessGoodModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="businessGoodModalTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="businessGoodModalTitle"></h2>
+                        <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <div class="submit">
+                            <button class="btn btn-success" onclick="formBusinessGood();">{{ 'validate'|translateLocale|mbUcfirst }}</button>
+                            {% if is_granted('BUSINESS_GOOD_DELETE') %}
+                                <button class="btn btn-danger" data-delete-confirm onclick="deleteBusinessGood();">{{ 'confirm'|translateLocale|mbUcfirst }}</button>
+                            {% endif %}
+                            <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        tippy(document.getElementById('returnMenu'), {content: "{{ 'return_to_main_menu'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('addBusinessGood'), {content: "{{ 'add_a_business_good'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('removeAllFilters'), {content: "{{ 'remove_all_filters'|translateLocale|mbUcfirst|e('js') }}"});
+
+        let filterSearch;
+        let reloadTimerId;
+
+        function removeAllFilters() {
+            showLoader();
+
+            fetch('{{ path('filter_business_good') }}?search=&page=' + {{ filter['page'] }})
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkBusinessGoods(data.businessGoods);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function reloadFilter(urlOrder = '', page = null) {
+            showLoader();
+
+            let urlPage = (page !== null) ? '&page=' + page : '&page=' + {{ filter['page'] }};
+
+            fetch('{{ path('filter_business_good') }}?&search=' + encodeURIComponent(filterSearch.value) + urlPage + urlOrder)
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+                checkBusinessGoods(data.businessGoods);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        checkFilter();
+        checkBusinessGoods({{ businessGoods|json_encode|raw }});
+
+        function checkFilter() {
+            filterSearch  = document.getElementById('filterSearch');
+            reloadTimerId = null;
+
+            filterSearch.addEventListener("input", () => {
+                clearTimeout(reloadTimerId);
+                reloadTimerId = setTimeout(() => {
+                    reloadFilter();
+                }, 500);
+            });
+        }
+
+        function checkBusinessGoods(businessGoods) {
+            businessGoods.forEach(businessGood => {
+                tippy(document.getElementById('formBusinessGood_' + businessGood.id), {content: '{{ 'edit_the_business_good'|translateLocale|mbUcfirst|e('js') }} "' + businessGood.businessName + '"'});
+                {% if is_granted('BUSINESS_GOOD_DELETE') %}
+                    tippy(document.getElementById('deleteBusinessGood_' + businessGood.id), {content: '{{ 'delete_the_business_good'|translateLocale|mbUcfirst|e('js') }} "' + businessGood.businessName + '"'});
+                {% endif %}
+            });
+        }
+
+        function formBusinessGood() {
+            showLoader();
+
+            let businessId                                     = document.querySelector('#businessGoodModal').querySelector('select[name="businessId"]');
+            let additionalInformations                         = document.querySelector('#businessGoodModal').querySelector('input[name="additionalInformations"]');
+            let stockDealer                                    = document.querySelector('#businessGoodModal').querySelector('input[name="stockDealer"]');
+            let stockDealerTotal                               = document.querySelector('#businessGoodModal').querySelector('input[name="stockDealerTotal"]');
+            let costOfRestock                                  = document.querySelector('#businessGoodModal').querySelector('input[name="costOfRestock"]');
+            let replenishmentRate                              = document.querySelector('#businessGoodModal').querySelector('input[name="replenishmentRate"]');
+            let replenishmentRateWithUpgradedEquipment         = document.querySelector('#businessGoodModal').querySelector('input[name="replenishmentRateWithUpgradedEquipment"]');
+            let replenishmentRateWithUpgradedStaff             = document.querySelector('#businessGoodModal').querySelector('input[name="replenishmentRateWithUpgradedStaff"]');
+            let replenishmentRateWithUpgradedEquipmentAndStaff = document.querySelector('#businessGoodModal').querySelector('input[name="replenishmentRateWithUpgradedEquipmentAndStaff"]');
+            let sale                                           = document.querySelector('#businessGoodModal').querySelector('input[name="sale"]');
+            let saleWithUpgradedEquipment                      = document.querySelector('#businessGoodModal').querySelector('input[name="saleWithUpgradedEquipment"]');
+            let saleWithUpgradedStaff                          = document.querySelector('#businessGoodModal').querySelector('input[name="saleWithUpgradedStaff"]');
+            let saleWithUpgradedEquipmentAndStaff              = document.querySelector('#businessGoodModal').querySelector('input[name="saleWithUpgradedEquipmentAndStaff"]');
+            let timeForRestock                                 = document.querySelector('#businessGoodModal').querySelector('input[name="timeForRestock"]');
+            let timeForRestockWithUpgradedEquipment            = document.querySelector('#businessGoodModal').querySelector('input[name="timeForRestockWithUpgradedEquipment"]');
+            let timeForRestockWithUpgradedStaff                = document.querySelector('#businessGoodModal').querySelector('input[name="timeForRestockWithUpgradedStaff"]');
+            let timeForRestockWithUpgradedEquipmentAndStaff    = document.querySelector('#businessGoodModal').querySelector('input[name="timeForRestockWithUpgradedEquipmentAndStaff"]');
+            let businessGoodId                                 = document.querySelector('#businessGoodModal').querySelector('input[name="id"]');
+
+            if (!businessId.value) {
+                document.querySelector('#businessGoodModal').querySelector('#error_businessId').classList.add('show');
+
+                hideLoader();
+            } else {
+                postRequest('{{ path('form_business_good') }}'
+                    + '?businessId=' + businessId.value
+                    + '&additionalInformations=' + encodeURIComponent(additionalInformations.value)
+                    + '&stockDealer=' + stockDealer.value
+                    + '&stockDealerTotal=' + stockDealerTotal.value
+                    + '&costOfRestock=' + costOfRestock.value
+                    + '&replenishmentRate=' + replenishmentRate.value
+                    + '&replenishmentRateWithUpgradedEquipment=' + replenishmentRateWithUpgradedEquipment.value
+                    + '&replenishmentRateWithUpgradedStaff=' + replenishmentRateWithUpgradedStaff.value
+                    + '&replenishmentRateWithUpgradedEquipmentAndStaff=' + replenishmentRateWithUpgradedEquipmentAndStaff.value
+                    + '&sale=' + sale.value
+                    + '&saleWithUpgradedEquipment=' + saleWithUpgradedEquipment.value
+                    + '&saleWithUpgradedStaff=' + saleWithUpgradedStaff.value
+                    + '&saleWithUpgradedEquipmentAndStaff=' + saleWithUpgradedEquipmentAndStaff.value
+                    + '&timeForRestock=' + timeForRestock.value
+                    + '&timeForRestockWithUpgradedEquipment=' + timeForRestockWithUpgradedEquipment.value
+                    + '&timeForRestockWithUpgradedStaff=' + timeForRestockWithUpgradedStaff.value
+                    + '&timeForRestockWithUpgradedEquipmentAndStaff=' + timeForRestockWithUpgradedEquipmentAndStaff.value
+                    + '&businessGoodId=' + businessGoodId.value
+                )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#businessGoodModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkBusinessGoods(data.businessGoods);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        }
+
+        {% if is_granted('BUSINESS_GOOD_DELETE') %}
+            function deleteBusinessGood() {
+                showLoader();
+
+                postRequest('{{ path('delete_business_good') }}?businessGoodId=' + document.querySelector('#businessGoodModal').querySelector('input[name="id"]').value)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#businessGoodModal'));
+                        refreshList(data);
+                        checkFilter();
+                        checkBusinessGoods(data.businessGoods);
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        {% endif %}
+
+        document.addEventListener("click", (event) => {
+            const opener = event.target.closest("[data-modal-open]");
+
+            if (!opener) return;
+
+            showLoader();
+
+            const id         = opener.getAttribute("data-business-good-id") ?? '';
+            const modal      = document.querySelector(opener.getAttribute("data-modal-open"));
+            const deleteMode = opener.hasAttribute("data-delete");
+
+            openModal(modal);
+
+            if (deleteMode) {
+                modal.querySelector('#businessGoodModalTitle').textContent = '{{ 'delete_the_business_good'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-business-good-name") + '"';
+            } else if (id) {
+                modal.querySelector('#businessGoodModalTitle').textContent = '{{ 'edit_the_business_good'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-business-good-name") + '"';
+            } else {
+                modal.querySelector('#businessGoodModalTitle').textContent = '{{ 'add_a_business_good'|translateLocale|mbUcfirst|e('js') }}';
+            }
+
+            fetch('{{ path('get_business_good') }}?businessGoodId=' + id + (deleteMode ? '&delete=1' : ''))
+            .then(response => response.json())
+            .then(data => {
+                modal.querySelector('.modal-body').innerHTML = data.template;
+                new TomSelect("#businessId", { allowEmptyOption: true, maxOptions: null });
+                setDeleteMode(modal, deleteMode, data.deletable);
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        });
+    </script>
+{% endblock %}

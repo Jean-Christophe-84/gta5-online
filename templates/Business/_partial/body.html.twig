@@ -1,0 +1,54 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if business and business.name %} value="{{ business.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="propertyTypeId">{{ 'property_type'|translateLocale|mbUcfirst }}</label>
+        <select name="propertyTypeId" id="propertyTypeId">
+            <option value="">{{ 'select_a_property_type'|translateLocale|mbUcfirst }}</option>
+            {% for propertyTypeLocale in propertyTypeLocales %}
+                <option value="{{ propertyTypeLocale.propertyType.id }}"
+                    {% if business and propertyTypeLocale.propertyType.id == business.propertyTypeId %} selected{% endif %}>{{ propertyTypeLocale.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="error" id="error_propertyTypeId">{{ 'please_enter_the_property_type'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label" for="contact">{{ 'contact'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="contact" id="contact"{% if business and business.contact %} value="{{ business.contact }}"{% endif %} class="form-input" />
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="maximumNumber">{{ 'maximum_number'|translateLocale|mbUcfirst }}</label>
+        <input type="number" name="maximumNumber" id="maximumNumber"{% if business and business.maximumNumber %} value="{{ business.maximumNumber }}"{% endif %}
+               class="form-input" />
+        <div class="error" id="error_maximumNumber">{{ 'please_enter_the_maximum_number'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 20%;">
+        <label class="form-label required" for="titleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }}</label>
+        <select name="titleUpdateId" id="titleUpdateId">
+            <option value="">{{ 'select_a_title_update'|translateLocale|mbUcfirst }}</option>
+            {% for titleUpdate in titleUpdates %}
+                <option value="{{ titleUpdate.id }}"
+                    {% if business and titleUpdate.id == business.titleUpdateId %} selected{% endif %}>{{ titleUpdate.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="error" id="error_titleUpdateId">{{ 'please_enter_the_title_update'|translateLocale|mbUcfirst }} !</div>
+    </div>
+</div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="dailyEarnings">{{ 'daily_earnings_in_game'|translateLocale|mbUcfirst }}</label>
+        <textarea name="dailyEarnings" id="dailyEarnings" class="form-textarea" rows="10">{{ business ? business.dailyEarnings : '' }}</textarea>
+    </div>
+    <div class="form-group" style="--filter-width: 35%;">
+        <label class="form-label" for="dailyExpenses">{{ 'daily_expenses_in_game'|translateLocale|mbUcfirst }}</label>
+        <textarea name="dailyExpenses" id="dailyExpenses" class="form-textarea" rows="10">{{ business ? business.dailyExpenses : '' }}</textarea>
+    </div>
+    <div class="form-group" style="--filter-width: 30%;">
+        <label class="form-label" for="improvement">{{ 'improvement'|translateLocale|mbUcfirst }}</label>
+        <textarea name="improvement" id="improvement" class="form-textarea" rows="10">{{ business ? business.improvement : '' }}</textarea>
+    </div>
+    <input type="hidden" name="id" value="{{ business ? business.id : '' }}" />
+</div>

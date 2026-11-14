@@ -1,0 +1,69 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'agency'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>{{ 'agency'|translateLocale|mbUcfirst }}</h3>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            {{ 'dr_dre_s_vip_contract'|translateLocale|mbUcfirst }}
+                            <br/>
+                            1 - 4 {{ 'players'|translateLocale|mbUcfirst }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">{{ 'missions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'preparation_mission'|translateLocale|mbUcfirst }} ({{ 'only_the_first_time'|translateLocale }})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'implementation_mission'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'the_escape'|translateLocale|mbUcfirst }} "Nightlife"</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'the_escape'|translateLocale|mbUcfirst }} "High Society"</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'the_escape'|translateLocale|mbUcfirst }} "South Central"</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'finals'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'mission_information'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'release_information'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">{{ 'video'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'earnings_of_the_first_heist_of_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                        <th>{{ 'earnings_of_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }} ({{ 'from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m'|translateLocale|mbUcfirst }})</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 1099800|formatMoney }}</td>
+                        <td>{{ 900000|formatMoney }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

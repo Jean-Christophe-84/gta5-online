@@ -1,0 +1,235 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Cayo Perico - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content guide">
+        {{ include('_partial/alert.html.twig') }}
+        {{ include('_partial/tips.html.twig', {tips: tips('cayo_perico')}) }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+        </div>
+        <h3>Cayo Perico</h3>
+        {% if is_granted('HEIST_CAYO_PERICO_EDIT') %}
+            <div class="tables" id="loots">
+                {{ include('Heist/CayoPerico/_partial/loots.html.twig') }}
+            </div>
+        {% endif %}
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="6">{{ 'main_loots'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'percentage_of_chance_for_the_first_heist_of_the_week'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'percentage_of_chance_for_the_other_heists_throughout_the_week'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'bonus_on_secondary_loots'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    {% for heistCayoPericoMainLoot in heistCayoPericoMainLoots %}
+                        <tr>
+                            <td rowspan="2">{{ heistCayoPericoMainLoot.name }}</td>
+                            <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                            <td>{{ heistCayoPericoMainLoot.price|formatMoney }}</td>
+                            <td rowspan="2">{{ heistCayoPericoMainLoot.percentageFirstWeek|formatPercent(2, true) }}</td>
+                            <td rowspan="2">{{ heistCayoPericoMainLoot.percentageOtherWeek|formatPercent(2, true) }}</td>
+                            <td rowspan="2">{{ heistCayoPericoMainLoot.percentageBonusSecondaryLoot|formatPercent }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                            <td>{{ (heistCayoPericoMainLoot.price * 1.1)|formatMoney }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="4">{{ 'secondary_loots'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'slice_in_the_bag'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'earnings_for_a_full_bag'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    {% for heistCayoPericoSecondaryLoot in heistCayoPericoSecondaryLoots %}
+                        <tr>
+                            <td>{{ 'heist_cayo_perico_secondary_loot'|translateLocale({loot: heistCayoPericoSecondaryLoot.name})|mbUcfirst }}</td>
+                            <td>{{ 'between'|translateLocale|mbUcfirst ~ ' ' ~ heistCayoPericoSecondaryLoot.priceMinimum|formatMoney ~ ' ' ~ 'and'|translateLocale ~ ' ' ~ heistCayoPericoSecondaryLoot.priceMaximum|formatMoney }}</td>
+                            <td>{{ heistCayoPericoSecondaryLoot.percentageBag|formatPercent(2, true) }}</td>
+                            <td>
+                                {% if heistCayoPericoSecondaryLoot.percentageBag %}
+                                    {{ 'between'|translateLocale|mbUcfirst ~ ' ' ~ heistCayoPericoSecondaryLoot.priceMinimumTotal|formatMoney ~ ' ' ~ 'and'|translateLocale ~ ' ' ~ heistCayoPericoSecondaryLoot.priceMaximumTotal|formatMoney }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="2">{{ 'preparation'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ 'gather_intel'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'approach_vehicle'|translateLocale|mbUcfirst }}</td>
+                        <td>
+                            {{ 627|nameAndAverageVehicle }}
+                            <br/>
+                            {{ 620|nameAndAverageVehicle }}
+                            <br/>
+                            {{ 101|nameAndAverageVehicle }}
+                            <br/>
+                            {{ 621|nameAndAverageVehicle }}
+                            <br/>
+                            {{ 623|nameAndAverageVehicle }}
+                            <br/>
+                            {{ 622|nameAndAverageVehicle }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'equipment'|translateLocale|mbUcfirst }}</td>
+                        <td>
+                            {{ include('_partial/optional_mission.html.twig', {name: 'demolition_charges'|translateLocale|mbUcfirst}) }}
+                            <br/>
+                            {{ 'safe_code'|translateLocale|mbUcfirst }} / {{ 'plasma_cutter'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'fingerprint_cloner'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'cutting_torch'|translateLocale|mbUcfirst }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'unmarked_weapons'|translateLocale|mbUcfirst }} ({{ 'random'|translateLocale }})</td>
+                        <td>
+                            {{ 'assault_of_an_agency'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'merryweather_s_helicopter'|translateLocale|mbUcfirst }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ include('_partial/optional_mission.html.twig', {name: 'disruptions'|translateLocale|mbUcfirst}) }}</td>
+                        <td>
+                            {{ 'weapons'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'armors'|translateLocale|mbUcfirst }}
+                            <br/>
+                            {{ 'air_support'|translateLocale|mbUcfirst }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="2">{{ 'start_hard_mode'|translateLocale }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 'heist_completed_in_solo'|translateLocale }}</td>
+                        <td>{{ 'we_have_to_wait'|translateLocale|mbUcfirst }} 3 {{ 'days_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 2h24 {{ 'in_real_time_before_pavel_contacts_you_again'|translateLocale }}. {{ 'you_have'|translateLocale }} 1 {{ 'day_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 48 {{ 'minutes_in_real_time_to_return_to_see_him_again_and_restart_the_heist'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'heist_completed_in_team'|translateLocale }}</td>
+                        <td>{{ 'we_have_to_wait'|translateLocale|mbUcfirst }} 1 {{ 'day_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 48 {{ 'minutes_in_real_time_before_pavel_contacts_you_again'|translateLocale }}. {{ 'you_have'|translateLocale }} 1 {{ 'day_in_game'|translateLocale }}, {{ 'or'|translateLocale }} 48 {{ 'minutes_in_real_time_to_return_to_see_him_again_and_restart_the_heist'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tables">
+            <table>
+                <tbody>
+                    <tr>
+                        <th colspan="3">{{ 'elite_challenge'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'loot'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'difficulty'|translateLocale|mbUcfirst }}</th>
+                        <th>{{ 'conditions'|translateLocale|mbUcfirst }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ 50000|formatMoney }}</td>
+                        <td>{{ 'normal'|translateLocale({gender: 'feminine'})|mbUcfirst }}</td>
+                        <td rowspan="2">{{ 'no_quick_restart'|translateLocale|mbUcfirst }} / {{ 'finish_the_heist_in_less_than'|translateLocale|mbUcfirst }} 15 {{ 'minutes'|translateLocale|mbUcfirst }} / {{ 'no_player_dies'|translateLocale|mbUcfirst }} / {{ 'no_failed_hacking'|translateLocale|mbUcfirst }} / {{ 'to_have_full_bags'|translateLocale|mbUcfirst }} / {{ 'do_not_get_detected'|translateLocale|mbUcfirst }} ({{ 'until_you_exit_from_el_rubio_s_house'|translateLocale|mbUcfirst }})</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 100000|formatMoney }}</td>
+                        <td>{{ 'hard'|translateLocale|mbUcfirst }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        {% if is_granted('HEIST_CAYO_PERICO_EDIT') %}
+            checkTemplate();
+        {% endif %}
+
+        function resetHeistCayoPerico() {
+            postRequest('{{ path('reset_cayo_perico_heist') }}')
+            .then(response => response.json())
+            .then(data => {
+                showAlert(data.success, data.message);
+                document.querySelector('div#loots').innerHTML = data.template;
+                checkTemplate();
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function checkTemplate() {
+            tippy(document.getElementById('resetHeistCayoPerico'), {content: "{{ 'reset_the_heist'|translateLocale|mbUcfirst|e('js') }}"});
+
+            new TomSelect("#difficulty", { maxOptions: null });
+            new TomSelect("#mainLootId", { maxOptions: null });
+
+            document.querySelectorAll('.form_cayo_perico_heist[name]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    if (this.value == '') {
+                        this.value = 0;
+                    }
+
+                    postRequest('{{ path('form_cayo_perico_heist') }}?place=' + this.getAttribute('name') + '&value=' + this.value)
+                    .then(response => response.json())
+                    .then(data => {
+                        showAlert(data.success, data.message);
+                        document.querySelector('div#loots').innerHTML = data.template;
+                        checkTemplate();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+                })
+            });
+        }
+    </script>
+{% endblock %}

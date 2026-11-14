@@ -1,0 +1,129 @@
+{% if summary %}
+    {% set percentageOwned = summary.total > 0 ? summary.owned * 100 / summary.total : 0 %}
+    <section class="summary" aria-label="{{ 'summary'|translateLocale|mbUcfirst }}" title="{{ 'summary_according_to_filters'|translateLocale|mbUcfirst }}">
+        <div class="summary-card summary-card--owned">
+            <span class="summary-card__label">{{ 'summary_owned'|translateLocale({entity: entity})|mbUcfirst }}</span>
+            <span class="summary-card__value">{{ summary.owned|formatNumber }} / {{ summary.total|formatNumber }}</span>
+            <span class="summary-card__detail">
+                {{ percentageOwned|formatPercent }} · {{ 'summary_value'|translateLocale|mbUcfirst|colon }}
+                {% if entity == 'bounty_targets' %}
+                    {{ summary.ownedPriceMin|formatMoney }} – {{ summary.ownedPriceMax|formatMoney }}
+                {% else %}
+                    {{ summary.ownedPrice|formatMoney }}
+                {% endif %}
+            </span>
+            {% if entity == 'bounty_targets' %}
+                <span class="summary-card__detail summary-card__detail--line">
+                    {{ 'summary_most_wanted_done'|translateLocale({count: summary.mostWantedOwned, total: summary.mostWanted})|mbUcfirst }}
+                </span>
+            {% endif %}
+            {% if entity == 'vehicles' %}
+                <span class="summary-card__detail summary-card__detail--line">
+                    {{ 'summary_stored'|translateLocale({count: summary.ownedStored})|mbUcfirst }}
+                    · {{ 'summary_not_stored'|translateLocale({count: summary.ownedNotStored, withoutPlace: summary.ownedNotStoredWithoutPlace}) }}
+                    · {{ 'summary_not_buyable_anymore'|translateLocale({count: summary.ownedNotBuyable}) }}
+                </span>
+            {% endif %}
+            <div class="summary-card__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ percentageOwned|round }}">
+                <div style="width: {{ percentageOwned|round(2) }}%;"></div>
+            </div>
+        </div>
+        {% if entity == 'vehicles' %}
+            <div class="summary-card summary-card--to-buy">
+                <span class="summary-card__label">{{ 'summary_buyable'|translateLocale({entity: entity})|mbUcfirst }}</span>
+                <span class="summary-card__value">{{ summary.buyablePrice|formatMoney }}</span>
+                <span class="summary-card__detail">
+                    {{ 'summary_items'|translateLocale({count: summary.buyable, entity: entity}) }}
+                    · {{ 'summary_of_which_wanted'|translateLocale({count: summary.toBuy, entity: entity}) }}{% if summary.toBuy > 0 %} ({{ summary.toBuyPrice|formatMoney }}){% endif %}
+                    {% if summary.toBuyWithoutProperty > 0 %}
+                        · {{ 'summary_wanted_pegasus'|translateLocale({count: summary.toBuyWithoutProperty}) }}
+                    {% endif %}
+                </span>
+                <span class="summary-card__detail summary-card__detail--line">
+                    {{ 'summary_unavailable'|translateLocale({count: summary.unavailable})|mbUcfirst }}
+                    · {{ 'summary_without_place'|translateLocale({count: summary.withoutPlace}) }}
+                </span>
+            </div>
+        {% else %}
+            <div class="summary-card summary-card--to-buy">
+                <span class="summary-card__label">
+                    {{ (entity in ['bounty_targets', 'weapons'] ? 'summary_remaining' : 'summary_to_buy')|translateLocale({entity: entity})|mbUcfirst }}
+                </span>
+                <span class="summary-card__value">
+                    {% if entity == 'bounty_targets' %}
+                        {{ summary.toBuyPriceMin|formatMoney }} – {{ summary.toBuyPriceMax|formatMoney }}
+                    {% else %}
+                        {{ summary.toBuyPrice|formatMoney }}
+                    {% endif %}
+                </span>
+                <span class="summary-card__detail">{{ 'summary_items'|translateLocale({count: summary.toBuy, entity: entity}) }}</span>
+            </div>
+        {% endif %}
+        {% if entity != 'bounty_targets' %}
+            <div class="summary-card summary-card--discounted">
+                <span class="summary-card__label">{{ 'summary_discounted'|translateLocale({entity: entity})|mbUcfirst }}</span>
+                <span class="summary-card__value">{{ summary.discounted|formatNumber }}</span>
+                <span class="summary-card__detail">
+                    {{ 'summary_of_which_not_owned'|translateLocale({count: summary.discountedNotOwned, entity: entity}) }}
+                    {% if entity != 'weapons' %}
+                        · {{ 'summary_of_which_wanted'|translateLocale({count: summary.toBuyDiscounted, entity: entity}) }}
+                    {% endif %}
+                </span>
+                {% if summary.discountedNotOwned > 0 %}
+                    <span class="summary-card__detail summary-card__detail--line">
+                        {{ 'summary_to_pay'|translateLocale({
+                            basePrice: summary.discountedBasePrice|formatMoney, entity: entity, price: summary.discountedPrice|formatMoney
+                        })|mbUcfirst }}
+                        · {{ 'summary_saving'|translateLocale|colon }} {{ (summary.discountedBasePrice - summary.discountedPrice)|formatMoney }}
+                    </span>
+                {% endif %}
+                {% if summary.toBuyDiscounted is defined and summary.toBuyDiscounted > 0 and entity != 'weapons' %}
+                    <span class="summary-card__detail summary-card__detail--line">
+                        {{ 'summary_wanted_to_pay'|translateLocale({
+                            basePrice: summary.toBuyDiscountedBasePrice|formatMoney, entity: entity, price: summary.toBuyDiscountedPrice|formatMoney
+                        })|mbUcfirst }}
+                        · {{ 'summary_saving'|translateLocale|colon }} {{ (summary.toBuyDiscountedBasePrice - summary.toBuyDiscountedPrice)|formatMoney }}
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if summary.placesCapacity is defined %}
+            <div class="summary-card summary-card--capacity">
+                <span class="summary-card__label">{{ 'summary_capacity'|translateLocale|mbUcfirst }}</span>
+                <span class="summary-card__value">{{ summary.placesStored|formatNumber }} / {{ summary.placesCapacity|formatNumber }}</span>
+                <span class="summary-card__detail">
+                    {{ 'summary_free_places'|translateLocale({count: max(summary.placesCapacity - summary.placesStored, 0)}) }}
+                    · {{ 'summary_need_place'|translateLocale({count: summary.needPlace}) }}
+                </span>
+            </div>
+        {% endif %}
+        {% if summary.ownedCapacityVehicles is defined %}
+            <div class="summary-card summary-card--capacity">
+                <span class="summary-card__label">{{ 'summary_capacity'|translateLocale|mbUcfirst }}</span>
+                <span class="summary-card__value">
+                    {{ summary.storedVehicles|formatNumber }} / {{ summary.ownedCapacityVehicles|formatNumber }} {{ 'vehicles_short'|translateLocale }}.
+                    · {{ summary.storedBicycles|formatNumber }} / {{ summary.ownedCapacityBicycles|formatNumber }} {{ 'bicycles_short'|translateLocale }}.
+                </span>
+                <span class="summary-card__detail">
+                    {{ 'summary_capacity_wanted'|translateLocale|mbUcfirst|colon }}
+                    {{ summary.wantedCapacityVehicles|formatNumber }} {{ 'vehicles_short'|translateLocale }}.
+                    · {{ summary.wantedCapacityBicycles|formatNumber }} {{ 'bicycles_short'|translateLocale }}.
+                </span>
+                <span class="summary-card__detail summary-card__detail--line">
+                    {{ 'vehicles_price'|translateLocale|mbUcfirst|colon }} {{ summary.storedPrice|formatMoney }}
+                </span>
+            </div>
+        {% endif %}
+        {% if summary.evolutions is defined and summary.evolutions > 0 %}
+            <div class="summary-card summary-card--evolutions">
+                <span class="summary-card__label">{{ 'summary_evolutions'|translateLocale|mbUcfirst }}</span>
+                <span class="summary-card__value">{{ summary.evolutionsToBuyPrice|formatMoney }}</span>
+                <span class="summary-card__detail">
+                    {{ summary.evolutionsOwned|formatNumber }} / {{ summary.evolutions|formatNumber }}
+                    {{ 'summary_evolutions_owned'|translateLocale({count: summary.evolutionsOwned}) }}
+                    · {{ 'summary_all_evolved'|translateLocale|colon }} {{ summary.allEvolvedPrice|formatMoney }}
+                </span>
+            </div>
+        {% endif %}
+    </section>
+{% endif %}

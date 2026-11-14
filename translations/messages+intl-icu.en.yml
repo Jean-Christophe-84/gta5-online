@@ -1,0 +1,1382 @@
+####################
+# GLOBAL VARIABLES #
+####################
+agency: agency
+all: all
+amount_in_dollars: '${amount}'
+and: and
+an_error_occurred_while_changing_the_filter: an error occurred while changing the filter
+apartment: apartment
+average: average
+a_technical_error_occurred: a technical error occurred
+back_to_homepage: back to home
+bicycles_short: cyc
+cancel: cancel
+capacity: capacity
+career_progress: career progress
+career_progress_description: your character's stats and progression, requires a Rockstar Games account linked to your platform
+casino: casino
+cayo_perico: cayo perico
+choose_language: choose language
+close: close
+comment: comment
+confirm: confirm
+date: date
+date_day_month: '{date, date, ::EEE d MMM}'
+date_month_year: '{date, date, ::MMMM y}'
+date_time: '{date, date, ::MM/dd/yyyy h:mm a}'
+deletion_and_more: '{count, plural, one {# more} other {# more}}'
+deletion_definitive: this deletion is permanent
+deletion_impossible: cannot be deleted while these items are linked to it
+deletion_linked: >-
+    {count, plural,
+        one   {# {type, select, businesses {linked business} business_goods {linked business good} casino_drivers {linked casino heist driver} casino_gunmen {linked casino heist gunman} child_vehicles {vehicle has it as parent} child_weapons {weapon has it as parent} parent_properties {property has it as subproperty} properties {linked property} property_types {linked property type} vehicles {linked vehicle} weapons {linked weapon} other {linked item}}}
+        other {# {type, select, businesses {linked businesses} business_goods {linked business goods} casino_drivers {linked casino heist drivers} casino_gunmen {linked casino heist gunmen} child_vehicles {vehicles have it as parent} child_weapons {weapons have it as parent} parent_properties {properties have it as subproperty} properties {linked properties} property_types {linked property types} vehicles {linked vehicles} weapons {linked weapons} other {linked items}}}
+    }
+deletion_removed_from_users: '{count, plural, one {# user has it checked (owned, wanted or done): the check will be lost} other {# users have it checked (owned, wanted or done): their checks will be lost}}'
+deletion_vehicles_taken_out: '{count, plural, one {# vehicle stored or wanted here by a user will be taken out of the property} other {# vehicles stored or wanted here by users will be taken out of the property}}'
+description: description
+discount: discount
+discounted_percentage: discounted percentage
+discounted_price: discounted price
+displaying_the_item: displaying the item
+doomsday: doomsday
+doomsday_heist: doomsday heist
+evolution: evolution
+external_links: external links
+factory: factory
+filters: filters
+hangar: hangar
+heists_guide: heists guide
+home: home
+hours_of_gameplay: hours of gameplay
+in: in
+independent_of_other_filters: independent of other filters
+information_list: information list
+interactive_map: interactive spawn map
+interactive_map_description: animals, dealers, collectibles, events... every spawn point on the map
+in_real_time: in real time
+ip_address: IP address
+items: items
+knoway: knoWay
+kortz_center: kortz center
+loading: loading
+minimum: minimum
+minutes_in_real_time: minutes in real time
+name: name
+news_site: Rockstar Intel
+news_site_description: GTA Online news (weekly promotions, updates, events)
+next: next
+no: no
+on: on
+opens_in_a_new_tab: opens in a new tab
+owned: owned
+parents: parents
+player: player
+players: players
+please_enter_the_description: please enter the description
+please_enter_the_name: please enter the name
+please_enter_the_price: please enter the price
+previous: previous
+previous_page: previous page
+price: price
+promo: promo
+promotion: sale
+promo_discount: promo discount
+real_name: real name
+remove_all_filters: remove all filters
+return_to_main_menu: return to main menu
+search: search
+sort: sort
+subproperties: subproperties
+text_with_colon: '{text}:'
+tips: tips
+to: to
+to_be_removed: to be removed
+type: type
+unlock: unlock
+unofficial_site_not_affiliated_with_rockstar_games: unofficial site, not affiliated with Rockstar Games or Take-Two Interactive. Grand Theft Auto and GTA are registered trademarks of Take-Two Interactive Software, Inc.
+url: URL
+validate: validate
+vehicles: vehicles
+vehicles_short: veh
+wanted: wanted
+weapons: weapons
+weekly_bonuses: weekly bonuses
+weekly_bonuses_description: weekly bonuses, discounts and challenges in French (casino wheel, test drives, Ammu-Nation, rotations...)
+yes: yes
+you_are_not_allowed_to_access_this_page: you are not allowed to access this page
+
+#################
+# BOUNTY TARGET #
+#################
+add_a_bounty_target: add a target
+bail_office: bail office
+bounty_mission: mission
+delete_the_bounty_target: delete the target
+done: done
+edit_the_bounty_target: edit the target
+error_bounty_target_delete: an error occurred while deleting the target "{name}"
+error_bounty_target_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {editing}
+    } the target "{name}" via the form
+error_bounty_target_list: an error occurred while updating the target "{name}" on the list
+most_wanted: most wanted
+reward_alive: reward (alive)
+select_a_bounty_mission: select a mission
+success_bounty_target_delete: the target "{name}" has been deleted
+success_bounty_target_form: >-
+    the target "{name}" has been {type, select,
+        add    {added}
+        update {updated}
+        other  {edited}
+    } via the form
+success_bounty_target_list: the target "{name}" has been updated on the list
+tip_reward_dead: if the target is brought in dead, the reward is divided by {divisor}
+
+############
+# BUSINESS #
+############
+additional_information: additional information
+add_a_business: add a business
+business: business
+businesses: businesses
+contact: contact
+daily_earnings_in_game: daily earnings in game
+daily_expenses_in_game: daily expenses in game
+delete_the_business: delete the business
+edit_the_business: edit the business
+error_business_delete: an error occurred while deleting the business "{name}"
+error_business_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the business "{name}" via the form
+improvement: improvement
+maximum_number: maximum number
+please_enter_the_maximum_number: please enter the maximum number
+please_select_a_business: please select a business
+select_a_business: select a business
+success_business_delete: the business "{name}" has been successfully deleted
+success_business_form: >-
+    the business "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+#################
+# BUSINESS GOOD #
+#################
+add_a_business_good: add a business good
+boost: boost
+business_goods: business goods
+cost_of_a_restock: cost of a restock
+delete_the_business_good: delete the business good
+edit_the_business_good: edit the business good
+error_business_good_delete: an error occurred while deleting the business good "{name}"
+error_business_good_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the business good "{name}" via the form
+far_away_sale: far away sale
+hour_in_game: hour in game
+in_real_minutes: in real minutes
+net_sale: net sale
+profit_if_raw_materials_are_purchased: profit if raw materials are purchased
+replenishment: replenishment
+replenishment_rate: replenishment rate
+replenishment_rate_with: replenishment rate with
+replenishment_rate_with_upgraded_equipment: replenishment rate with upgraded equipment
+replenishment_rate_with_upgraded_equipment_and: replenishment rate with upgraded equipment and
+sale: sale
+sale_with: sale with
+sale_with_upgraded_equipment: sale with upgraded equipment
+sale_with_upgraded_equipment_and: sale with upgraded equipment and
+stock: stock
+stock_for_dealer: stock for dealer
+success_business_good_delete: the business good "{name}" has been successfully deleted
+success_business_good_form: >-
+    the business good "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+time_for_restock: time for restock
+time_for_restock_with: time for restock with
+time_for_restock_with_upgraded_equipment: time for restock with upgraded equipment
+time_for_restock_with_upgraded_equipment_and: time for restock with upgraded equipment and
+tip_dealer_double_price: each dealer pays double for one of the products they buy. This product is picked at random, changes every day (in real time) and appears first in their menu, marked with a star
+tip_dealer_stock_order: the dealer draws from the production sites' stock first, then from the nightclub's. If both are empty, nothing can be sold
+tip_production_online_only: businesses only produce while you are connected to an online session. Production stops in story mode or when the game is closed
+total: total
+total_stock_for_dealer: total stock for dealer
+total_with: total with
+total_with_upgraded_equipment: total with upgraded equipment
+upgraded_staff: upgraded staff
+upgraded_staff_or_boost: upgraded staff or boost
+
+###########
+# COMMAND #
+###########
+command_finished_with_error: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } ended with an error
+command_finished_with_success: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } has been successfully completed
+command_launched: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } has been successfully launched
+command_none_running: >-
+    no {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } in progress
+command_none_to_stop: >-
+    no {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } to stop
+command_no_longer_running: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } is no longer running
+command_promotion_launch: launch the promotion removal command (properties, vehicles and weapons)
+command_promotion_remove_all: remove all promotions
+command_promotion_remove_all_question: do you really want to remove all promotions from properties, vehicles and weapons?
+command_promotion_stop: stop the promotion removal command
+command_running: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } is in progress
+command_stopped: >-
+    the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    } has been successfully stopped
+command_stop_failed: >-
+    unable to stop the {command, select,
+        properties {property retrieval}
+        promotions {promotion removal}
+        vehicles   {vehicle retrieval}
+        weapons    {weapon retrieval}
+        other      {command}
+    }
+launch_the_properties_retrieval_command: launch the properties retrieval command
+launch_the_vehicles_retrieval_command: launch the vehicles retrieval command
+launch_the_weapons_retrieval_command: launch the weapons retrieval command
+stop_the_properties_retrieval_command: stop the properties retrieval command
+stop_the_vehicles_retrieval_command: stop the vehicles retrieval command
+stop_the_weapons_retrieval_command: stop the weapons retrieval command
+
+#################
+# CONFIGURATION #
+#################
+configuration: configuration
+
+#################
+# CUSTOMIZATION #
+#################
+add_a_weapon_customization: add a weapon customization
+delete_the_weapon_customization: delete the weapon customization
+edit_the_weapon_customization: edit the weapon customization
+error_customization_delete: an error occurred while deleting the weapon customization "{name}"
+error_customization_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the customization "{name}" via the form
+success_customization_delete: the weapon customization "{name}" has been successfully deleted
+success_customization_form: >-
+    the customization "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+weapon_customizations: weapon customizations
+
+###################
+# DELIVERY METHOD #
+###################
+add_a_delivery_method: add a delivery method
+delete_the_delivery_method: delete the delivery method
+delivery_methods: delivery methods
+edit_the_delivery_method: edit the delivery method
+error_delivery_method_delete: an error occurred while deleting the delivery method "{name}"
+error_delivery_method_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the delivery method "{name}" via the form
+success_delivery_method_delete: the delivery method "{name}" has been successfully deleted
+success_delivery_method_form: >-
+    the delivery method "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+###############
+# ERROR PAGES #
+###############
+error_page_403_text: "This is a restricted area and you don't have clearance. Hands where I can see 'em, and step away from the page nice and slow. Think it's a mistake? Tell it to an administrator."
+error_page_403_title: "Freeze! LSPD!"
+error_page_404_text: "Dispatch, we've lost visual. The page was last seen at this address. We searched Los Santos, Blaine County and the bottom of the Alamo Sea. Nothing. Either it never existed, or it's lying low until the heat dies down."
+error_page_404_title: "Suspect lost on foot"
+error_page_500_text: "That heist went sideways: someone tripped the alarm. It was us. All units are responding and patching things up, so give it a few minutes and try again once things cool off."
+error_page_500_title: "Shots fired, requesting backup!"
+error_page_default_text: "Things didn't go according to plan. A unit is on its way. Lester is blaming the plan. The plan is blaming Lester."
+error_page_default_title: "Reports of suspicious activity"
+error_technical_details: '{message} at line {line} of file "{file}"'
+invalid_csrf_token: your session has expired, please reload the page
+technical_details_super_admin_only: technical details (super admins only)
+wanted_level: wanted level
+
+##########
+# FILTER #
+##########
+filter_evolution: >-
+    {filter, select,
+        all             {all}
+        yes             {only evolved {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        yes_with_others {without base {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        no_with_others  {without evolved {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        no              {only base {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        other           {}
+    }
+filter_two: >-
+    {filter, select,
+        all             {all}
+        yes             {only variants}
+        yes_with_others {without base {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        no_with_others  {without variants}
+        no              {only base {entity, select, vehicles {vehicles} weapons {weapons} other {}}}
+        other           {}
+    }
+
+#########
+# GROUP #
+#########
+add_a_group: add a group
+a_default_group_is_required: 'a default group is required for new accounts: tick this box on another group to move it'
+default_group_for_new_accounts: default group for new accounts
+edit_the_group: edit the group
+error_group_gta_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the group "{name}" via the form
+group: group
+groups: groups
+please_select_the_group: please select the group
+select_the_group: select the group
+success_group_gta_form: >-
+    the group "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+#########
+# HEIST #
+#########
+access_code: access code
+act: act
+aggressive: aggressive
+air_defenses: air defenses
+air_support: air support
+all_you_have_to_do_is_choose_the_approach_used_during_the_second_to_last_turn: all you have to do is choose the approach used during the second-to-last turn
+alpha_mail_outfit: alpha mail outfit
+an_internal_matter: an internal matter
+approach: approach
+approach_vehicle: approach vehicle
+arcade_equipment: arcade equipment
+armors: armors
+artwork: artwork
+assault_of_an_agency: assault of an agency
+at_least_35_headshots_in_total: at least 35 headshots in total
+at_least_80_headshots_in_total: at least 80 headshots in total
+at_least_150_headshots_in_total: at least 150 headshots in total
+at_least_two_players_are_required: at least two players are required
+average_accuracy_of: average accuracy of
+a_loss_of: a loss of
+a_new_beginning: a new beginning
+basement: basement
+between: between
+bikers: bikers
+bikes: bikes
+bonus_on_secondary_loots: bonus on secondary loots
+breakdown_by_player_based_on_percentage: breakdown by player based on percentage
+buyer_s_request: buyer's request
+buyer_s_requests: buyer's requests
+cargo: cargo
+cargo_zone: cargo zone
+cash: cash
+choice_between_level_1_and_level_2: choice between level 1 and level 2
+choose: choose
+choose_the_approach: choose the approach
+choose_the_difficulty: choose the difficulty
+choose_the_driver: choose the driver
+choose_the_getaway_vehicle: choose the getaway vehicle
+choose_the_gunman: choose the gunman
+choose_the_hacker: choose the hacker
+choose_the_infiltration_equipment: choose the infiltration equipment
+choose_the_main_loot: choose the main loot
+choose_the_main_painting: choose the main painting
+choose_the_unmarked_weapon: choose the unmarked weapon
+cluckin_bell_factory: cluckin' Bell factory
+cocaine: cocaine
+coke: coke
+concealed_weapons: concealed weapons
+conditions: conditions
+contact_avi_schwartzman: contact Avi Schwartzman
+contact_vincent: contact Vincent
+content_of_the_vault: content of the vault
+convoy: convoy
+cost: cost
+costumes_to_enter: costumes to enter
+costumes_to_exit: costumes to exit
+cutting_torch: cutting torch
+dam: dam
+days_in_game: days in game
+day_in_game: day in game
+dead_courier: dead courier
+dealers: dealers
+deliver_the_emp: deliver the EMP
+demolition_charges: demolition charges
+desktop: desktop
+details: details
+detected: detected
+difficulty: difficulty
+disorganized_crime: disorganized crime
+disruptions: disruptions
+do_not_get_detected: do not get detected
+drag_race: drag race
+drills: drills
+drills_of_the_vault: drills of the vault
+driver: driver
+dr_dre_s_vip_contract: Dr. Dre's VIP contract
+duggan_cargo: duggan cargo
+earnings: earnings
+earnings_for_a_full_bag: earnings for a full bag
+earnings_of_the_first_heist_of_the_week: earnings of the first heist of the week
+earnings_of_the_other_heists_throughout_the_week: earnings of the other heists throughout the week
+easy: easy
+elite_challenge: elite challenge
+emp: EMP
+emplacements: spots
+employee_access_card: employee access card
+emp_loads: EMP loads
+enemies: enemies
+entry_point: entry point
+enum_heist_casino_approach: >-
+    {case, select,
+        BRUTAL   {aggressive}
+        CUNNING  {the big con}
+        STEALTHY {silent & sneaky}
+        other    {}
+    }
+enum_heist_casino_difficulty: >-
+    {case, select,
+        HARD   {hard}
+        NORMAL {normal}
+        other  {}
+    }
+enum_heist_cayo_perico_difficulty: >-
+    {case, select,
+        HARD   {hard}
+        NORMAL {normal}
+        other  {}
+    }
+enum_heist_kortz_center_difficulty: >-
+    {case, select,
+        HARD   {hard}
+        NORMAL {normal}
+        other  {}
+    }
+enum_heist_kortz_center_material: >-
+    {case, select,
+        ALPHA_MAIL_OUTFIT    {Alpha Mail outfit}
+        EMPLOYEE_ACCESS_CARD {employee access card}
+        SAFETY_SUIT          {safety suit}
+        TACTICAL_EQUIPMENT   {tactical equipment}
+        other                {}
+    }
+enum_heist_kortz_center_type: >-
+    {case, select,
+        CRATE_CARGO_ZONE       {crate in the cargo zone}
+        DISPLAY_CASE           {display case}
+        LASER_CUT_DISPLAY_CASE {laser-cut display case}
+        OTHER_PAINTING         {other painting}
+        VAULT_PAINTING         {vault painting}
+        other                  {}
+    }
+enum_heist_kortz_center_vehicle: >-
+    {case, select,
+        ANNIHILATOR_STEALTH {stealth Annihilator}
+        CARACARA_ARMORED    {armored Caracara}
+        MANCHEZ             {Manchez}
+        other               {}
+    }
+enum_heist_kortz_center_weapon: >-
+    {case, select,
+        MILITARY_ARSENAL {military arsenal}
+        SECURITY_ARSENAL {security arsenal}
+        STREET_ARSENAL   {street arsenal}
+        other            {}
+    }
+equipment: equipment
+error_heist: >-
+    an error occurred while {type, select,
+        reset  {resetting}
+        update {updating}
+        other  {modifying}
+    } the {heist, select,
+        casino       {casino}
+        cayo_perico  {Cayo Perico}
+        kortz_center {Kortz Center}
+        other        {}
+    } heist
+escort_ulp: escort ULP
+example: example
+extraction_in_less_than: extraction in less than
+finals: finals
+fingerprint_cloner: fingerprint cloner
+finish_the_heist_in_less_than: finish the heist in less than
+first_heist_of_the_week: first heist of the week
+from_thursday_at_12_00_p_m_to_the_following_thursday_at_12_00_p_m: from thursday at 12:00 p.m. to the following thursday at 12:00 p.m.
+gand_hideout: gang hideout
+gather_intel: gather intel
+getaway_vehicle: getaway vehicle
+glass_cutter: glass cutter
+glass_roof: glass roof
+gold: gold
+gunman: gunman
+hack: hack
+hacker: hacker
+hackers: hackers
+hacking_device: hacking device
+hard: hard
+heist_cayo_perico_loot_quantity: '{loot}: {quantity} [{percentage, number, ::.##}%]'
+heist_cayo_perico_secondary_loot: >-
+    {loot, select,
+        artwork   {artwork}
+        cash      {cash}
+        cocaine   {cocaine}
+        gold      {gold}
+        safe_cash {safe cash}
+        weed      {weed}
+        other     {}
+    }
+heist_completed_in_solo: heist completed in solo
+heist_completed_in_team: heist completed in team
+here_in_the_kortz_center: here in the Kortz Center
+hit_and_run: hit and run
+if_detected: if detected
+if_elite_challenge: if elite challenge
+if_the_buyer_s_requests_have_been_retrieved: if the buyer's requests have been retrieved
+implementation_fees: implementation fees
+implementation_mission: implementation mission
+infiltration_equipment: infiltration equipment
+information_on_the_security: information on the security
+insurgents: insurgents
+intrusion: intrusion
+in_real_time_before_lester_contacts_you_again: in real time before Lester contacts you again
+in_real_time_before_pavel_contacts_you_again: in real time before Pavel contacts you again
+itineraries: itineraries
+key_codes: key codes
+kill: kill
+limit_the_loss_in_value_to: limit the loss in value to
+loot: loot
+loots: loots
+loot_on_the_exit: loot on the exit
+madrazo_cartel_s_slice: madrazo cartel's slice
+magnetic_cards: magnetic cards
+main_loot: main loot
+main_loots: main loots
+main_painting: main painting
+main_zone: main zone
+masks: masks
+mckenzie_field_hangar: mcKenzie field hangar
+merryweather_expedition: merryweather expedition
+merryweather_s_helicopter: merryweather's helicopter
+merryweather_s_weapons: merryweather's weapons
+military_arsenal: military arsenal
+military_weapons: military weapons
+minutes: minutes
+minutes_in_real_time_before_lester_contacts_you_again: minutes in real time before Lester contacts you again
+minutes_in_real_time_before_pavel_contacts_you_again: minutes in real time before Pavel contacts you again
+minutes_in_real_time_to_return_to_see_him_again_and_restart_the_heist: minutes in real time to return to see him again and restart the heist
+missions: missions
+mission_information: mission information
+negative_press: negative press
+noose_s_van: NOOSE's van
+normal: normal
+north: north
+not_detected: not detected
+no_failed_hacking: no failed hacking
+no_player_dies: no player dies
+no_quick_restart: no quick restart
+no_time_here: no time here
+only_the_first_time: only the first time
+optional: optional
+or: or
+or_less: or less
+oscar_guzman_returns_to_duty: oscar Guzman returns to duty
+patrols: patrols
+pavel_s_slice: pavel's slice
+percentage: percentage
+percentage_of_chance_for_the_first_heist_of_the_week: percentage of chance for the first heist of the week
+percentage_of_chance_for_the_other_heists_throughout_the_week: percentage of chance for the other heists throughout the week
+plasma_cutter: plasma cutter
+police_seizure: police seizure
+police_station: police station
+preparation: preparation
+preparation_mission: preparation mission
+random: random
+ready_to_work: ready to work
+reconnaissance_of_the_casino: reconnaissance of the casino
+release_information: release information
+requires_a_facility: requires a facility
+requires_a_kosatka_submarine: requires a Kosatka submarine
+requires_a_retro_arcade: requires a retro arcade
+requires_a_villa_and_an_art_studio: requires a villa and an art studio
+requires_the_mckenzie_field_hangar: requires the McKenzie field hangar
+rescue_agent_14: rescue agent 14
+rescue_ulp: rescue ULP
+reset_the_heist: reset the heist
+retrieve_the_loots_of_the_list_of_the_buyer_s_request: retrieve the loots of the list of the buyer's requests
+safety_suit: safety suit
+safe_code: safe code
+salvage_hard_drives: salvage hard drives
+scene_of_the_crime: scene of the crime
+scope_out: scope out
+secondary_loots: secondary loots
+security_arsenal: security arsenal
+security_passes: security passes
+series_a_funding: series A funding
+server_farm: server farm
+sewer: sewer
+signal: signal
+signal_intercepts: signal intercepts
+silent_and_sneaky: silent & sneaky
+slice: slice
+slice_in_the_bag: slice in the bag
+slush_fund: slush fund
+south: south
+so_you_must_have_completed_at_least_two_heists: so you must have completed at least two heists
+staff_entrance: staff entrance
+start_hard_mode: start hard mode
+station: station
+steal_meth: steal meth
+street_arsenal: street arsenal
+submarine_recon: submarine recon
+success_heist: >-
+    the {heist, select,
+        casino       {casino}
+        cayo_perico  {Cayo Perico}
+        kortz_center {Kortz Center}
+        other        {}
+    } heist has been successfully {type, select,
+        reset  {reset}
+        update {updated}
+        other  {modified}
+    }
+tactical_equipment: tactical equipment
+test_site: test site
+the_big_con: the big con
+the_bogdan_problem: the Bogdan problem
+the_bus: the bus
+the_cluckin_bell_farm_raid: the Cluckin' Bell farm raid
+the_data_breaches: the data breaches
+the_doomsday_scenario: the doomsday scenario
+the_escape: the escape
+the_fleeca_job: the Fleeca job
+the_humane_labs_raid: the Humane labs raid
+the_lost_mc: the Lost MC
+the_noose_is_not_called: the NOOSE is not called
+the_pacific_standard_job: the Pacific Standard job
+the_plane: the plane
+the_prison_break: the prison break
+the_theft_of_the_titan: the theft of the Titan
+time_given: time given
+tip_glass_cutter_required: without the "glass cutter" preparation, laser-cut display cases cannot be opened during the heist
+tip_itineraries_show_guards: without the "itineraries" preparation, guards are not shown on the map during the heist
+tip_loot_cutting: only the last loot picked up can be split to fill the bag. Paintings cannot be split, but can still be taken last
+tip_minimal_preparation: 'just one approach vehicle is enough to do the heist. For equipment, you need the fingerprint cloner, the cutting torch and, depending on the target, the safe code (bearer bonds only) or the plasma cutter (other targets). Demolition charges are only useful if you enter from the top of El Rubio''s house. You also need unmarked weapons. Everything else is not useful as long as you are not spotted'
+tip_phantom_wedge_longfin: 'owning a Phantom Wedge makes the Longfin retrieval mission much easier: you just call it in once you are near the police station, instead of having to find one on the map'
+total_of_all_players: total of all players
+to_have_full_bags: to have full bags
+to_reach_loots_from_7_to_13: to reach loots from 7 to 13
+trash_truck: trash truck
+tunnel_vision: tunnel vision
+underground_imports: underground imports
+unmarked_weapons: unmarked weapons
+until_you_exit_from_el_rubio_s_house: until you exit from El Rubio's house
+until_you_exit_from_the_casino: until you exit from the casino
+valet_service: valet service
+vans: vans
+vehicle_damages_less_than: vehicle damages less than
+verbal_provocations: verbal provocations
+video: video
+weed: weed
+west: west
+wet_work: wet work
+we_have_to_wait: we have to wait
+without_the_slices: without the slices
+you_have: you have
+you_have_48_minutes_in_real_time_to_go_back_to_see_him_again_and_restart_the_heist: you have 48 minutes in real time to go back to see him again and restart the heist
+you_will_have_to_wait_about_10_minutes_in_real_time_before_raf_contacts_you_again: you will have to wait about 10 minutes in real time before Raf contacts you again
+
+#################
+# LEGAL NOTICES #
+#################
+gdpr_controller: data controller
+gdpr_cookies_intro: this website uses neither advertising cookies nor audience measurement; only essential technical cookies, which do not require consent, are set
+gdpr_cookies_title: cookies
+gdpr_cookie_remember: "\"stay connected\" cookie: only set if you tick this option, valid for 7 days"
+gdpr_cookie_session: "session cookie: keeps you logged in and remembers your language, removed when the session ends"
+gdpr_cookie_turnstile: "Cloudflare Turnstile cookies: protection against bots on the forms that use it"
+gdpr_datas_account: "account: last name, first name, username, mail, hashed password, language, group, creation and last activity dates"
+gdpr_datas_game: "game: owned vehicles, weapons and properties, recorded bounty targets and heists"
+gdpr_datas_technical: "technical: IP address and date of logins, IP address and identifier entered during failed logins"
+gdpr_datas_title: data collected
+gdpr_minors: if you are under 15, creating an account requires the agreement of the holder of parental authority
+gdpr_no_sale: your data is neither sold nor used for advertising
+gdpr_purposes_title: purposes and legal bases
+gdpr_purpose_account: "creating and managing your account, providing the service: performance of the contract (terms of use)"
+gdpr_purpose_security: "website security and detection of fraudulent logins: legitimate interest"
+gdpr_purpose_statistics: "aggregated visit statistics, without individual tracking: legitimate interest"
+gdpr_recipients_title: recipients
+gdpr_recipient_host: Infomaniak Network SA (hosting and mails), in Switzerland, a country recognised by the European Commission as offering adequate protection
+gdpr_recipient_turnstile: "Cloudflare, Inc. (Turnstile anti-robot protection on login: IP address and browser information), in the United States, certified under the EU-US Data Privacy Framework"
+gdpr_retention_host_logs: "server technical logs: kept by the host for security purposes, according to its own policy"
+gdpr_retention_inactive: "account: kept while it is used, then anonymized after 3 years without activity, with a warning mail 30 days before"
+gdpr_retention_logins: "login logs: deleted after 1 year"
+gdpr_retention_title: retention periods
+gdpr_retention_unverified: "account whose mail was not verified: anonymized after 30 days"
+gdpr_rights_account_page: "from the \"My account\" page, you can export your data and delete your account"
+gdpr_rights_complaint: you can also lodge a complaint with the CNIL, the French data protection authority
+gdpr_rights_contact: for any other request, write to
+gdpr_rights_delay: you will receive an answer within one month
+gdpr_rights_list: in accordance with the GDPR and the French Data Protection Act, you have the rights of access, rectification, erasure, restriction, objection and portability of your data
+gdpr_rights_title: your rights
+legal_hosting: hosting
+legal_hosting_text: this website is hosted by
+legal_mentions: legal notices
+legal_publisher: publisher and publication manager
+legal_publisher_text: this website is published by
+legal_status: website status
+
+###############
+# LOGIN ERROR #
+###############
+entered_mail: entered mail
+failed_logins: failed logins
+
+#################
+# LOGIN SUCCESS #
+#################
+successful_logins: successful logins
+
+#########################
+# MODIFICATION LOCATION #
+#########################
+add_a_modification_location: add a modification location
+delete_the_modification_location: delete the modification location
+edit_the_modification_location: edit the modification location
+error_modification_location_delete: an error occurred while deleting the modification location "{name}"
+error_modification_location_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the modification location "{name}" via the form
+modification_locations: modification locations
+success_modification_location_delete: the modification location "{name}" has been successfully deleted
+success_modification_location_form: >-
+    the modification location "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+############
+# PROPERTY #
+############
+add_a_property: add a property
+choose_the_property: choose the property
+choose_the_wanted_property: choose the wanted property
+delete_the_property: delete the property
+edit_the_property: edit the property
+error_property_delete: an error occurred while deleting the property "{name}"
+error_property_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the property "{name}" via the form
+error_property_list: an error occurred while updating the property "{name}" on the list
+properties: properties
+property: property
+property_area: property area
+property_location: property location
+select_a_property_area: select a property area
+select_a_property_location: select a property location
+select_the_property: select the property
+select_the_wanted_property: select the wanted property
+success_property_delete: the property "{name}" has been successfully deleted
+success_property_form: >-
+    the property "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+success_property_list: the property "{name}" has been successfully updated on the list
+the_business_does_not_match_the_property_type: the selected business does not match the property type
+tip_prefer_largest_garages: 'the number of garages and apartments you can own is limited: it is better to favor those with the most spaces'
+vehicles_price: vehicles value
+vehicles_price_help: indicative base price of the stored vehicles (no sale or discount)
+wanted_property: wanted property
+you_can_not_own_this_property_without_its_parent_property: you cannot own this property without owning its parent property ({names})
+you_can_not_select_this_property_maximum_reached: >-
+    you cannot {type, select, owned {own this property} other {mark this property as wanted}} because you have reached the maximum ({maximum}) for "{business}"
+
+########################
+# PROPERTY ACQUISITION #
+########################
+add_a_property_acquisition: add a property acquisition
+delete_the_property_acquisition: delete the property acquisition
+edit_the_property_acquisition: edit the property acquisition
+error_property_acquisition_delete: an error occurred while deleting the property acquisition "{name}"
+error_property_acquisition_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the property acquisition "{name}" via the form
+property_acquisitions: property acquisitions
+success_property_acquisition_delete: the property acquisition "{name}" has been successfully deleted
+success_property_acquisition_form: >-
+    the property acquisition "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+#################
+# PROPERTY TYPE #
+#################
+add_a_property_type: add a property type
+delete_the_property_type: delete the property type
+edit_the_property_type: edit the property type
+error_property_type_delete: an error occurred while deleting the property type "{name}"
+error_property_type_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the property type "{name}" via the form
+please_enter_the_property_type: please enter the property type
+property_type: property type
+property_types: property types
+select_a_property_type: select a property type
+success_property_type_delete: the property type "{name}" has been successfully deleted
+success_property_type_form: >-
+    the property type "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+####################
+# STORAGE LOCATION #
+####################
+add_a_storage_location: add a storage location
+delete_the_storage_location: delete the storage location
+edit_the_storage_location: edit the storage location
+error_storage_location_delete: an error occurred while deleting the storage location "{name}"
+error_storage_location_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the storage location "{name}" via the form
+property_required: requires a property
+storage_location: storage location
+storage_locations: storage locations
+success_storage_location_delete: the storage location "{name}" has been successfully deleted
+success_storage_location_form: >-
+    the storage location "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+
+###########
+# SUMMARY #
+###########
+summary: summary
+summary_according_to_filters: calculated from the active filters
+summary_all_evolved: to get everything evolved
+summary_buyable: >-
+    {entity, select, vehicles {vehicles still buyable} properties {properties still buyable} weapons {weapons still buyable} other {}}
+summary_capacity: used spaces in owned properties
+summary_capacity_wanted: spaces in wanted properties
+summary_discounted: >-
+    {entity, select, vehicles {vehicles} properties {properties} weapons {weapons} other {}} on sale
+summary_evolutions: evolutions to buy
+summary_evolutions_owned: >-
+    {count, plural,
+        one   {owned}
+        other {owned}
+    }
+summary_free_places: >-
+    {count, plural,
+        =0    {no free space}
+        one   {# free space}
+        other {# free spaces}
+    }
+summary_items: >-
+    {count, plural,
+        =0    {no {entity, select, vehicles {vehicles} properties {properties} weapons {weapons} bounty_targets {targets} other {}}}
+        one   {# {entity, select, vehicles {vehicle} properties {property} weapons {weapon} bounty_targets {target} other {}}}
+        other {# {entity, select, vehicles {vehicles} properties {properties} weapons {weapons} bounty_targets {targets} other {}}}
+    }
+summary_most_wanted_done: '{count, number} / {total, number} of the most wanted'
+summary_need_place: >-
+    {count, plural,
+        =0    {no buyable vehicle needs a space}
+        one   {# buyable vehicle needs a space}
+        other {# buyable vehicles need a space}
+    }
+summary_not_buyable_anymore: >-
+    {count, plural,
+        =0    {all still buyable}
+        one   {# no longer buyable today}
+        other {# no longer buyable today}
+    }
+summary_not_stored: >-
+    {count, plural,
+        =0    {none without a property}
+        other {# without a property (including {withoutPlace, number} without a space needed)}
+    }
+summary_of_which_not_owned: >-
+    {count, plural,
+        =0    {none to buy}
+        one   {including # not owned}
+        other {including # not owned}
+    }
+summary_of_which_wanted: >-
+    {count, plural,
+        =0    {none wanted}
+        one   {including # wanted}
+        other {including # wanted}
+    }
+summary_owned: >-
+    {entity, select, vehicles {owned vehicles} properties {owned properties} weapons {owned weapons} bounty_targets {completed targets} other {}}
+summary_remaining: >-
+    {entity, select, vehicles {remaining vehicles} properties {remaining properties} weapons {remaining weapons} bounty_targets {remaining targets} other {}}
+summary_saving: saving
+summary_stored: >-
+    {count, plural,
+        =0    {none stored}
+        one   {# stored}
+        other {# stored}
+    }
+summary_to_buy: to buy (wanted)
+summary_to_pay: 'not owned: {price} instead of {basePrice}'
+summary_unavailable: >-
+    {count, plural,
+        =0    {none unavailable}
+        one   {# currently unavailable}
+        other {# currently unavailable}
+    }
+summary_value: value
+summary_wanted_pegasus: '{count, plural, one {including # via Pegasus} other {including # via Pegasus}}'
+summary_wanted_to_pay: 'wanted: {price} instead of {basePrice}'
+summary_without_place: >-
+    {count, plural,
+        =0    {none without a space needed}
+        one   {# without a space needed}
+        other {# without a space needed}
+    }
+
+################
+# TITLE UPDATE #
+################
+add_a_title_update: add a title update
+delete_the_title_update: delete the title update
+edit_the_title_update: edit the title update
+error_title_update_delete: an error occurred while deleting the title update "{name}"
+error_title_update_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the title update "{name}" via the form
+please_enter_the_release_date: please enter the release date
+please_enter_the_title_update: please enter the title update
+release_date: release date
+select_a_title_update: select a title update
+success_title_update_delete: the title update "{name}" has been successfully deleted
+success_title_update_form: >-
+    the title update "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+title_update: title update
+title_updates: title updates
+
+########
+# USER #
+########
+account_already_exists_mail_subject: registration attempt on GTA 5 Online
+active: active
+add_a_user: add a user
+all_you_have_to_do_is_validate_your_mail_by_clicking_on_the_link_below: all you have to do is validate your email by clicking on the link below
+an_error_occurred_while_changing_the_password: an error occurred while changing the password
+an_error_occurred_while_creating_the_account: an error occurred while creating the account
+an_error_occurred_while_deleting_the_account: an error occurred while deleting the account
+an_error_occurred_while_sending_the_mail: an error occurred while sending the mail
+an_error_occurred_while_verifying_the_mail: an error occurred while verifying the mail
+a_mail_has_been_sent_to_you_to_finalize_your_registration: a mail has just been sent to you to finalize your registration
+a_new_link_has_been_sent_to_you_by_mail: if the account is still awaiting verification, a new link has just been sent to you by mail
+back_to_the_homepage: back to the homepage
+back_to_the_login: back to the login
+choose_your_new_password: choose your new password
+click_on_the_button_below_to_validate_your_mail: click on the button below to validate your mail and log in
+connection: login
+create_an_account: create an account
+create_my_account: create my account
+delete_my_account: delete my account
+download_all_your_datas_in_a_json_file: download all your data in a JSON file
+edit_the_user: edit the user
+enter_your_mail_to_receive_a_link: enter your mail to receive a reset link
+error_user_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the user "{name}" via the form
+error_user_list: an error occurred while updating the user "{name}" on the list
+export_my_datas: export my data
+first_name: first name
+hello: hello
+if_an_account_exists_with_this_mail_a_link_has_been_sent_to_it: if an account exists with this mail, a reset link has just been sent to it
+if_it_was_you_log_in_or_use_forgot_password: if it was you, log in or use « i forgot my password » on the login page
+if_you_are_not_at_the_origin_of_this_request_contact_the_website_administrator: if you did not make this request, please contact the website administrator
+if_you_did_not_make_this_change_reset_your_password_and_contact_the_website_administrator: if you did not make this change, use « I forgot my password » on the login page and contact the website administrator
+in_the_opposite_case_click_on_the_link_below: otherwise, click on the link below
+it_will_be_deleted_in_thirty_days_unless_you_log_in: it will be deleted in 30 days unless you log in by then
+i_agree_that_my_personal_datas_will_be_stored_according_to_the: I agree that my personal data will be stored in accordance with the
+i_forgot_my_password: I forgot my password
+i_reset_my_password: reset my password
+i_validate_my_mail: validate my email
+last_name: last name
+leave_blank_if_there_are_no_changes: leave blank if there are no changes
+logout: log out
+log_me_in: log me in
+mail: mail
+mail_verification: mail verification
+my_account: my account
+my_personal_datas: my personal data
+new_password: new password
+no_reply_mail_local_part: no-reply
+password: password
+password_changed_mail_subject: your GTA 5 Online password has been changed
+password_confirmation: password confirmation
+password_reset: password reset
+please_accept_the_privacy_policy_to_create_your_account: please accept the privacy policy to create your account
+please_click_on_the_link_received_in_the_mail_for_totally_complete_your_register: please click on the link received in the mail for totally complete your register
+please_enter_a_valid_mail: please enter a valid mail
+please_enter_a_valid_password: please enter a valid password
+please_enter_the_first_name: please enter the first name
+please_enter_the_last_name: please enter the last name
+please_enter_the_mail: please enter the mail
+please_enter_the_password: please enter the password
+please_enter_the_username: please enter the username
+please_select_the_role: please select the role
+privacy_policy: privacy policy
+receive_a_new_link: receive a new link
+reset_password_mail_subject: reset your GTA 5 Online password
+role: role
+see_you_soon: see you soon on
+select_the_role: select the role
+send_me_a_link: send me a link
+someone_tried_to_create_an_account_with_your_mail: someone has just tried to create an account with your mail, which already has one
+stay_connected: stay connected
+success_user_form: >-
+    the user "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+the_account_exists_but_it_was_not_verified: the account exists but it was not verified
+the_anti_robot_check_failed: the anti-robot check failed, please try again
+the_fields_cannot_exceed_characters: the fields cannot exceed {count} characters
+the_last_administrator_cannot_delete_his_account: the last administrator cannot delete their account
+the_passwords_are_not_identical: the passwords are not identical
+the_password_is_incorrect: the password is incorrect
+the_password_must_contain_at_least: the password must contain at least {count} characters, including an uppercase letter, a lowercase letter, a digit and a special character
+the_password_must_not_contain_your_personal_information: the password must not contain your last name, first name, username or mail
+the_team: the team
+this_account_is_disabled: this account is disabled
+this_action_is_irreversible: this action is irreversible
+this_link_is_invalid_or_has_expired: this link is invalid or has expired
+this_link_is_valid_for_hours: '{count, plural, one {this link is valid for # hour} other {this link is valid for # hours}}'
+too_many_requests_please_try_again_later: too many requests, please try again later
+to_correct_these_informations_write_to: to correct this information, write to
+username: username
+users: users
+verify_mail_mail_subject: validate your GTA 5 Online account
+without_your_personal_information: without your last name, first name, username or mail
+your_account_and_your_personal_datas_have_been_deleted: your account and your personal data have been deleted
+your_account_has_been_good_created: your account has been successfully created
+your_account_has_been_inactive_for_a_long_time: your account has been inactive for a long time
+your_inactive_account_will_be_deleted: your inactive account will be deleted
+your_password_has_been_changed: the password of your account has just been changed
+your_personal_datas_will_be_erased: your personal data, possessions and recorded heists will be erased
+you_made_a_password_reset_request: you made a password reset request
+
+###################
+# USER STATISTICS #
+###################
+an_error_occurred_while_displaying_the_graphic: an error occurred while displaying the chart
+current_month: current month
+current_week: current week
+current_year: current year
+custom: custom
+end_date: end date
+hour_range: '{start}:00 - {end}:00'
+last_month: last month
+last_week: last week
+last_year: last year
+number_of_users: number of users
+period: period
+start_date: start date
+today: today
+users_statistics: users statistics
+yesterday: yesterday
+
+###########
+# VEHICLE #
+###########
+acceleration: acceleration
+add_a_vehicle: add a vehicle
+braking: braking
+delete_the_vehicle: delete the vehicle
+duplicate_the_vehicle: duplicate the vehicle
+edit_the_vehicle: edit the vehicle
+enum_speed_unit: >-
+    {case, select,
+        KILOMETERS {km/h}
+        MILES      {mph}
+        other      {}
+    }
+error_vehicle_delete: an error occurred while deleting the vehicle "{name}"
+error_vehicle_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the vehicle "{name}" via the form
+error_vehicle_list: an error occurred while updating the vehicle "{name}" on the list
+evolution_of_another_vehicle: evolution of another vehicle
+gears: gears
+handling: handling
+optimized: optimized
+seats: seats
+select_the_vehicle_drivetrain: select the vehicle drivetrain
+speed: speed
+success_vehicle_delete: the vehicle "{name}" has been successfully deleted
+success_vehicle_form: >-
+    the vehicle "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+success_vehicle_list: the vehicle "{name}" has been successfully updated on the list
+tip_one_sale_per_day: only one personal vehicle can be sold per in-game day (48 minutes in real time)
+top_speed: top speed
+top_speed_maximum: top speed maximum
+totally_optimized_vehicle: totally optimized vehicle
+vehicles_and_bicycles_count: 'Veh.: {vehicles} / Cyc.: {bicycles}'
+vehicles_and_bicycles_count_on_capacity: 'Veh.: {vehicles} of {vehicleCapacity} / Cyc.: {bicycles} of {bicycleCapacity}'
+vehicle_class: vehicle class
+vehicle_classes: vehicle classes
+vehicle_drivetrain: vehicle drivetrain
+vehicle_in_real_life: vehicle in real life
+weight: weight
+you_can_not_select_a_property_on_a_vehicle_that_you_do_not_own: you cannot select a property on a vehicle that you do not own
+
+#######################
+# VEHICLE ACQUISITION #
+#######################
+acquirable: acquirable
+add_a_vehicle_acquisition: add a vehicle acquisition
+available: available
+delete_the_vehicle_acquisition: delete the vehicle acquisition
+edit_the_vehicle_acquisition: edit the vehicle acquisition
+error_vehicle_acquisition_delete: an error occurred while deleting the vehicle acquisition "{name}"
+error_vehicle_acquisition_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the vehicle acquisition "{name}" via the form
+success_vehicle_acquisition_delete: the vehicle acquisition "{name}" has been successfully deleted
+success_vehicle_acquisition_form: >-
+    the vehicle acquisition "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+vehicle_acquisitions: vehicle acquisitions
+
+########################
+# VEHICLE MANUFACTURER #
+########################
+add_a_vehicle_manufacturer: add a vehicle manufacturer
+delete_the_vehicle_manufacturer: delete the vehicle manufacturer
+edit_the_vehicle_manufacturer: edit the vehicle manufacturer
+error_vehicle_manufacturer_delete: an error occurred while deleting the vehicle manufacturer "{name}"
+error_vehicle_manufacturer_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the vehicle manufacturer "{name}" via the form
+select_a_vehicle_manufacturer: select a vehicle manufacturer
+success_vehicle_manufacturer_delete: the vehicle manufacturer "{name}" has been successfully deleted
+success_vehicle_manufacturer_form: >-
+    the vehicle manufacturer "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+vehicle_manufacturer: vehicle manufacturer
+vehicle_manufacturers: vehicle manufacturers
+
+##########
+# WEAPON #
+##########
+accuracy: accuracy
+add_a_weapon: add a weapon
+damage: damage
+delete_the_weapon: delete the weapon
+edit_the_weapon: edit the weapon
+error_weapon_delete: an error occurred while deleting the weapon "{name}"
+error_weapon_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the weapon "{name}" via the form
+error_weapon_list: an error occurred while updating the weapon "{name}" on the list
+evolution_of_another_weapon: evolution of another weapon
+fire_rate: fire rate
+magazine_capacity: magazine capacity
+range: range
+success_weapon_delete: the weapon "{name}" has been successfully deleted
+success_weapon_form: >-
+    the weapon "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+success_weapon_list: the weapon "{name}" has been successfully updated on the list
+unlock_rank: unlock rank
+variant: variant
+weapon_class: weapon class
+weapon_classes: weapon classes
+weapon_in_real_life: weapon in real life
+
+######################
+# WEAPON ACQUISITION #
+######################
+add_a_weapon_acquisition: add a weapon acquisition
+delete_the_weapon_acquisition: delete the weapon acquisition
+edit_the_weapon_acquisition: edit the weapon acquisition
+error_weapon_acquisition_delete: an error occurred while deleting the weapon acquisition "{name}"
+error_weapon_acquisition_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the weapon acquisition "{name}" via the form
+success_weapon_acquisition_delete: the weapon acquisition "{name}" has been successfully deleted
+success_weapon_acquisition_form: >-
+    the weapon acquisition "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+weapon_acquisitions: weapon acquisitions
+
+#######################
+# WEAPON MANUFACTURER #
+#######################
+add_a_weapon_manufacturer: add a weapon manufacturer
+delete_the_weapon_manufacturer: delete the weapon manufacturer
+edit_the_weapon_manufacturer: edit the weapon manufacturer
+error_weapon_manufacturer_delete: an error occurred while deleting the weapon manufacturer "{name}"
+error_weapon_manufacturer_form: >-
+    an error occurred while {type, select,
+        add    {adding}
+        update {updating}
+        other  {modifying}
+    } the weapon manufacturer "{name}" via the form
+select_a_weapon_manufacturer: select a weapon manufacturer
+success_weapon_manufacturer_delete: the weapon manufacturer "{name}" has been successfully deleted
+success_weapon_manufacturer_form: >-
+    the weapon manufacturer "{name}" has been successfully {type, select,
+        add    {added}
+        update {updated}
+        other  {modified}
+    } via the form
+weapon_manufacturer: weapon manufacturer
+weapon_manufacturers: weapon manufacturers

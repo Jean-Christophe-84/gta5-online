@@ -1,0 +1,117 @@
+{% if is_granted('PROPERTY_OWN') %}
+    <div class="filter" style="--filter-grow: 6;">
+        <label class="form-label" for="filterOwned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <select id="filterOwned">
+            <option value="null"{% if filter.owned is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+            {% for filterOwned in filterOwneds %}
+                <option value="{{ filterOwned.owned }}"
+                    {% if not filter.owned is same as(null) and filter.owned == filterOwned.owned %} selected{% endif %}>{{ (filterOwned.owned == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) ~ ' (' ~ filterOwned.numberProperties ~ ')' }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterOwned" value="null" />
+{% endif %}
+{% if is_granted('PROPERTY_OWN') %}
+    <div class="filter" style="--filter-grow: 9;">
+        <label class="form-label" for="filterWanted">{{ 'wanted'|translateLocale|mbUcfirst }}</label>
+        <select id="filterWanted">
+            <option value="null"{% if filter.wanted is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+            {% for filterWanted in filterWanteds %}
+                <option value="{{ filterWanted.wanted }}"
+                    {% if not filter.wanted is same as(null) and filter.wanted == filterWanted.wanted %} selected{% endif %}>{{ (filterWanted.wanted == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) ~ ' (' ~ filterWanted.numberProperties ~ ')' }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterWanted" value="null" />
+{% endif %}
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterPropertyTypeId">{{ 'property_type'|translateLocale|mbUcfirst }} ({{ filterPropertyTypeIds|length }})</label>
+    <select id="filterPropertyTypeId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterPropertyTypeId in filterPropertyTypeIds %}
+            <option value="{{ filterPropertyTypeId.id }}"
+                {% if filter.propertyTypeId == filterPropertyTypeId.id %} selected{% endif %}>{{ filterPropertyTypeId.name ~ ' (' ~ filterPropertyTypeId.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 13;">
+    <label class="form-label" for="filterBusinessId">{{ 'business'|translateLocale|mbUcfirst }} ({{ filterBusinessIds|length }})</label>
+    <select id="filterBusinessId">
+        <option value="0"{% if filter.businessId == 0 %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterBusinessId in filterBusinessIds %}
+            <option value="{{ filterBusinessId.id }}"
+                {% if filter.businessId == filterBusinessId.id %} selected{% endif %}>{{ filterBusinessId.name ~ ' (' ~ filterBusinessId.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 13;">
+    <label class="form-label" for="filterPropertyAreaId">{{ 'property_area'|translateLocale|mbUcfirst }} ({{ filterPropertyAreaIds|length }})</label>
+    <select id="filterPropertyAreaId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterPropertyAreaId in filterPropertyAreaIds %}
+            <option value="{{ filterPropertyAreaId.id }}"
+                {% if filter.propertyAreaId == filterPropertyAreaId.id %} selected{% endif %}>{{ filterPropertyAreaId.name ~ ' (' ~ filterPropertyAreaId.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 15;">
+    <label class="form-label" for="filterPropertyLocationId">
+        {{ 'property_location'|translateLocale|mbUcfirst }} ({{ filterPropertyLocationIds|length }})
+    </label>
+    <select id="filterPropertyLocationId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterPropertyLocationId in filterPropertyLocationIds %}
+            <option value="{{ filterPropertyLocationId.id }}"
+                {% if filter.propertyLocationId == filterPropertyLocationId.id %} selected{% endif %}>{{ filterPropertyLocationId.name ~ ' (' ~ filterPropertyLocationId.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 10;">
+    <label class="form-label" for="filterTitleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }} ({{ filterTitleUpdateIds|length }})</label>
+    <select id="filterTitleUpdateId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% for filterTitleUpdateId in filterTitleUpdateIds %}
+            <option value="{{ filterTitleUpdateId.id }}"
+                {% if filter.titleUpdateId == filterTitleUpdateId.id %} selected{% endif %}>{{ filterTitleUpdateId.name ~ ' (' ~ filterTitleUpdateId.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 12;">
+    <label class="form-label" for="filterCapacityVehicles">
+        {{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'vehicles_short'|translateLocale|mbUcfirst }}.) ({{ filterCapacityVehicles|length }})
+    </label>
+    <select id="filterCapacityVehicles">
+        <option value="null"{% if filter.capacityVehicles is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterCapacityVehicles in filterCapacityVehicles %}
+            <option value="{{ filterCapacityVehicles.capacityVehicles }}"
+                {% if not filter.capacityVehicles is same as(null) and filter.capacityVehicles == filterCapacityVehicles.capacityVehicles %} selected{% endif %}>{{ filterCapacityVehicles.capacityVehicles ~ ' (' ~ filterCapacityVehicles.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 11;">
+    <label class="form-label" for="filterCapacityBicycles">
+        {{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'bicycles_short'|translateLocale|mbUcfirst }}.) ({{ filterCapacityBicycles|length }})
+    </label>
+    <select id="filterCapacityBicycles">
+        <option value="null"{% if filter.capacityBicycles is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterCapacityBicycles in filterCapacityBicycles %}
+            <option value="{{ filterCapacityBicycles.capacityBicycles }}"
+                {% if not filter.capacityBicycles is same as(null) and filter.capacityBicycles == filterCapacityBicycles.capacityBicycles %} selected{% endif %}>{{ filterCapacityBicycles.capacityBicycles ~ ' (' ~ filterCapacityBicycles.numberProperties ~ ')' }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="removeAllFilters">
+    {% if filter.owned is not same as(null) or filter.wanted is not same as(null) or filter.propertyTypeId != 0 or filter.businessId != 0
+        or filter.propertyAreaId != 0 or filter.propertyLocationId != 0 or filter.titleUpdateId != 0 or filter.capacityVehicles is not same as(null)
+        or filter.capacityBicycles is not same as(null) or filter.search != "" or filter.propertyAcquisitionIds is not empty
+    %}
+        <a onclick="removeAllFilters();" class="btn btn-danger" id="removeAllFilters">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+            </svg>
+        </a>
+    {% endif %}
+</div>

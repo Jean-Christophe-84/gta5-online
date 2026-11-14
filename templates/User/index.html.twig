@@ -1,0 +1,512 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'users'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        {{ include('_partial/alert.html.twig') }}
+        <div class="return">
+            <a href="{{ path('homepage') }}" class="btn btn-primary" id="returnMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+            <a onclick="showUserStatistics();" class="btn btn-success" id="showUserStatistics">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M128 128C128 110.3 113.7 96 96 96C78.3 96 64 110.3 64 128L64 464C64 508.2 99.8 544 144 544L544 544C561.7 544 576 529.7 576 512C576 494.3 561.7 480 544 480L144 480C135.2 480 128 472.8 128 464L128 128zM534.6 214.6C547.1 202.1 547.1 181.8 534.6 169.3C522.1 156.8 501.8 156.8 489.3 169.3L384 274.7L326.6 217.4C314.1 204.9 293.8 204.9 281.3 217.4L185.3 313.4C172.8 325.9 172.8 346.2 185.3 358.7C197.8 371.2 218.1 371.2 230.6 358.7L304 285.3L361.4 342.7C373.9 355.2 394.2 355.2 406.7 342.7L534.7 214.7z" />
+                </svg>
+            </a>
+        </div>
+        <div class="include filters">
+            {{ include('User/_partial/filter.html.twig') }}
+        </div>
+        <div class="addUser" id="addUser">
+            <button class="btn btn-primary" data-modal-open="#userModal">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path fill="#FFFFFF" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z" />
+                </svg>
+            </button>
+        </div>
+        <div class="table-scroll users">
+            {{ include('User/_partial/template.html.twig') }}
+        </div>
+        <div class="modal" id="userModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="userModalTitle"></h2>
+                        <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <div class="submit">
+                            <button class="btn btn-success" onclick="formUser();">{{ 'validate'|translateLocale|mbUcfirst }}</button>
+                            <button class="btn btn-secondary" data-modal-close>{{ 'cancel'|translateLocale|mbUcfirst }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="userStatisticModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="userStatisticModalTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="userStatisticModalTitle">{{ 'users_statistics'|translateLocale|mbUcfirst }}</h2>
+                        <button type="button" class="btn-close" aria-label="{{ 'close'|translateLocale|mbUcfirst }}" data-modal-close></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="filters user-statistic-filters">
+                            <div class="filter" style="--filter-grow: 2;">
+                                <label class="form-label" for="userStatisticPeriod">{{ 'period'|translateLocale|mbUcfirst }}</label>
+                                <select id="userStatisticPeriod">
+                                    <option value="today">{{ 'today'|translateLocale|mbUcfirst }}</option>
+                                    <option value="yesterday">{{ 'yesterday'|translateLocale|mbUcfirst }}</option>
+                                    <option value="currentWeek">{{ 'current_week'|translateLocale|mbUcfirst }}</option>
+                                    <option value="lastWeek">{{ 'last_week'|translateLocale|mbUcfirst }}</option>
+                                    <option value="currentMonth">{{ 'current_month'|translateLocale|mbUcfirst }}</option>
+                                    <option value="lastMonth">{{ 'last_month'|translateLocale|mbUcfirst }}</option>
+                                    <option value="currentYear">{{ 'current_year'|translateLocale|mbUcfirst }}</option>
+                                    <option value="lastYear">{{ 'last_year'|translateLocale|mbUcfirst }}</option>
+                                    <option value="custom">{{ 'custom'|translateLocale|mbUcfirst }}</option>
+                                </select>
+                            </div>
+                            <div class="filter" style="--filter-grow: 1;">
+                                <label class="form-label" for="userStatisticStart">{{ 'start_date'|translateLocale|mbUcfirst }}</label>
+                                <input type="date" id="userStatisticStart" class="form-input" />
+                            </div>
+                            <div class="filter" style="--filter-grow: 1;">
+                                <label class="form-label" for="userStatisticEnd">{{ 'end_date'|translateLocale|mbUcfirst }}</label>
+                                <input type="date" id="userStatisticEnd" class="form-input" />
+                            </div>
+                            <div class="removeAllFilters">
+                                <a onclick="removeUserStatisticFilter();" class="btn btn-danger" id="removeUserStatisticFilter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                                        <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="userStatisticChart"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="submit">
+                            <button class="btn btn-secondary" data-modal-close>{{ 'close'|translateLocale|mbUcfirst }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/highcharts/highcharts.js') }}"></script>
+    <script type="text/javascript">
+        tippy(document.getElementById('returnMenu'), {content: "{{ 'return_to_main_menu'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('showUserStatistics'), {content: "{{ 'users_statistics'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('removeUserStatisticFilter'), {content: "{{ 'remove_all_filters'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('addUser'), {content: "{{ 'add_a_user'|translateLocale|mbUcfirst|e('js') }}"});
+        tippy(document.getElementById('removeAllFilters'), {content: "{{ 'remove_all_filters'|translateLocale|mbUcfirst|e('js') }}"});
+
+        let filterGroupGtaId;
+        let filterActive;
+        let filterRole;
+        let filterSearch;
+        let reloadTimerId;
+
+        function removeAllFilters() {
+            showLoader();
+
+            fetch('{{ path('filter_user') }}'
+                + '?groupGtaId=0'
+                + '&active=null'
+                + '&role=0'
+                + '&search='
+                + '&page=' + {{ filter['page'] }}
+            )
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function reloadFilter(urlOrder = '', page = null) {
+            showLoader();
+
+            let urlPage = (page !== null) ? '&page=' + page : '&page=' + {{ filter['page'] }};
+
+            fetch('{{ path('filter_user') }}'
+                + '?groupGtaId=' + filterGroupGtaId.value
+                + '&active=' + filterActive.value
+                + '&role=' + filterRole.value
+                + '&search=' + filterSearch.value
+                + urlPage
+                + urlOrder
+            )
+            .then(response => response.json())
+            .then(data => {
+                refreshList(data);
+                checkFilter();
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        checkFilter();
+
+        function checkFilter() {
+            filterGroupGtaId = document.getElementById('filterGroupGtaId');
+            filterActive     = document.getElementById('filterActive');
+            filterRole       = document.getElementById('filterRole');
+            filterSearch     = document.getElementById('filterSearch');
+
+            new TomSelect("#filterGroupGtaId", { maxOptions: null });
+            new TomSelect("#filterActive", { maxOptions: null });
+            new TomSelect("#filterRole", { maxOptions: null });
+
+            filterGroupGtaId.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterActive.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterRole.addEventListener('change', () => {
+                reloadFilter();
+            });
+            filterSearch.addEventListener("input", () => {
+                clearTimeout(reloadTimerId);
+                reloadTimerId = setTimeout(() => {
+                    reloadFilter();
+                }, 500);
+            });
+        }
+
+        function editUser(userId) {
+            showLoader();
+
+            let active = document.getElementById('userActive_' + userId);
+
+            postRequest('{{ path('update_user') }}'
+                + '?userId=' + userId
+                + '&active=' + (active.checked ? 1 : 0)
+            )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        refreshList(data);
+                        checkFilter();
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+        }
+
+        function formUser() {
+            showLoader();
+
+            let lastname   = document.querySelector('#userModal').querySelector('input[name="lastname"]');
+            let firstname  = document.querySelector('#userModal').querySelector('input[name="firstname"]');
+            let mail       = document.querySelector('#userModal').querySelector('input[name="mail"]');
+            let password   = document.querySelector('#userModal').querySelector('input[name="password"]');
+            let username   = document.querySelector('#userModal').querySelector('input[name="username"]');
+            let active     = document.querySelector('#userModal').querySelector('input[name="active"]');
+            let groupGtaId = document.querySelector('#userModal').querySelector('select[name="groupGtaId"]');
+            let role       = document.querySelector('#userModal').querySelector('select[name="role"]');
+            let userId     = document.querySelector('#userModal').querySelector('input[name="id"]');
+
+            document.querySelector('#userModal').querySelector('#error_lastname').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_firstname').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_mail').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_password').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_username').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_groupGtaId').classList.remove('show');
+            document.querySelector('#userModal').querySelector('#error_role').classList.remove('show');
+
+            const invalidPassword = (!userId.value && !password.value) || (password.value && !isValidPassword(password.value));
+
+            if (!lastname.value || !firstname.value || !mail.value || invalidPassword || !username.value || !groupGtaId.value || !role.value) {
+                if (!lastname.value) {
+                    document.querySelector('#userModal').querySelector('#error_lastname').classList.add('show');
+                }
+
+                if (!firstname.value) {
+                    document.querySelector('#userModal').querySelector('#error_firstname').classList.add('show');
+                }
+
+                if (!mail.value) {
+                    document.querySelector('#userModal').querySelector('#error_mail').classList.add('show');
+                }
+
+                if (invalidPassword) {
+                    document.querySelector('#userModal').querySelector('#error_password').classList.add('show');
+                }
+
+                if (!username.value) {
+                    document.querySelector('#userModal').querySelector('#error_username').classList.add('show');
+                }
+
+                if (!groupGtaId.value) {
+                    document.querySelector('#userModal').querySelector('#error_groupGtaId').classList.add('show');
+                }
+
+                if (!role.value) {
+                    document.querySelector('#userModal').querySelector('#error_role').classList.add('show');
+                }
+
+                hideLoader();
+            } else {
+                postRequest('{{ path('form_user') }}'
+                    + '?lastname=' + encodeURIComponent(lastname.value)
+                    + '&firstname=' + encodeURIComponent(firstname.value)
+                    + '&mail=' + encodeURIComponent(mail.value)
+                    + '&password=' + encodeURIComponent(password.value)
+                    + '&username=' + encodeURIComponent(username.value)
+                    + '&active=' + (active.checked ? 1 : 0)
+                    + '&groupGtaId=' + groupGtaId.value
+                    + '&role=' + role.value
+                    + '&userId=' + userId.value
+                )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        closeModal(document.querySelector('#userModal'));
+                        refreshList(data);
+                        checkFilter();
+                    }
+                    showAlert(data.success, data.message);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+                })
+                .finally(() => {
+                    hideLoader();
+                });
+            }
+        }
+
+        document.addEventListener("click", (event) => {
+            const opener = event.target.closest("[data-modal-open]");
+
+            if (!opener) return;
+
+            showLoader();
+
+            const id    = opener.getAttribute("data-user-id") ?? '';
+            const modal = document.querySelector(opener.getAttribute("data-modal-open"));
+
+            openModal(modal);
+
+            if (id) {
+                modal.querySelector('#userModalTitle').textContent = '{{ 'edit_the_user'|translateLocale|mbUcfirst|e('js') }} "' + opener.getAttribute("data-user-name") + '"';
+            } else {
+                modal.querySelector('#userModalTitle').textContent = '{{ 'add_a_user'|translateLocale|mbUcfirst|e('js') }}';
+            }
+
+            fetch('{{ path('get_user') }}?userId=' + id)
+            .then(response => response.json())
+            .then(data => {
+                modal.querySelector('.modal-body').innerHTML = data.template;
+                new TomSelect("#groupGtaId", { maxOptions: null });
+                new TomSelect("#role", { maxOptions: null });
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        });
+
+        let userStatisticChart;
+
+        const userStatisticPeriod = new TomSelect("#userStatisticPeriod", { maxOptions: null });
+        const userStatisticStart  = document.getElementById('userStatisticStart');
+        const userStatisticEnd    = document.getElementById('userStatisticEnd');
+
+        userStatisticPeriod.on('change', (period) => {
+            const dates = getUserStatisticPeriods()[period];
+
+            if (dates) {
+                loadUserStatistics(dates[0], dates[1]);
+            }
+        });
+        userStatisticStart.addEventListener('change', () => {
+            loadUserStatistics(userStatisticStart.value, userStatisticEnd.value);
+        });
+        userStatisticEnd.addEventListener('change', () => {
+            loadUserStatistics(userStatisticStart.value, userStatisticEnd.value);
+        });
+
+        function formatUserStatisticDate(date) {
+            return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+        }
+
+        function getUserStatisticPeriods() {
+            const today   = new Date();
+            const year    = today.getFullYear();
+            const month   = today.getMonth();
+            const day     = today.getDate();
+            const weekday = (today.getDay() + 6) % 7; // Lundi = 0
+            const periods = {
+                today       : [new Date(year, month, day), new Date(year, month, day)],
+                yesterday   : [new Date(year, month, day - 1), new Date(year, month, day - 1)],
+                currentWeek : [new Date(year, month, day - weekday), new Date(year, month, day - weekday + 6)],
+                lastWeek    : [new Date(year, month, day - weekday - 7), new Date(year, month, day - weekday - 1)],
+                currentMonth: [new Date(year, month, 1), new Date(year, month + 1, 0)],
+                lastMonth   : [new Date(year, month - 1, 1), new Date(year, month, 0)],
+                currentYear : [new Date(year, 0, 1), new Date(year, 11, 31)],
+                lastYear    : [new Date(year - 1, 0, 1), new Date(year - 1, 11, 31)]
+            };
+
+            Object.keys(periods).forEach((period) => {
+                periods[period] = periods[period].map(formatUserStatisticDate);
+            });
+
+            return periods;
+        }
+
+        function showUserStatistics() {
+            openModal(document.getElementById('userStatisticModal'));
+            loadUserStatistics();
+        }
+
+        function removeUserStatisticFilter() {
+            const today = formatUserStatisticDate(new Date());
+
+            loadUserStatistics(today, today);
+        }
+
+        function loadUserStatistics(start = null, end = null) {
+            showLoader();
+
+            fetch('{{ path('statistics_user') }}' + (start && end ? '?start=' + start + '&end=' + end : ''))
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    refreshUserStatistics(data);
+                } else {
+                    showAlert(false, data.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+
+        function refreshUserStatistics(data) {
+            const period = Object.entries(getUserStatisticPeriods()).find(([, dates]) => dates[0] === data.start && dates[1] === data.end);
+
+            userStatisticStart.value = data.start;
+            userStatisticEnd.value   = data.end;
+            userStatisticPeriod.setValue(period ? period[0] : 'custom', true);
+
+            document.getElementById('removeUserStatisticFilter').classList.toggle('is-visible', data.filter);
+
+            if (userStatisticChart) {
+                userStatisticChart.xAxis[0].setCategories(data.categories, false);
+                userStatisticChart.series[0].setData(data.data, false);
+                userStatisticChart.reflow();
+                userStatisticChart.redraw();
+
+                return;
+            }
+
+            const style     = getComputedStyle(document.documentElement);
+            const textColor = style.getPropertyValue('--text-light').trim();
+            const lineColor = style.getPropertyValue('--border-dark').trim();
+
+            userStatisticChart = Highcharts.chart('userStatisticChart', {
+                chart: {
+                    backgroundColor: 'transparent',
+                    style: {
+                        fontFamily: 'inherit'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    itemHoverStyle: {
+                        color: style.getPropertyValue('--green-light').trim()
+                    },
+                    itemStyle: {
+                        color: textColor
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: data.categories,
+                    labels: {
+                        style: {
+                            color: textColor
+                        }
+                    },
+                    lineColor: lineColor,
+                    tickColor: lineColor
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    gridLineColor: lineColor,
+                    labels: {
+                        style: {
+                            color: textColor
+                        }
+                    },
+                    min: 0,
+                    title: {
+                        style: {
+                            color: textColor
+                        },
+                        text: "{{ 'number_of_users'|translateLocale|mbUcfirst|e('js') }}"
+                    }
+                },
+                tooltip: {
+                    backgroundColor: style.getPropertyValue('--table-bg-alt').trim(),
+                    borderColor: style.getPropertyValue('--green-light').trim(),
+                    headerFormat: '<span>{point.key}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">●</span> {{ 'number_of_users'|translateLocale|mbUcfirst|colon|e('js') }} <b>{point.y}</b>',
+                    style: {
+                        color: textColor
+                    }
+                },
+                series: [{
+                    color: style.getPropertyValue('--green-light').trim(),
+                    data: data.data,
+                    name: "{{ 'number_of_users'|translateLocale|mbUcfirst|e('js') }}",
+                    type: 'spline'
+                }]
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,134 @@
+<div class="filter" style="--filter-grow: 11;">
+    <label class="form-label" for="filterVehicleManufacturerId">{{ 'vehicle_manufacturer'|translateLocale|mbUcfirst }} ({{ filterVehicleManufacturerIds|length }})</label>
+    <select id="filterVehicleManufacturerId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterVehicleManufacturerId in filterVehicleManufacturerIds %}
+            <option value="{{ filterVehicleManufacturerId.id }}"
+                {% if filter.vehicleManufacturerId == filterVehicleManufacturerId.id %} selected{% endif %}>{{ filterVehicleManufacturerId.name }} ({{ filterVehicleManufacturerId.realName ? filterVehicleManufacturerId.realName ~ ' - ' }}{{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterVehicleManufacturerId.numberVehiclesNotBicycles, bicycles: filterVehicleManufacturerId.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 12;">
+    <label class="form-label" for="filterTitleUpdateId">{{ 'title_update'|translateLocale|mbUcfirst }} ({{ filterTitleUpdateIds|length }})</label>
+    <select id="filterTitleUpdateId">
+        <option value="0">{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterTitleUpdateId in filterTitleUpdateIds %}
+            <option value="{{ filterTitleUpdateId.id }}"
+                {% if filter.titleUpdateId == filterTitleUpdateId.id %} selected{% endif %}>{{ filterTitleUpdateId.name }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterTitleUpdateId.numberVehiclesNotBicycles, bicycles: filterTitleUpdateId.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+{% if is_granted('VEHICLE_OWN') %}
+    <div class="filter" style="--filter-grow: 7;">
+        <label class="form-label" for="filterOwned">{{ 'owned'|translateLocale|mbUcfirst }}</label>
+        <select id="filterOwned">
+            <option value="null"{% if filter.owned is same as(null) %} selected{% endif %}>{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+            {% for filterOwned in filterOwneds %}
+                <option value="{{ filterOwned.owned }}"
+                    {% if not filter.owned is same as(null) and filter.owned == filterOwned.owned %} selected{% endif %}>{{ (filterOwned.owned == 1 ? 'yes'|translateLocale|mbUcfirst : 'no'|translateLocale|mbUcfirst) }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterOwned.numberVehiclesNotBicycles, bicycles: filterOwned.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterOwned" value="null" />
+{% endif %}
+{% if is_granted('VEHICLE_OWN') %}
+    <div class="filter" style="--filter-grow: 10;">
+        <label class="form-label" for="filterPropertyId">{{ 'property'|translateLocale|mbUcfirst }} ({{ filterPropertyIds|length }})</label>
+        <select id="filterPropertyId">
+            <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+            {% for filterPropertyId in filterPropertyIds %}
+                <option value="{{ filterPropertyId.id }}"
+                        data-search="{{ filterPropertyId.name }} {% for propertyTwo in filterPropertyId.propertyTwos %} {{ propertyTwo.name }}{% endfor %}"
+                    {% if filter.propertyId == filterPropertyId.id %} selected{% endif %}>{{ filterPropertyId.name }} ({{ 'vehicles_and_bicycles_count_on_capacity'|translateLocale({vehicles: filterPropertyId.numberVehiclesNotBicycles, vehicleCapacity: filterPropertyId.capacityVehicles, bicycles: filterPropertyId.numberVehiclesBicycles, bicycleCapacity: filterPropertyId.capacityBicycles}) }})</option>
+                {% if filterPropertyId.propertyTwos is not empty %}
+                    {% for propertyTwo in filterPropertyId.propertyTwos %}
+                        <option value="{{ propertyTwo.id }}" data-search="{{ propertyTwo.name }} {{ filterPropertyId.name }}"
+                            {% if filter.propertyId == propertyTwo.id %} selected{% endif %}>{{ '--- ' ~ propertyTwo.name ~ ' (' ~ propertyTwo.numberVehiclesNotBicycles ~ '/' ~ propertyTwo.capacityVehicles ~ ')' }}</option>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterPropertyId" value="0" />
+{% endif %}
+{% if is_granted('VEHICLE_OWN') %}
+    <div class="filter" style="--filter-grow: 18;">
+        <label class="form-label" for="filterWantedPropertyId">{{ 'wanted_property'|translateLocale|mbUcfirst }} ({{ filterWantedPropertyIds|length }})</label>
+        <select id="filterWantedPropertyId">
+            <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+            {% for filterWantedPropertyId in filterWantedPropertyIds %}
+                <option value="{{ filterWantedPropertyId.id }}"
+                        data-search="{{ filterWantedPropertyId.name }} {% for wantedPropertyTwo in filterWantedPropertyId.propertyTwos %} {{ wantedPropertyTwo.name }}{% endfor %}"
+                    {% if filter.wantedPropertyId == filterWantedPropertyId.id %} selected{% endif %}>{{ filterWantedPropertyId.name }} ({{ 'vehicles_and_bicycles_count_on_capacity'|translateLocale({vehicles: filterWantedPropertyId.numberVehiclesNotBicycles, vehicleCapacity: filterWantedPropertyId.capacityVehicles, bicycles: filterWantedPropertyId.numberVehiclesBicycles, bicycleCapacity: filterWantedPropertyId.capacityBicycles}) }})</option>
+                {% if filterWantedPropertyId.propertyTwos is not empty %}
+                    {% for wantedPropertyTwo in filterWantedPropertyId.propertyTwos %}
+                        <option value="{{ wantedPropertyTwo.id }}" data-search="{{ wantedPropertyTwo.name }} {{ filterWantedPropertyId.name }}"
+                            {% if filter.wantedPropertyId == wantedPropertyTwo.id %} selected{% endif %}>{{ '--- ' ~ wantedPropertyTwo.name ~ ' (' ~ wantedPropertyTwo.numberVehiclesNotBicycles ~ '/' ~ wantedPropertyTwo.capacityVehicles ~ ')' }}</option>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <input type="hidden" id="filterWantedPropertyId" value="0" />
+{% endif %}
+<div class="filter" style="--filter-grow: 9;">
+    <label class="form-label" for="filterSeats">{{ 'seats'|translateLocale|mbUcfirst }} ({{ filterSeats|length }})</label>
+    <select id="filterSeats">
+        <option value="0">{{ 'all'|translateLocale({gender: 'masculine'})|mbUcfirst }}</option>
+        {% for filterSeat in filterSeats %}
+            <option value="{{ filterSeat.seats }}"
+                {% if filter.seats == filterSeat.seats %} selected{% endif %}>{{ filterSeat.seats }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterSeat.numberVehiclesNotBicycles, bicycles: filterSeat.numberVehiclesBicycles}) }})</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 8;">
+    <label class="form-label" for="filterVehicleClassIds">{{ 'vehicle_class'|translateLocale|mbUcfirst }} ({{ filterVehicleClassIds|length }})</label>
+    <select id="filterVehicleClassIds" multiple data-multi-select>
+        <option value="0">{{ 'all'|translateLocale({gender: 'feminine'})|mbUcfirst }}</option>
+        {% if filterVehicleClassIds is not empty %}
+            {% for filterVehicleClassId in filterVehicleClassIds %}
+                <option value="{{ filterVehicleClassId.id }}"
+                    {% if filterVehicleClassId.id in filter.vehicleClassIds %} selected{% endif %}>{{ filterVehicleClassId.name ~ ' (' ~ filterVehicleClassId.numberVehicles ~ ')' }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 12;">
+    <label class="form-label" for="filterVehicleAcquisitionIds">{{ 'vehicle_acquisitions'|translateLocale|mbUcfirst }} ({{ filterVehicleAcquisitionIds|length }})</label>
+    <select id="filterVehicleAcquisitionIds" multiple data-multi-select>
+        {% if filterVehicleAcquisitionIds is not empty %}
+            {% for filterVehicleAcquisitionId in filterVehicleAcquisitionIds %}
+                <option value="{{ filterVehicleAcquisitionId.id }}"
+                    {% if filterVehicleAcquisitionId.id in filter.vehicleAcquisitionIds %} selected{% endif %}>{{ filterVehicleAcquisitionId.name }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterVehicleAcquisitionId.numberVehiclesNotBicycles, bicycles: filterVehicleAcquisitionId.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="filter" style="--filter-grow: 15;">
+    <label class="form-label" for="filterStorageLocationIds">{{ 'storage_locations'|translateLocale|mbUcfirst }} ({{ filterStorageLocationIds|length }})</label>
+    <select id="filterStorageLocationIds" multiple data-multi-select>
+        {% if filterStorageLocationIds is not empty %}
+            {% for filterStorageLocationId in filterStorageLocationIds %}
+                <option value="{{ filterStorageLocationId.id }}"{% if filterStorageLocationId.id in filter.storageLocationIds %} selected{% endif %}>{{ filterStorageLocationId.name }} ({{ 'vehicles_and_bicycles_count'|translateLocale({vehicles: filterStorageLocationId.numberVehiclesNotBicycles, bicycles: filterStorageLocationId.numberVehiclesBicycles}) }})</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</div>
+<div class="removeAllFilters">
+    {% if filter.vehicleManufacturerId != 0 or filter.titleUpdateId != 0 or filter.owned is not same as(null) or filter.propertyId != 0
+        or filter.wantedPropertyId != 0 or filter.seats != 0 or filter.vehicleClassIds is not empty or filter.vehicleAcquisitionIds is not empty
+        or filter.storageLocationIds is not empty or filter.search != "" or filter.vehicleTwo != 0 or filter.optimized is not same as(null)
+        or filter.evolution != 0 or filter.wantedProperty is not same as(null) or filter.notVehicleClassIds is not empty or filter.notVehicleAcquisitionIds
+        or filter.notStorageLocationIds is not empty
+    %}
+        <a onclick="removeAllFilters();" class="btn btn-danger" id="removeAllFilters">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path fill="#FFFFFF" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" />
+            </svg>
+        </a>
+    {% endif %}
+</div>

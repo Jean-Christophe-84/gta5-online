@@ -1,0 +1,19 @@
+<div class="group">
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label required" for="name">{{ 'name'|translateLocale|mbUcfirst }}</label>
+        <input type="text" name="name" id="name"{% if groupGta and groupGta.name %} value="{{ groupGta.name }}"{% endif %} class="form-input" />
+        <div class="error" id="error_name">{{ 'please_enter_the_name'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 50%;">
+        <label class="form-label" for="description">{{ 'description'|translateLocale|mbUcfirst }}</label>
+        <textarea name="description" id="description" class="form-textarea" rows="8">{{ groupGta ? groupGta.description : '' }}</textarea>
+        <div class="error" id="error_description">{{ 'please_enter_the_description'|translateLocale|mbUcfirst }} !</div>
+    </div>
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label" for="default">{{ 'default_group_for_new_accounts'|translateLocale|mbUcfirst }}</label>
+        <div class="checkbox-wrapper-2">
+            <input type="checkbox" name="default" id="default" value="1"{% if groupGta and groupGta.default %} checked{% endif %} class="stylized" />
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{{ groupGta ? groupGta.id : '' }}" />
+</div>

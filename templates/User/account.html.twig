@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ 'my_account'|translateLocale|mbUcfirst }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="legal-mentions">
+        <h1>{{ 'my_account'|translateLocale|mbUcfirst }}</h1>
+
+        <h2>{{ 'my_personal_datas'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'last_name'|translateLocale|mbUcfirst }} : {{ user.lastname }}</p>
+        <p>{{ 'first_name'|translateLocale|mbUcfirst }} : {{ user.firstname }}</p>
+        <p>{{ 'username'|translateLocale|mbUcfirst }} : {{ user.username }}</p>
+        <p>{{ 'mail'|translateLocale|mbUcfirst }} : {{ user.mail }}</p>
+        <p>
+            {{ 'to_correct_these_informations_write_to'|translateLocale|mbUcfirst }} <a href="mailto:{{ contact_mail }}">{{ contact_mail }}</a>.
+            <a href="{{ path('legal_mentions') }}#privacy_policy">{{ 'privacy_policy'|translateLocale|mbUcfirst }}</a>.
+        </p>
+
+        <h2>{{ 'export_my_datas'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'download_all_your_datas_in_a_json_file'|translateLocale|mbUcfirst }}.</p>
+        <a href="{{ path('export_account_user') }}" class="btn btn-primary">{{ 'export_my_datas'|translateLocale|mbUcfirst }}</a>
+
+        <h2>{{ 'delete_my_account'|translateLocale|mbUcfirst }}</h2>
+        <p>{{ 'your_personal_datas_will_be_erased'|translateLocale|mbUcfirst }}. {{ 'this_action_is_irreversible'|translateLocale|mbUcfirst }}.</p>
+        <div class="form-group">
+            <label class="form-label required" for="deleteAccountPassword">{{ 'password'|translateLocale|mbUcfirst }}</label>
+            <input type="password" id="deleteAccountPassword" autocomplete="current-password" maxlength="255" class="form-input" />
+        </div>
+        <button type="button" class="btn btn-danger" onclick="deleteAccount();">{{ 'delete_my_account'|translateLocale|mbUcfirst }}</button>
+
+        <p><a href="{{ path('homepage') }}">{{ 'back_to_the_homepage'|translateLocale|mbUcfirst }}</a></p>
+    </div>
+    {{ include('_partial/alert.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function deleteAccount() {
+            showLoader();
+
+            postRequest('{{ path('delete_account_user') }}?password=' + encodeURIComponent(document.getElementById('deleteAccountPassword').value))
+            .then(response => response.json())
+            .then(data => {
+                showAlert(data.success, data.message);
+
+                if (data.success === true) {
+                    window.location.href = data.redirect;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                showAlert(false, "{{ 'a_technical_error_occurred'|translateLocale|mbUcfirst|e('js') }}.");
+            })
+            .finally(() => {
+                hideLoader();
+            });
+        }
+    </script>
+{% endblock %}

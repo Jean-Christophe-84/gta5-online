@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{# Messages spécifiques pour les 403, 404 et 500, message par défaut pour les autres codes #}
+{% set key = status_code in [403, 404, 500] ? 'error_page_' ~ status_code : 'error_page_default' %}
+{% set stars = {403: 3, 404: 2, 500: 5}[status_code] ?? 1 %}
+
+{% block title %}{{ status_code }} - {{ (key ~ '_title')|translateLocale }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="error-page content">
+        <div class="element">
+            <p class="error-code">{{ status_code }}</p>
+            <p class="error-stars" aria-label="{{ "wanted_level"|translateLocale|mbUcfirst|colon }} {{ stars }}/5">
+                {% for i in 1..5 %}<span class="{{ i <= stars ? 'on' : 'off' }}" aria-hidden="true">★</span>{% endfor %}
+            </p>
+            <h1>{{ (key ~ '_title')|translateLocale }}</h1>
+            <p class="error-text">{{ (key ~ '_text')|translateLocale }}</p>
+
+            {% if status_code >= 500 and exception is defined and is_granted('ROLE_ADMIN') %}
+                <div class="alert alert-danger error-details">
+                    <strong>{{ "technical_details_super_admin_only"|translateLocale|mbUcfirst }}</strong>
+                    <code>{{ exception.message }}</code>
+                </div>
+            {% endif %}
+
+            <div class="submit">
+                <a href="{{ path('homepage') }}" class="btn btn-primary">{{ "back_to_homepage"|translateLocale|mbUcfirst }}</a>
+                <button type="button" class="btn btn-secondary" onclick="history.back()">{{ "previous_page"|translateLocale|mbUcfirst }}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

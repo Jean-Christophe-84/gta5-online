@@ -1,0 +1,48 @@
+{% set locales       = locales() %}
+{% set currentLocale = locales|filter(locale => locale.code == default_locale())|first %}
+<div class="locale-switcher" id="localeSwitcher">
+    <button type="button" class="locale-switcher__toggle" aria-expanded="false" aria-controls="localeSwitcherMenu"
+            aria-label="{{ 'choose_language'|translateLocale|mbUcfirst }}">
+        {% if currentLocale %}
+            <img src="{{ asset('uploads/locale/' ~ currentLocale.id ~ '.' ~ currentLocale.extension) }}" alt="" class="locale-switcher__flag" />
+        {% endif %}
+    </button>
+    <form method="post" action="{{ path('switch_locale') }}" class="locale-switcher__menu" id="localeSwitcherMenu">
+        <input type="hidden" name="_token" value="{{ csrf_token('switch_locale') }}" />
+        <input type="hidden" name="_target_path" value="{{ app.request.requestUri }}" />
+        {% for locale in locales %}
+            <button type="submit" name="code" value="{{ locale.code }}" class="locale-switcher__option"{% if locale.code == default_locale() %} aria-current="true"{% endif %}>
+                <img src="{{ asset('uploads/locale/' ~ locale.id ~ '.' ~ locale.extension) }}" alt="" class="locale-switcher__flag" />
+                {{ locale.name }}
+            </button>
+        {% endfor %}
+    </form>
+</div>
+<script type="text/javascript">
+    (function () {
+        const switcher = document.getElementById('localeSwitcher');
+        const toggle   = switcher.querySelector('.locale-switcher__toggle');
+
+        function setOpen(open) {
+            switcher.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        toggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            setOpen(!switcher.classList.contains('is-open'));
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!switcher.contains(event.target)) {
+                setOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+            }
+        });
+    })();
+</script>

@@ -1,0 +1,12 @@
+{% extends 'Email/_layout.html.twig' %}
+
+{% block title %}{{ 'verify_mail_mail_subject'|translateLocale({}, locale)|mbUcfirst }}{% endblock %}
+
+{% block content %}
+    <p style="margin:0 0 16px;">{{ 'your_account_has_been_good_created'|translateLocale({}, locale)|mbUcfirst }}.</p>
+    <p style="margin:0;">{{ 'all_you_have_to_do_is_validate_your_mail_by_clicking_on_the_link_below'|translateLocale({}, locale)|mbUcfirst }}.</p>
+{% endblock %}
+
+{% block button %}
+    {{ include('Email/_button.html.twig', {label: 'i_validate_my_mail'|translateLocale({}, locale)|mbUcfirst}) }}
+{% endblock %}
