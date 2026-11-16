@@ -4,32 +4,32 @@
             <th role="button" data-sort-key="login_success-date" onclick="orderFilter(this, event);"
                 {% if filter['order']['login_success-date'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_success-date']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'date'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'login_success-date'}) }}
             </th>
             <th role="button" data-sort-key="user-lastname" onclick="orderFilter(this, event);"
                 {% if filter['order']['user-lastname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-lastname']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'last_name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'user-lastname'}) }}
             </th>
             <th role="button" data-sort-key="user-firstname" onclick="orderFilter(this, event);"
                 {% if filter['order']['user-firstname'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-firstname']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'first_name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'user-firstname'}) }}
             </th>
             <th role="button" data-sort-key="user-username" onclick="orderFilter(this, event);"
                 {% if filter['order']['user-username'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-username']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'username'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'user-username'}) }}
             </th>
             <th role="button" data-sort-key="user-mail" onclick="orderFilter(this, event);"
                 {% if filter['order']['user-mail'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['user-mail']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'mail'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'user-mail'}) }}
             </th>
             <th role="button" data-sort-key="login_success-ip" onclick="orderFilter(this, event);"
                 {% if filter['order']['login_success-ip'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_success-ip']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'ip_address'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'login_success-ip'}) }}
             </th>
         </tr>
     </thead>

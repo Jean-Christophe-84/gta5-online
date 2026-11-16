@@ -4,23 +4,23 @@
             <th role="button" data-sort-key="business_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_locale-name'}) }}
             </th>
             <th role="button"><div class="cell"><label>{{ 'additional_information'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button" data-sort-key="business_good-stock_dealer" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_good-stock_dealer'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-stock_dealer']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'stock_for_dealer'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_good-stock_dealer'}) }}
             </th>
             <th role="button" data-sort-key="business_good-stock_dealer_total" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_good-stock_dealer_total'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-stock_dealer_total']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'total_stock_for_dealer'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_good-stock_dealer_total'}) }}
             </th>
             <th role="button" data-sort-key="business_good-cost_of_restock" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_good-cost_of_restock'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_good-cost_of_restock']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'cost_of_a_restock'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_good-cost_of_restock'}) }}
             </th>
             <th role="button">
                 <div class="cell"><label>{{ 'replenishment_rate'|translateLocale|mbUcfirst }}</label></div>

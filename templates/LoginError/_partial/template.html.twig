@@ -4,17 +4,17 @@
             <th role="button" data-sort-key="login_error-date" onclick="orderFilter(this, event);"
                 {% if filter['order']['login_error-date'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_error-date']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'date'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'login_error-date'}) }}
             </th>
             <th role="button" data-sort-key="login_error-email" onclick="orderFilter(this, event);"
                 {% if filter['order']['login_error-email'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_error-email']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'entered_mail'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'login_error-email'}) }}
             </th>
             <th role="button" data-sort-key="login_error-ip" onclick="orderFilter(this, event);"
                 {% if filter['order']['login_error-ip'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['login_error-ip']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'ip_address'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'login_error-ip'}) }}
             </th>
         </tr>
     </thead>

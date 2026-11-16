@@ -4,12 +4,12 @@
             <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-name'}) }}
             </th>
             <th role="button" data-sort-key="title_update-release_date" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-release_date'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-release_date']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'release_date'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-release_date'}) }}
             </th>
         </tr>
     </thead>

@@ -4,29 +4,29 @@
             <th role="button" data-sort-key="bounty_target-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['bounty_target-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['bounty_target-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'bounty_target-name'}) }}
             </th>
             <th role="button" data-sort-key="bounty_mission_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['bounty_mission_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['bounty_mission_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'bounty_mission'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'bounty_mission_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="bounty_target-most_wanted" onclick="orderFilter(this, event);"
                 {% if filter['order']['bounty_target-most_wanted'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['bounty_target-most_wanted']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'most_wanted'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'bounty_target-most_wanted'}) }}
             </th>
             {% if is_granted('BOUNTY_TARGET_DONE') %}
                 <th role="button" data-sort-key="bounty_target_user-done" onclick="orderFilter(this, event);"
                     {% if filter['order']['bounty_target_user-done'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['bounty_target_user-done']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'done'|translateLocale|mbUcfirst }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'bounty_target_user-done'}) }}
                 </th>
             {% endif %}
             <th role="button" data-sort-key="bounty_target-price" onclick="orderFilter(this, event);"
                 {% if filter['order']['bounty_target-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['bounty_target-price']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'reward_alive'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'bounty_target-price'}) }}
             </th>
         </tr>
     </thead>

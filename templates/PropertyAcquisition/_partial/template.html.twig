@@ -4,7 +4,7 @@
             <th role="button" data-sort-key="property-acquisition_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property-acquisition_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-acquisition_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property-acquisition_locale-name'}) }}
             </th>
         </tr>
     </thead>

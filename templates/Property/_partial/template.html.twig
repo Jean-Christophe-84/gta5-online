@@ -4,68 +4,68 @@
             <th role="button" data-sort-key="property-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property-name'}) }}
             </th>
             {% if is_granted('PROPERTY_OWN') %}
                 <th role="button" data-sort-key="property_user-owned" onclick="orderFilter(this, event);"
                     {% if filter['order']['property_user-owned'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_user-owned']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'owned'|translateLocale|mbUcfirst }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'property_user-owned'}) }}
                 </th>
                 <th role="button" data-sort-key="property_user-wanted" onclick="orderFilter(this, event);"
                     {% if filter['order']['property_user-wanted'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_user-wanted']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'wanted'|translateLocale|mbUcfirst }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'property_user-wanted'}) }}
                 </th>
             {% endif %}
             <th role="button" data-sort-key="property_type_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property_type_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_type_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'property_type'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property_type_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="business_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'business'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="property_area-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property_area-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_area-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'property_area'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property_area-name'}) }}
             </th>
             <th role="button" data-sort-key="property_location-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property_location-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_location-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'property_location'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property_location-name'}) }}
             </th>
             <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-name'}) }}
             </th>
             <th role="button" data-sort-key="property-price" onclick="orderFilter(this, event);"
                 {% if filter['order']['property-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-price']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'price'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property-price'}) }}
             </th>
             <th role="button" data-sort-key="property-capacity_vehicles" onclick="orderFilter(this, event);"
                 {% if filter['order']['property-capacity_vehicles'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-capacity_vehicles']|lower }}"{% endif %}>
                 <div class="cell">
                     <label>{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'vehicles_short'|translateLocale|mbUcfirst }}.)</label>
                 </div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property-capacity_vehicles'}) }}
             </th>
             <th role="button" data-sort-key="property-capacity_bicycles" onclick="orderFilter(this, event);"
                 {% if filter['order']['property-capacity_bicycles'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-capacity_bicycles']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'capacity'|translateLocale|mbUcfirst }} ({{ 'bicycles_short'|translateLocale|mbUcfirst }}.)</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property-capacity_bicycles'}) }}
             </th>
             <th role="button"><div class="cell"><label>{{ 'property_acquisitions'|translateLocale|mbUcfirst }}</label></div></th>
             {% if is_granted('PROPERTY_OWN') %}
                 <th role="button" data-sort-key="property-vehicles_price" onclick="orderFilter(this, event);" title="{{ 'vehicles_price_help'|translateLocale|mbUcfirst }}"
                     {% if filter['order']['property-vehicles_price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property-vehicles_price']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'vehicles_price'|translateLocale|mbUcfirst }}{{ ' (' ~ sumVehiclesPrices ~ ')' }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'property-vehicles_price'}) }}
                 </th>
             {% endif %}
             <th role="button"><div class="cell"><label>{{ 'vehicles'|translateLocale|mbUcfirst }}</label></div></th>

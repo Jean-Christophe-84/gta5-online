@@ -4,19 +4,19 @@
             <th role="button" data-sort-key="business_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['business_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['business_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'business_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="property_type_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['property_type_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['property_type_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'property_type'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'property_type_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="business-contact"><div class="cell"><label>{{ 'contact'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button" data-sort-key="business-maximum_number"><div class="cell"><label>{{ 'maximum_number'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-name'}) }}
             </th>
             <th role="button" data-sort-key="business-daily_earnings">
                 <div class="cell"><label>{{ 'daily_earnings_in_game'|translateLocale|mbUcfirst }}</label></div>

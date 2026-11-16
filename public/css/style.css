@@ -1547,6 +1547,15 @@ div.content div.table-scroll table thead tr th.is-sorted[data-sort-dir="desc"] d
     fill: #FFFFFF;
 }
 
+div.content div.table-scroll table thead tr th div.arrows span.rank {
+    color: #FFFFFF;
+    display: block;
+    font-size: 9px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+}
+
 div.content div.table-scroll table tbody tr {
     position: relative;
 }

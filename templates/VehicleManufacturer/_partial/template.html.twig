@@ -4,12 +4,12 @@
             <th role="button" data-sort-key="vehicle_manufacturer-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle_manufacturer-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle_manufacturer-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle_manufacturer-name'}) }}
             </th>
             <th role="button" data-sort-key="vehicle_manufacturer-real_name" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle_manufacturer-real_name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle_manufacturer-real_name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'real_name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle_manufacturer-real_name'}) }}
             </th>
         </tr>
     </thead>

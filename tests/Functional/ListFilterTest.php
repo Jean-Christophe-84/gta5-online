@@ -4,10 +4,8 @@ namespace App\Tests\Functional;
 
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\DomCrawler\Crawler;
 
-/**
- * Chaque filtre et chaque tri de chaque liste répond sans erreur, et la page garde le filtre choisi
- */
 class ListFilterTest extends AppWebTestCase
 {
     // page de la liste => route du filtre
@@ -35,7 +33,6 @@ class ListFilterTest extends AppWebTestCase
         '/weapons'                => '/weapon/filter'
     ];
 
-    // route du filtre => [paramètre, requête donnant une valeur réelle ou valeur fixe]
     const array FILTERS = [
         '/property/filter' => [
             ['businessId', 'SELECT MIN(business_id) FROM property'],
@@ -120,9 +117,6 @@ class ListFilterTest extends AppWebTestCase
     }
 
     /**
-     * La recherche porte aussi sur les noms liés (fabricant, classe, zone), et reste rapide combinée à un filtre :
-     * la sous-requête de recherche ne doit jamais dépendre de la requête principale
-     *
      * @throws DoctrineDBALException
      */
     public function testMainListSearchUsesLinkedNamesAndStaysFast(): void
@@ -194,6 +188,27 @@ class ListFilterTest extends AppWebTestCase
     }
 
     #[DataProvider('listProvider')]
+    public function testSortRanksFollowTheSortOrder(string $page, string $route): void
+    {
+        $this->loginAs(1, 'ROLE_ADMIN');
+
+        $sortKeys = array_values(array_unique(
+            $this->client->request('GET', $page)->filter('[data-sort-key][onclick^="orderFilter"]')->each(fn($node) => $node->attr('data-sort-key'))
+        ));
+
+        $this->client->request('GET', $route, ['orderNew' => 1, 'orders' => [end($sortKeys) => 'asc']]);
+        $this->assertSame([], $this->getSortRanks(), $page . ' : pas de numéro pour un tri sur une seule colonne');
+
+        if (count($sortKeys) < 2) {
+            return;
+        }
+
+        $this->client->request('GET', $route, ['orderNew' => 1, 'orders' => [$sortKeys[1] => 'asc']]);
+        $this->client->request('GET', $route, ['orderNew' => 0, 'orders' => [$sortKeys[0] => 'desc']]);
+        $this->assertEquals([$sortKeys[1] => '1', $sortKeys[0] => '2'], $this->getSortRanks(), $page);
+    }
+
+    #[DataProvider('listProvider')]
     public function testInvalidSortAndPageAreIgnored(string $page, string $route): void
     {
         $this->loginAs(1, 'ROLE_ADMIN');
@@ -223,9 +238,6 @@ class ListFilterTest extends AppWebTestCase
         $this->assertResponseIsSuccessful($page . ' doit rester affichable après un filtre invalide');
     }
 
-    /**
-     * Une page au-delà de la dernière (filtre ou suppression depuis une page lointaine) revient à la première
-     */
     #[DataProvider('listProvider')]
     public function testOutOfRangePageGoesBackToTheFirstPage(string $page, string $route): void
     {
@@ -254,6 +266,15 @@ class ListFilterTest extends AppWebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSame('recherche gardée', $crawler->filter('#filterSearch')->attr('value'), $page);
+    }
+
+    private function getSortRanks(): array
+    {
+        $template = json_decode($this->client->getResponse()->getContent(), true)['template'];
+
+        return array_column(
+            new Crawler($template)->filter('th span.rank')->each(static fn (Crawler $rank): array => [$rank->closest('th')->attr('data-sort-key'), $rank->text()]), 1, 0
+        );
     }
 
     private function assertFilterSucceeded(string $label): void

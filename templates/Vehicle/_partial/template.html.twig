@@ -4,18 +4,18 @@
             <th role="button" data-sort-key="vehicle-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-name'}) }}
             </th>
             <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-name'}) }}
             </th>
             {% if is_granted('VEHICLE_OWN') %}
                 <th role="button" data-sort-key="vehicle_user-owned" onclick="orderFilter(this, event);"
                     {% if filter['order']['vehicle_user-owned'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle_user-owned']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'owned'|translateLocale|mbUcfirst }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle_user-owned'}) }}
                 </th>
                 <th role="button"><div class="cell"><label>{{ 'property'|translateLocale|mbUcfirst }}</label></div></th>
                 <th role="button"><div class="cell"><label>{{ 'wanted_property'|translateLocale|mbUcfirst }}</label></div></th>
@@ -23,63 +23,63 @@
             <th role="button" data-sort-key="vehicle-seats" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-seats'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-seats']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'seats'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-seats'}) }}
             </th>
             <th role="button"><div class="cell"><label>{{ 'vehicle_classes'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button" data-sort-key="vehicle_drivetrain_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle_drivetrain_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle_drivetrain_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'vehicle_drivetrain'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle_drivetrain_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-price" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-price']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'price'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-price'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-weight" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-weight'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-weight']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'weight'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-weight'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-gears" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-gears'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-gears']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'gears'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-gears'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-top_speed_kilometers" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-top_speed_kilometers'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-top_speed_kilometers']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'top_speed'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-top_speed_kilometers'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-top_speed_kilometers_maximum" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-top_speed_kilometers_maximum'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-top_speed_kilometers_maximum']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'top_speed_maximum'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-top_speed_kilometers_maximum'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-speed" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-speed'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-speed']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'speed'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-speed'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-acceleration" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-acceleration'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-acceleration']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'acceleration'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-acceleration'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-braking" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-braking'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-braking']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'braking'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-braking'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-handling" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-handling'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-handling']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'handling'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-handling'}) }}
             </th>
             <th role="button" data-sort-key="vehicle-average" onclick="orderFilter(this, event);"
                 {% if filter['order']['vehicle-average'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['vehicle-average']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'average'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'vehicle-average'}) }}
             </th>
             <th role="button"><div class="cell"><label>{{ 'vehicle_acquisitions'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button"><div class="cell"><label>{{ 'storage_locations'|translateLocale|mbUcfirst }}</label></div></th>

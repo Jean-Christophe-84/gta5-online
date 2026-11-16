@@ -4,60 +4,60 @@
             <th role="button" data-sort-key="weapon_locale-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon_locale-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon_locale-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'name'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon_locale-name'}) }}
             </th>
             <th role="button" data-sort-key="title_update-name" onclick="orderFilter(this, event);"
                 {% if filter['order']['title_update-name'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['title_update-name']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'title_update'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'title_update-name'}) }}
             </th>
             {% if is_granted('WEAPON_OWN') %}
                 <th role="button" data-sort-key="weapon_user-owned" onclick="orderFilter(this, event);"
                     {% if filter['order']['weapon_user-owned'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon_user-owned']|lower }}"{% endif %}>
                     <div class="cell"><label>{{ 'owned'|translateLocale|mbUcfirst }}</label></div>
-                    {{ include('_partial/arrows.html.twig') }}
+                    {{ include('_partial/arrows.html.twig', {sortKey: 'weapon_user-owned'}) }}
                 </th>
             {% endif %}
             <th role="button"><div class="cell"><label>{{ 'weapon_class'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button" data-sort-key="weapon-price" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-price'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-price']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'price'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-price'}) }}
             </th>
             <th role="button" data-sort-key="weapon-unlock_rank" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-unlock_rank'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-unlock_rank']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'unlock_rank'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-unlock_rank'}) }}
             </th>
             <th role="button" data-sort-key="weapon-damage" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-damage'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-damage']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'damage'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-damage'}) }}
             </th>
             <th role="button" data-sort-key="weapon-fire_rate" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-fire_rate'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-fire_rate']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'fire_rate'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-fire_rate'}) }}
             </th>
             <th role="button" data-sort-key="weapon-accuracy" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-accuracy'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-accuracy']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'accuracy'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-accuracy'}) }}
             </th>
             <th role="button" data-sort-key="weapon-range_weapon" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-range_weapon'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-range_weapon']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'range'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-range_weapon'}) }}
             </th>
             <th role="button" data-sort-key="weapon-clip_size" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-clip_size'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-clip_size']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'magazine_capacity'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-clip_size'}) }}
             </th>
             <th role="button" data-sort-key="weapon-average" onclick="orderFilter(this, event);"
                 {% if filter['order']['weapon-average'] is defined %} class="is-sorted" data-sort-dir="{{ filter['order']['weapon-average']|lower }}"{% endif %}>
                 <div class="cell"><label>{{ 'average'|translateLocale|mbUcfirst }}</label></div>
-                {{ include('_partial/arrows.html.twig') }}
+                {{ include('_partial/arrows.html.twig', {sortKey: 'weapon-average'}) }}
             </th>
             <th role="button"><div class="cell"><label>{{ 'weapon_acquisitions'|translateLocale|mbUcfirst }}</label></div></th>
             <th role="button"><div class="cell"><label>{{ 'weapon_customizations'|translateLocale|mbUcfirst }}</label></div></th>
