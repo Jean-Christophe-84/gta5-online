@@ -158,7 +158,7 @@ class RouteTest extends AppWebTestCase
     private function getIdParameter(string $name): string
     {
         $subject = str_replace('-', '_', substr($name, 4));
-        $table   = $subject === 'group_gta' ? 'group_gta' : $subject;
+        $table   = $subject;
 
         return lcfirst(str_replace('_', '', ucwords($subject, '_'))) . 'Id=' . (int)$this->fetchOne('SELECT MIN(id) FROM `' . $table . '`');
     }

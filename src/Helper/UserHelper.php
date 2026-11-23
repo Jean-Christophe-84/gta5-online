@@ -7,7 +7,6 @@ use DateMalformedStringException;
 use DateTime;
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

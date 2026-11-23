@@ -11,7 +11,7 @@ ddev exec php bin/phpunit                                          # toute la su
 ddev exec php bin/phpunit tests/Functional/BountyTargetTest.php    # un fichier
 ddev exec php bin/phpunit --filter testNomDuTest                   # un test
 make cc                                                            # vider le cache (ddev php bin/console c:c)
-make rector-list                                                   # Rector en dry-run (sets PHP 8.5, deadCode, codeQuality, Symfony, Doctrine)
+make rector-list                                                   # Rector en dry-run sur config, public, src et tests (sets PHP 8.5, deadCode, codeQuality, Symfony, Doctrine)
 make rector                                                        # appliquer Rector
 make reset                                                         # recréer la base depuis backup/gta5_online.sql (FILE=backup/history/… pour une sauvegarde plus ancienne)
 make backup                                                        # sauvegarder la base maintenant (ddev php bin/console app:backup)

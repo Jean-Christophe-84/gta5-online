@@ -76,7 +76,7 @@ reset: ## Reset data project from backup/gta5_online.sql (FILE=backup/history/�
 
 ## —— Rector ————————————————————————————————————————————————————————————————
 rector-list:
-	$(DDEV_EXEC) $(RECTOR) process src --dry-run
+	$(DDEV_EXEC) $(RECTOR) process --dry-run
 
 rector:
-	$(DDEV_EXEC) $(RECTOR) process src
+	$(DDEV_EXEC) $(RECTOR) process

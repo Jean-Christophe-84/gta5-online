@@ -23,8 +23,8 @@ readonly class BackupHelper
 
     public function __construct(
         private EntityManagerInterface $entityManager,
-        #[Autowire('%backup_directory%')] private string $directory,
-        #[Autowire('%backup_name%')] private string $name
+        #[Autowire(param: 'backup_directory')] private string $directory,
+        #[Autowire(param: 'backup_name')] private string $name
     ) {
     }
 
