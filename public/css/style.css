@@ -1921,26 +1921,45 @@ section.summary div.summary-card__progress div {
 /*           PAGINATION           */
 /* ------------------------------ */
 div.pagination {
+    align-items: center;
     backdrop-filter: blur(8px);
     background-color: rgba(var(--bg-dark-rgb), 0.92);
     border-radius: 0;
     border-top: 1px solid var(--border-dark);
     color: var(--text-light);
     bottom: 0;
+    display: flex;
+    flex-direction: row-reverse;
     font-size: 14px;
+    gap: 10px;
     height: 40px;
+    justify-content: space-between;
     line-height: 30px;
     left: 0;
-    padding: 5px 15px;
+    padding: 5px 45px 5px 15px;
     position: fixed;
     width: 100%;
     z-index: 9999;
 }
 
 div.pagination nav {
-    left: 15px;
-    position: absolute;
-    right: 45px;
+    flex: 0 0 auto;
+}
+
+div.pagination span.pagination-summary,
+div.pagination span.pagination-summary-short {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+div.pagination span.pagination-summary-short {
+    display: none;
+}
+
+div.pagination .page-link span.page-arrow {
+    display: none;
 }
 
 div.pagination nav ul {
@@ -3387,6 +3406,22 @@ div.tips {
     div.pagination nav ul li span {
         font-size: 13px;
         padding: 0.45rem 0.6rem;
+    }
+
+    div.pagination span.pagination-summary {
+        display: none;
+    }
+
+    div.pagination span.pagination-summary-short {
+        display: inline;
+    }
+
+    div.pagination .page-link span.page-word {
+        display: none;
+    }
+
+    div.pagination .page-link span.page-arrow {
+        display: inline;
     }
 
     .guide .tables table tr th,

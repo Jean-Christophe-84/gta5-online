@@ -7,9 +7,9 @@
     <ul class="pagination">
         <li{% if filter['page'] == 1 or not totalNames %} class="disabled"{% endif %}>
             {% if filter['page'] == 1 or not totalNames %}
-                <span class="page-link">{{ 'previous'|translateLocale|mbUcfirst }}</span>
+                <span class="page-link" aria-label="{{ 'previous'|translateLocale|mbUcfirst }}"><span class="page-word">{{ 'previous'|translateLocale|mbUcfirst }}</span><span class="page-arrow" aria-hidden="true">‹</span></span>
             {% else %}
-                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] - 1 }});">{{ 'previous'|translateLocale|mbUcfirst }}</a>
+                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] - 1 }});" aria-label="{{ 'previous'|translateLocale|mbUcfirst }}"><span class="page-word">{{ 'previous'|translateLocale|mbUcfirst }}</span><span class="page-arrow" aria-hidden="true">‹</span></a>
             {% endif %}
         </li>
         {% if totalNames %}
@@ -41,11 +41,14 @@
         {% endif %}
         <li class="{% if filter['page'] == ((totalNames / per_page)|round(0, 'ceil')) or not totalNames %}disabled {% endif %}">
             {% if filter['page'] == ((totalNames / per_page)|round(0, 'ceil')) or not totalNames %}
-                <span class="page-link">{{ 'next'|translateLocale|mbUcfirst }}</span>
+                <span class="page-link" aria-label="{{ 'next'|translateLocale|mbUcfirst }}"><span class="page-word">{{ 'next'|translateLocale|mbUcfirst }}</span><span class="page-arrow" aria-hidden="true">›</span></span>
             {% else %}
-                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] + 1 }});">{{ 'next'|translateLocale|mbUcfirst }}</a>
+                <a href="#" class="page-link" onclick="reloadFilter('', {{ filter['page'] + 1 }});" aria-label="{{ 'next'|translateLocale|mbUcfirst }}"><span class="page-word">{{ 'next'|translateLocale|mbUcfirst }}</span><span class="page-arrow" aria-hidden="true">›</span></a>
             {% endif %}
         </li>
     </ul>
 </nav>
-{{ 'displaying_the_item'|translateLocale|mbUcfirst ~ " " ~ (totalNames ? ((per_page * filter['page']) - per_page + 1) : 0) ~ " " ~ 'to'|translateLocale ~ " " ~ ((totalNames < (per_page * filter['page'])) ? totalNames : (per_page * filter['page'])) ~ " " ~ 'on'|translateLocale ~ " " ~ totalNames ~ " " ~ 'items'|translateLocale }}
+{% set from = totalNames ? ((per_page * filter['page']) - per_page + 1) : 0 %}
+{% set to = (totalNames < (per_page * filter['page'])) ? totalNames : (per_page * filter['page']) %}
+<span class="pagination-summary">{{ 'displaying_the_item'|translateLocale|mbUcfirst ~ " " ~ from ~ " " ~ 'to'|translateLocale ~ " " ~ to ~ " " ~ 'on'|translateLocale ~ " " ~ totalNames ~ " " ~ 'items'|translateLocale }}</span>
+<span class="pagination-summary-short">{{ from ~ '–' ~ to ~ ' / ' ~ totalNames }}</span>

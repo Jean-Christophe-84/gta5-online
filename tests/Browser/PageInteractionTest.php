@@ -42,6 +42,7 @@ class PageInteractionTest extends BrowserTestCase
 
         $this->visit($client, $page);
         $this->assertNoJavascriptError($client, $page . ' affichage');
+        $this->assertPaginationFits($client, $page);
 
         $this->changeFilters($client, $page);
         $this->removeAllFilters($client, $page);
@@ -49,6 +50,43 @@ class PageInteractionTest extends BrowserTestCase
         $this->clickSortHeaders($client, $page);
         $this->removeAllFilters($client, $page);
         $this->openAndCloseModals($client, $page);
+    }
+
+    private function assertPaginationFits(Client $client, string $page): void
+    {
+        $problems = $client->executeScript(
+            "const bar = document.querySelector('div.pagination');
+
+            if (!bar) {
+                return [];
+            }
+
+            const nav = bar.querySelector('nav').getBoundingClientRect();
+            const summary = Array.from(bar.querySelectorAll('span.pagination-summary, span.pagination-summary-short')).find(span => span.offsetWidth);
+
+            if (!summary) {
+                return ['pas de résumé'];
+            }
+
+            const text = summary.getBoundingClientRect();
+            const problems = [];
+
+            if (text.right > nav.left) {
+                problems.push('le résumé passe sous les pages');
+            }
+
+            if (nav.right > document.documentElement.clientWidth || text.left < 0) {
+                problems.push('hors de l\\'écran');
+            }
+
+            if (summary.scrollWidth > summary.clientWidth) {
+                problems.push('résumé coupé');
+            }
+
+            return problems;"
+        );
+
+        $this->assertSame([], $problems, $page . ' pagination');
     }
 
     private function assertNoErrorShown(Client $client, string $label): void
