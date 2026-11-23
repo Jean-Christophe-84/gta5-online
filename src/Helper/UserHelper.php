@@ -400,6 +400,30 @@ readonly class UserHelper
             LEFT JOIN group_gta_locale ON group_gta.id = group_gta_locale.group_gta_id AND group_gta_locale.locale_id = :localeId
         ";
 
+        $parameters = [];
+
+        // La recherche est indépendante des autres filtres : sans elle, le groupe, l'état et le rôle s'appliquent
+        if ($values === []) {
+            $conditions = [];
+
+            if (!empty($filter['groupGtaId'])) {
+                $conditions[]             = "user.group_gta_id = :groupGtaId";
+                $parameters['groupGtaId'] = (int)$filter['groupGtaId'];
+            }
+
+            if (isset($filter['active'])) {
+                $conditions[]         = "user.active = :active";
+                $parameters['active'] = (int)$filter['active'];
+            }
+
+            if (!empty($filter['role'])) {
+                $conditions[]       = "JSON_CONTAINS(user.roles, JSON_QUOTE(:role))";
+                $parameters['role'] = (string)$filter['role'];
+            }
+
+            $query .= $conditions === [] ? "" : " WHERE " . implode(' AND ', $conditions);
+        }
+
         foreach ($values as $key => $value) {
             if ($key) {
                 $query .= "
@@ -439,6 +463,10 @@ readonly class UserHelper
 
         foreach ($values as $key => $value) {
             $statement->bindValue('search_' . $key, '%' . $value . '%');
+        }
+
+        foreach ($parameters as $key => $value) {
+            $statement->bindValue($key, $value);
         }
 
         if ($count) {

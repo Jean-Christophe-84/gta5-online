@@ -119,6 +119,58 @@ class ListFilterTest extends AppWebTestCase
     /**
      * @throws DoctrineDBALException
      */
+    public function testUserFiltersRestrictTheList(): void
+    {
+        $this->loginAs(1, 'ROLE_ADMIN');
+
+        $this->connection->insert('user', [
+            'active'         => 0,
+            'firstname'      => 'Filtre',
+            'group_gta_id'   => 4,
+            'lastname'       => 'Filtre',
+            'locale_id'      => 1,
+            'mail'           => 'filter@example.com',
+            'password'       => 'x',
+            'personal_datas' => 1,
+            'roles'          => json_encode(['ROLE_USER']),
+            'username'       => 'filtre',
+            'verify_code'    => '',
+            'verify_mail'    => 1
+        ]);
+        $otherId = (int)$this->connection->lastInsertId();
+        $all     = ['groupGtaId' => 0, 'active' => 'null', 'role' => '0', 'search' => '', 'page' => 1];
+
+        try {
+            // La base de test garde les comptes créés par d'autres tests : la liste attendue vient de la base
+            foreach (
+                [
+                    [['groupGtaId' => 4], 'group_gta_id = 4'],
+                    [['groupGtaId' => 1], 'group_gta_id = 1'],
+                    [['active' => 0], 'active = 0'],
+                    [['role' => 'ROLE_ADMIN'], 'JSON_CONTAINS(roles, \'"ROLE_ADMIN"\')'],
+                    [['groupGtaId' => 4, 'active' => 0], 'group_gta_id = 4 AND active = 0'],
+                    [['groupGtaId' => 1, 'search' => 'filter@example'], 'mail LIKE "%filter@example%"']
+                ] as [$parameters, $condition]
+            ) {
+                $this->client->request('GET', '/user/filter', [...$all, ...$parameters]);
+
+                $response = json_decode($this->client->getResponse()->getContent(), true);
+                $ids      = new Crawler($response['template'])->filter('table.users tbody tr')->each(fn(Crawler $row) => (int)substr($row->attr('id'), 5));
+                $expected = array_map(intval(...), $this->connection->fetchFirstColumn('SELECT id FROM user WHERE ' . $condition));
+
+                sort($ids);
+                sort($expected);
+
+                $this->assertSame($expected, $ids, json_encode($parameters));
+            }
+        } finally {
+            $this->connection->executeStatement('DELETE FROM user WHERE id = ?', [$otherId]);
+        }
+    }
+
+    /**
+     * @throws DoctrineDBALException
+     */
     public function testMainListSearchUsesLinkedNamesAndStaysFast(): void
     {
         $this->loginAs(1, 'ROLE_ADMIN');
