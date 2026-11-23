@@ -821,7 +821,7 @@ gdpr_purpose_account: "creating and managing your account, providing the service
 gdpr_purpose_security: "website security and detection of fraudulent logins: legitimate interest"
 gdpr_purpose_statistics: "aggregated visit statistics, without individual tracking: legitimate interest"
 gdpr_recipients_title: recipients
-gdpr_recipient_host: Infomaniak Network SA (hosting and mails), in Switzerland, a country recognised by the European Commission as offering adequate protection
+gdpr_recipient_host: o2switch SARL (hosting and mails), in France
 gdpr_recipient_turnstile: "Cloudflare, Inc. (Turnstile anti-robot protection on login: IP address and browser information), in the United States, certified under the EU-US Data Privacy Framework"
 gdpr_retention_host_logs: "server technical logs: kept by the host for security purposes, according to its own policy"
 gdpr_retention_inactive: "account: kept while it is used, then anonymized after 3 years without activity, with a warning mail 30 days before"

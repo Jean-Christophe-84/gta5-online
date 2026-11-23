@@ -77,5 +77,6 @@ make backup                                                        # sauvegarder
 - Commentaires, docblocks et messages métier en français.
 - Garder triés par ordre alphabétique les `use`, méthodes, paramètres injectés et clés de tableaux / YAML de traduction. Les tuiles de l'accueil sont triées à l'affichage par libellé traduit (filtre Twig `sortTiles`).
 - Le sens métier d'une ligne de référence se porte par une colonne booléenne éditable, jamais par un identifiant codé en dur en PHP.
+- Hébergement : o2switch (mentions légales, `gdpr_recipient_host`).
 - RGPD : compte anonymisé plutôt que supprimé (`UserHelper::anonymize`), car `created_by` et `updated_by` y font référence. Toute nouvelle table avec `user_id` va dans `UserHelper::USER_TABLES`. `users:purge` (quotidien) et `logins:remove-old` sont à planifier en production.
 - `@media` uniquement en fin de `style.css`, un bloc par requête, par ordre décroissant, seulement en `max-width` : 1199, 991, 767, 575, 375 (présents même vides), `hover` et `prefers-reduced-motion` en tête. Une règle n'est écrite qu'au plus grand seuil où elle s'applique.
