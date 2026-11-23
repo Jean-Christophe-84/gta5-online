@@ -43,7 +43,8 @@ class GetController extends AbstractController
                     'GroupGta/_partial/body.html.twig',
                     [
                         'groupGta'        => $groupGta,
-                        'groupGtaLocales' => $entityManager->getRepository(GroupGtaLocale::class)->findBy(['locale' => $locale], ['name' => 'ASC'])
+                        'groupGtaLocales' => $entityManager->getRepository(GroupGtaLocale::class)->findBy(['locale' => $locale], ['name' => 'ASC']),
+                        'permissions'     => $groupGtaHelper->getPermissions($groupGta ? (int)$groupGta['id'] : null)
                     ]
                 )
             ]

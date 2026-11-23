@@ -56,7 +56,7 @@ make backup                                                        # sauvegarder
 
 **Sécurité.**
 - Chaque action a `#[IsGranted(new Expression('is_granted("ROLE_USER")'))]` (`ROLE_ADMIN` pour la configuration et les commandes), puis vérifie une permission métier via `$this->isGranted(Entity::PERMISSION_...)`.
-- `Security/Voter/PermissionVoter` résout ces attributs depuis les tables `permission` / `permission_group_gta`, par groupe (`GroupGta`) de l'utilisateur.
+- `Security/Voter/PermissionVoter` résout ces attributs depuis les tables `permission` / `permission_group_gta`, par groupe (`GroupGta`) de l'utilisateur. Les permissions d'un groupe s'éditent dans la modale des groupes (`GroupGtaHelper::getPermissions()` / `savePermissions()`, enregistrées seulement si le formulaire envoie `permissionIds` ; le JS envoie toujours un `permissionIds[]=` vide pour qu'on puisse tout décocher).
 - `EventListener/AjaxCsrfListener` exige l'en-tête `X-CSRF-Token` (token `ajax`, exposé dans `<meta name="csrf-token">`) sur tout POST, sauf `login` et `switch_locale`.
 - La connexion a du throttling, Turnstile (`EventListener/TurnstileListener` sur `CheckPassportEvent`, via `ConfigurationHelper::checkTurnstile` ; clés `TURNSTILE_*`, clés de test Cloudflare en dev et test) et un `UserChecker`. Les connexions sont journalisées dans `LoginSuccess`/`LoginError`.
 

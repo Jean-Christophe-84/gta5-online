@@ -410,6 +410,37 @@ error_group_gta_form: >-
     } the group "{name}" via the form
 group: group
 groups: groups
+permission_action_add: add
+permission_action_configuration: configure
+permission_action_delete: delete
+permission_action_done: complete
+permission_action_edit: edit
+permission_action_own: own
+permission_action_view: view
+permission_bundle_animal: animals
+permission_bundle_bounty_target: bail office
+permission_bundle_business: businesses
+permission_bundle_business_good: business goods
+permission_bundle_customization: weapon customizations
+permission_bundle_delivery_method: delivery methods
+permission_bundle_heist_casino: casino heist
+permission_bundle_heist_cayo_perico: Cayo Perico heist
+permission_bundle_heist_kortz_center: Kortz Center heist
+permission_bundle_login_error: failed logins
+permission_bundle_login_success: successful logins
+permission_bundle_modification_location: modification locations
+permission_bundle_property: properties
+permission_bundle_property_acquisition: property acquisitions
+permission_bundle_property_type: property types
+permission_bundle_storage_location: storage locations
+permission_bundle_title_update: title updates
+permission_bundle_vehicle: vehicles
+permission_bundle_vehicle_acquisition: vehicle acquisitions
+permission_bundle_vehicle_manufacturer: vehicle manufacturers
+permission_bundle_weapon: weapons
+permission_bundle_weapon_acquisition: weapon acquisitions
+permission_bundle_weapon_manufacturer: weapon manufacturers
+permissions: permissions
 please_select_the_group: please select the group
 select_the_group: select the group
 success_group_gta_form: >-

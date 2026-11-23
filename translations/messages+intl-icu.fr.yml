@@ -410,6 +410,37 @@ error_group_gta_form: >-
     } du groupe "{name}" via le formulaire
 group: groupe
 groups: groupes
+permission_action_add: ajouter
+permission_action_configuration: configurer
+permission_action_delete: supprimer
+permission_action_done: terminer
+permission_action_edit: modifier
+permission_action_own: posséder
+permission_action_view: voir
+permission_bundle_animal: animaux
+permission_bundle_bounty_target: bureau des cautions
+permission_bundle_business: affaires
+permission_bundle_business_good: biens d'affaire
+permission_bundle_customization: personnalisations d'arme
+permission_bundle_delivery_method: méthodes de livraison
+permission_bundle_heist_casino: braquage du casino
+permission_bundle_heist_cayo_perico: braquage de Cayo Perico
+permission_bundle_heist_kortz_center: braquage du Kortz Center
+permission_bundle_login_error: connexions échouées
+permission_bundle_login_success: connexions réussies
+permission_bundle_modification_location: lieux de modification
+permission_bundle_property: propriétés
+permission_bundle_property_acquisition: acquisitions de propriété
+permission_bundle_property_type: types de propriété
+permission_bundle_storage_location: lieux de stockage
+permission_bundle_title_update: mises à jour de titre
+permission_bundle_vehicle: véhicules
+permission_bundle_vehicle_acquisition: acquisitions de véhicule
+permission_bundle_vehicle_manufacturer: fabricants de véhicule
+permission_bundle_weapon: armes
+permission_bundle_weapon_acquisition: acquisitions d'arme
+permission_bundle_weapon_manufacturer: fabricants d'arme
+permissions: permissions
 please_select_the_group: veuillez sélectionner le groupe
 select_the_group: sélectionner le groupe
 success_group_gta_form: >-

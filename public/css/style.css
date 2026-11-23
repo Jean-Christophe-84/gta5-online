@@ -2368,6 +2368,35 @@ div.pagination nav ul li.disabled span:hover {
 /* ------------------------------ */
 /*        USER STATISTICS         */
 /* ------------------------------ */
+.modal table.permissions {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.modal table.permissions th,
+.modal table.permissions td {
+    border-bottom: 1px solid var(--border-dark);
+    padding: 6px 8px;
+    text-align: center;
+}
+
+.modal table.permissions thead th {
+    color: var(--green-light);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.modal table.permissions tbody th {
+    color: var(--text-light);
+    font-weight: 600;
+    text-align: left;
+}
+
+.modal table.permissions td div.checkbox-wrapper-2 {
+    display: inline-block;
+}
+
 #userStatisticModal .modal-body {
     display: flex;
     flex-direction: column;

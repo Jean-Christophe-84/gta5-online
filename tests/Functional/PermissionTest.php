@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Security\Voter\PermissionVoter;
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
@@ -90,6 +91,44 @@ class PermissionTest extends AppWebTestCase
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertTrue($response['success']);
         $this->assertSame([3], array_column($response['groupGtas'], 'id'));
+    }
+
+    /**
+     * Un envoi sans le champ permissionIds (ancien appel) ne touche pas aux permissions
+     *
+     * @throws DoctrineDBALException
+     */
+    public function testGroupPermissionsCanBeEdited(): void
+    {
+        $active = fn(): array => array_map(intval(...), $this->connection->fetchFirstColumn(
+            'SELECT permission_id FROM permission_group_gta WHERE group_gta_id = 4 AND active = 1 ORDER BY permission_id'
+        ));
+        $before = $active();
+        $name   = $this->fetchOne('SELECT name FROM group_gta_locale WHERE group_gta_id = 4 AND locale_id = 1');
+        $fields = ['groupGtaId' => 4, 'name' => $name, 'description' => (string)$this->fetchOne('SELECT description FROM group_gta_locale WHERE group_gta_id = 4 AND locale_id = 1'), 'default' => 0];
+
+        $this->loginAs(1, 'ROLE_ADMIN');
+
+        try {
+            $this->client->request('GET', '/group-gta/get', ['groupGtaId' => 4]);
+            $modal = new Crawler(json_decode($this->client->getResponse()->getContent(), true)['template']);
+
+            $this->assertSame(['', 'Voir', 'Ajouter', 'Modifier', 'Supprimer'], array_slice($modal->filter('table.permissions thead th')->each(fn(Crawler $th) => trim($th->text())), 0, 5));
+            $this->assertCount((int)$this->fetchOne('SELECT COUNT(*) FROM permission'), $modal->filter('input[name="permissionIds[]"]'));
+            $this->assertCount(count($before), $modal->filter('input[name="permissionIds[]"][checked]'));
+
+            $kept = array_map(intval(...), $this->connection->fetchFirstColumn('SELECT id FROM permission WHERE attribute IN ("VEHICLE_VIEW", "WEAPON_VIEW") ORDER BY id'));
+
+            $this->assertTrue($this->post('/group-gta/form', [...$fields, 'permissionIds' => ['', ...$kept]], '/group-gtas')['success']);
+            $this->assertSame($kept, $active());
+
+            $this->post('/group-gta/form', $fields, '/group-gtas');
+            $this->assertSame($kept, $active());
+        } finally {
+            $this->post('/group-gta/form', [...$fields, 'permissionIds' => ['', ...$before]], '/group-gtas');
+        }
+
+        $this->assertSame($before, $active());
     }
 
     /**

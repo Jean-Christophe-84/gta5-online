@@ -150,6 +150,7 @@
                     + '&description=' + encodeURIComponent(description.value)
                     + '&default=' + (isDefault.checked ? 1 : 0)
                     + '&groupGtaId=' + groupGtaId.value
+                    + '&permissionIds[]=' + [...document.querySelectorAll('#groupGtaModal input[name="permissionIds[]"]:checked')].map(input => '&permissionIds[]=' + input.value).join('')
                 )
                 .then(response => response.json())
                 .then(data => {

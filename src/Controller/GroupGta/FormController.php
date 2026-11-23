@@ -75,9 +75,15 @@ class FormController extends AbstractController
             $groupGtaLocale->setName(trim($request->request->get('name')));
             $groupGtaLocale->setDescription(trim($request->request->get('description')));
 
-            $entityManager->persist($groupGtaLocale);
-            $entityManager->persist($groupGta);
-            $entityManager->flush();
+            $entityManager->wrapInTransaction(function () use ($entityManager, $groupGta, $groupGtaHelper, $groupGtaLocale, $request): void {
+                $entityManager->persist($groupGtaLocale);
+                $entityManager->persist($groupGta);
+                $entityManager->flush();
+
+                if ($request->request->has('permissionIds')) {
+                    $groupGtaHelper->savePermissions($groupGta->id, array_values(array_filter(array_map(intval(...), $request->request->all('permissionIds')))));
+                }
+            });
 
             $filter    = $groupGtaHelper->getFilter();
             $groupGtas = $groupGtaHelper->getGroupGtas($filter);

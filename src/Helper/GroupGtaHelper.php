@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 readonly class GroupGtaHelper
 {
+    const array ACTIONS = ['VIEW', 'ADD', 'EDIT', 'DELETE'];
+
     public function __construct(
         private ConfigurationHelper $configurationHelper, private EntityManagerInterface $entityManager, private ParameterBagInterface $parameterBag,
         private RequestStack        $requestStack, private Security $security
@@ -43,6 +46,54 @@ readonly class GroupGtaHelper
         $statement->bindValue('groupGtaId', $groupGtaId);
 
         return $statement->executeQuery()->fetchAssociative();
+    }
+
+    /**
+     * @return array{actions: string[], bundles: array<string, array<string, array{id: int, active: bool}>>}
+     * @throws DoctrineDBALException
+     */
+    public function getPermissions(?int $groupGtaId): array
+    {
+        $rows = $this->entityManager->getConnection()->fetchAllAssociative(
+            "SELECT permission.id, permission.bundle, permission.attribute, COALESCE(permission_group_gta.active, 0) AS active
+             FROM permission
+             LEFT JOIN permission_group_gta ON permission_group_gta.permission_id = permission.id AND permission_group_gta.group_gta_id = :groupGtaId
+             ORDER BY permission.bundle ASC, permission.id ASC",
+            ['groupGtaId' => (int)$groupGtaId]
+        );
+
+        $actions = [];
+        $bundles = [];
+
+        foreach ($rows as $row) {
+            $action                            = substr($row['attribute'], strlen($row['bundle']) + 1);
+            $actions[$action]                  = true;
+            $bundles[$row['bundle']][$action] = ['id' => (int)$row['id'], 'active' => (bool)$row['active']];
+        }
+
+        $actions = array_keys($actions);
+        usort($actions, static function (string $a, string $b): int {
+            $rankA = array_search($a, self::ACTIONS, true);
+            $rankB = array_search($b, self::ACTIONS, true);
+
+            return [$rankA === false, $rankA, $a] <=> [$rankB === false, $rankB, $b];
+        });
+
+        return ['actions' => $actions, 'bundles' => $bundles];
+    }
+
+    /**
+     * @throws DoctrineDBALException
+     */
+    public function savePermissions(int $groupGtaId, array $permissionIds): void
+    {
+        $this->entityManager->getConnection()->executeStatement(
+            "INSERT INTO permission_group_gta (group_gta_id, permission_id, active)
+             SELECT :groupGtaId, permission.id, permission.id IN (:permissionIds) FROM permission
+             ON DUPLICATE KEY UPDATE active = VALUES(active)",
+            ['groupGtaId' => $groupGtaId, 'permissionIds' => $permissionIds ?: [0]],
+            ['permissionIds' => ArrayParameterType::INTEGER]
+        );
     }
 
     /**

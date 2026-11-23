@@ -17,3 +17,36 @@
     </div>
     <input type="hidden" name="id" value="{{ groupGta ? groupGta.id : '' }}" />
 </div>
+<div class="group">
+    <div class="form-group" style="--filter-width: 100%;">
+        <label class="form-label">{{ 'permissions'|translateLocale|mbUcfirst }}</label>
+        <table class="permissions">
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for action in permissions.actions %}
+                        <th>{{ ('permission_action_' ~ action|lower)|translateLocale|mbUcfirst }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for bundle, bundleActions in permissions.bundles %}
+                    <tr>
+                        <th>{{ ('permission_bundle_' ~ bundle|lower)|translateLocale|mbUcfirst }}</th>
+                        {% for action in permissions.actions %}
+                            <td>
+                                {% if bundleActions[action] is defined %}
+                                    <div class="checkbox-wrapper-2">
+                                        <input type="checkbox" name="permissionIds[]" value="{{ bundleActions[action].id }}" class="stylized"
+                                               id="permission_{{ bundleActions[action].id }}"{% if bundleActions[action].active %} checked{% endif %}
+                                               aria-label="{{ ('permission_bundle_' ~ bundle|lower)|translateLocale|mbUcfirst }} : {{ ('permission_action_' ~ action|lower)|translateLocale }}" />
+                                    </div>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
