@@ -29,8 +29,9 @@ help: ## Outputs this help screen
 composer-install: composer.lock ## Install vendors according to the current composer.lock file
 	ddev $(COMPOSER) install --no-progress --prefer-dist --optimize-autoloader
 
-composer-update: ## Update dependency for php
+composer-update: ## Update dependency for php, then bump composer.json constraints
 	ddev $(COMPOSER) update
+	ddev $(COMPOSER) bump
 
 ## —— Symfony ———————————————————————————————————————————————————————————————
 sf: ## List all Symfony commands
