@@ -735,16 +735,13 @@ class GetWeaponsCommand extends Command
         if (!$weaponId) {
             throw new Exception('Unable to find the image "' . $url .'" for weapon: ' . $this->getWeaponName($xpath));
         }
-        // Générer un nom de fichier unique
         $filename = $weaponId . '.jpg';
         $fullPath = $localPath . '/' . $filename;
 
         if (!file_exists($fullPath)) {
-            // Récupérer le contenu de l'image
             $imageContent = file_get_contents($url);
 
             if ($imageContent !== false) {
-                // Sauvegarder l'image localement
                 if (file_put_contents($fullPath, $imageContent) !== false) {
                     return $filename;
                 }

@@ -438,16 +438,13 @@ class GetPropertiesCommand extends Command
         if (!$propertyId) {
             throw new Exception('Unable to find the image "' . $url . '" for property: ' . $this->getPropertyName($xpath));
         }
-        // Générer un nom de fichier unique
         $filename = $propertyId . '.jpg';
         $fullPath = $localPath . '/' . $filename;
 
         if (!file_exists($fullPath)) {
-            // Récupérer le contenu de l'image
             $imageContent = file_get_contents($url);
 
             if ($imageContent !== false) {
-                // Sauvegarder l'image localement
                 if (file_put_contents($fullPath, $imageContent) !== false) {
                     return $filename;
                 }

@@ -693,8 +693,6 @@ readonly class WeaponHelper
             ";
         }
 
-        // @note: NO_SEMIJOIN garde la sous-requête de recherche à part ; fusionnée, ses jointures s'ajoutent à celles de la requête
-        // et l'optimiseur MySQL met plusieurs secondes à choisir leur ordre
         $query .= "
             FROM weapon
             LEFT JOIN weapon_locale ON weapon_locale.weapon_id = weapon.id AND weapon_locale.locale_id = :localeId

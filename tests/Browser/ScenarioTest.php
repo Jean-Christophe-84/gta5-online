@@ -9,9 +9,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Panther\Client;
 
-/**
- * Parcours réellement enregistrés, avec de vrais clics et de vraies frappes, à chaque taille d'écran
- */
 #[Group('js')]
 class ScenarioTest extends BrowserTestCase
 {

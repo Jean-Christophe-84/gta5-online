@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
-/**
- * Mise en forme des nombres, des textes et des tris, dans chaque langue
- */
 class ConfigurationHelperTest extends KernelTestCase
 {
     public static function formatProvider(): iterable

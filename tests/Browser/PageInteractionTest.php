@@ -8,10 +8,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Panther\Client;
 
-/**
- * Sur chaque liste et à chaque taille d'écran : recherche, filtres, tris, retrait des filtres, ouverture et fermeture de chaque modale
- * (ajout, édition, copie, suppression), sans rien enregistrer
- */
 #[Group('js')]
 class PageInteractionTest extends BrowserTestCase
 {

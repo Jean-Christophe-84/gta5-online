@@ -38,7 +38,6 @@ class DeleteController extends AbstractController
             return new JsonResponse(['message' => ucfirst($configurationHelper->getTranslateLocale('a_technical_error_occurred')), 'success' => false]);
         }
 
-        // @note: the modal already shows the blockers, they are checked again here as it is the only check that counts
         if (!empty($modificationLocationHelper->getDeletion($modificationLocationId)['blockers'])) {
             return new JsonResponse(['message' => ucfirst($configurationHelper->getTranslateLocale('deletion_impossible')), 'success' => false]);
         }

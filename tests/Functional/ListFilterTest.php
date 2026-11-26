@@ -8,7 +8,6 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ListFilterTest extends AppWebTestCase
 {
-    // page de la liste => route du filtre
     const array LISTS = [
         '/bounty-targets'         => '/bounty-target/filter',
         '/business-goods'         => '/business-good/filter',

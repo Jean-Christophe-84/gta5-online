@@ -180,7 +180,6 @@ class AccountTest extends AppWebTestCase
         $this->assertTrue($response['resend']);
         $this->assertSame(0, (int)$this->fetchOne('SELECT verify_mail FROM user WHERE id = ?', [$userId]));
 
-        // Un nouveau lien fonctionne de nouveau
         $this->post('/user/verify-mail/resend', ['userId' => $userId], '/login');
         $this->assertTrue($this->post('/user/verify-mail', ['userId' => $userId, 'code' => $this->getLinkCode()], '/login')['success']);
     }

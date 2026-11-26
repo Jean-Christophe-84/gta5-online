@@ -19,7 +19,6 @@ class BountyTarget
     const string PERMISSION_BOUNTY_TARGET_DONE   = 'BOUNTY_TARGET_DONE';
     const string PERMISSION_BOUNTY_TARGET_DELETE = 'BOUNTY_TARGET_DELETE';
 
-    // @note: the reward varies in game within these ranges and only depends on the most wanted flag, a dead target pays a quarter of it
     const int PRICE_MIN             = 50000;
     const int PRICE_MAX             = 60000;
     const int PRICE_MOST_WANTED_MIN = 180000;

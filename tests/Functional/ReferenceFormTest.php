@@ -6,9 +6,6 @@ use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Cycle complet des listes de référence : champ obligatoire, ajout, recherche, modale d'édition, modification
- */
 class ReferenceFormTest extends AppWebTestCase
 {
     /**

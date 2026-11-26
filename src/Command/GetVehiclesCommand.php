@@ -912,16 +912,13 @@ class GetVehiclesCommand extends Command
         if (!$vehicleId) {
             throw new Exception('Unable to find the image "' . $url . '" for vehicle: ' . $this->getVehicleName($xpath));
         }
-        // Générer un nom de fichier unique
         $filename = $vehicleId . '.jpg';
         $fullPath = $localPath . '/' . $filename;
 
         if (!file_exists($fullPath)) {
-            // Récupérer le contenu de l'image
             $imageContent = file_get_contents($url);
 
             if ($imageContent !== false) {
-                // Sauvegarder l'image localement
                 if (file_put_contents($fullPath, $imageContent) !== false) {
                     return $filename;
                 }

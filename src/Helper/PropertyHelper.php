@@ -112,7 +112,6 @@ readonly class PropertyHelper
         $statement->bindValue('propertyId', $propertyId ?? 0);
         $statement->bindValue('userId', $this->security->getUser()->id);
 
-        // @note: une sous-propriété ne compte pas dans le maximum de l'affaire, elle n'est donc jamais bloquée
         $isPropertyTwo = $propertyId && $this->entityManager->getConnection()->fetchOne(
             "SELECT 1 FROM property_property WHERE property_two_id = :propertyId LIMIT 1", ['propertyId' => $propertyId]
         );
@@ -184,7 +183,6 @@ readonly class PropertyHelper
             ];
         $filter  = $this->requestStack->getSession()->get('property');
 
-        // @note: a filter saved before a key was renamed is dropped, its stale keys would break the query
         return $defaultFilter || !$filter || array_diff_key($default, $filter) ? $default : $this->keepPageInRange($filter);
     }
 
@@ -854,8 +852,6 @@ readonly class PropertyHelper
             $query .= " property.id NOT IN (SELECT DISTINCT(property_property.property_two_id) FROM property_property) AND";
         }
 
-        // @note: NO_SEMIJOIN garde la sous-requête de recherche à part ; fusionnée, ses jointures s'ajoutent à celles de la requête
-        // et l'optimiseur MySQL met plusieurs secondes à choisir leur ordre
         $query .= " property.id IN (
                 SELECT /*+ NO_SEMIJOIN() */ DISTINCT property_search.id
                 FROM property AS property_search

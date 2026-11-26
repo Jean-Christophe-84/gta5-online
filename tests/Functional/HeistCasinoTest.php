@@ -134,9 +134,6 @@ class HeistCasinoTest extends AppWebTestCase
         $this->assertStringContainsString('style="display: none;"', $this->getResetButton($response['template']));
     }
 
-    /**
-     * Le bouton de réinitialisation s'affiche dès qu'un choix est fait, premier braquage de la semaine compris
-     */
     public function testResetButtonIsShownAsSoonAsAChoiceIsMade(): void
     {
         $this->loginAs(1, 'ROLE_ADMIN');

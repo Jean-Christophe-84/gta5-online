@@ -6,7 +6,6 @@ use Doctrine\DBAL\Exception as DoctrineDBALException;
 
 class DeletionTest extends AppWebTestCase
 {
-    // list page, get route and id parameter of every deletable list
     const array LISTS = [
         'bounty_target'         => ['/bounty-targets', '/bounty-target/get', 'bountyTargetId'],
         'business'              => ['/businesses', '/business/get', 'businessId'],

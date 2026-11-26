@@ -8,9 +8,6 @@ use Doctrine\DBAL\Exception as DoctrineDBALException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 
-/**
- * Chaque page HTML s'affiche sans erreur JavaScript, en visiteur et en administrateur
- */
 #[Group('js')]
 class JavascriptErrorTest extends BrowserTestCase
 {

@@ -7,7 +7,6 @@ use Twig\Attribute\AsTwigFunction;
 
 class TipExtension
 {
-    // @note: translation key => ICU parameters, shown on the page and on its homepage tile
     private const array TIPS = [
         'bounty_targets' => ['tip_reward_dead' => ['divisor' => BountyTarget::PRICE_DEAD_DIVISOR]],
         'business_goods' => ['tip_dealer_stock_order' => [], 'tip_dealer_double_price' => [], 'tip_production_online_only' => []],

@@ -16,7 +16,6 @@ class RouteTest extends AppWebTestCase
 
     const string MASKED_EXCEPTION = '/(à la ligne|at line) \d+ (du fichier|of file)/';
 
-    // Accessibles sans être connecté
     const string PUBLIC_ROUTES = '/^(check_reset_password_user|check_verify_mail_user|forgot_password_user|legal_mentions|login|register_user|resend_verify_mail_user|reset_password_user|switch_locale|verify_mail_user)$/';
 
     public static function routeProvider(): iterable

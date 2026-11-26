@@ -45,7 +45,6 @@ class IndexController extends AbstractController
 
         if ($heistKortzCenterSecondaryLoots = $entityManager->getRepository(HeistKortzCenterSecondaryLoot::class)->findAll()) {
             foreach ($heistKortzCenterSecondaryLoots as $heistKortzCenterSecondaryLoot) {
-                // @note: the user keeps one row per secondary loot, whichever name is chosen
                 $userSecondaryLoot = $entityManager->getRepository(HeistKortzCenterHeistKortzCenterSecondaryLoot::class)->findOneBy(
                     ['user' => $user, 'heistKortzCenterSecondaryLootName' => $heistKortzCenterSecondaryLoot->heistKortzCenterSecondaryLootNames->toArray()]
                 );

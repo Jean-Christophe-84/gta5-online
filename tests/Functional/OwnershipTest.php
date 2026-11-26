@@ -4,9 +4,6 @@ namespace App\Tests\Functional;
 
 use Doctrine\DBAL\Exception as DoctrineDBALException;
 
-/**
- * Cases « possédé » / « voulu » des listes principales, et ajout / modification par leur formulaire
- */
 class OwnershipTest extends AppWebTestCase
 {
     /**

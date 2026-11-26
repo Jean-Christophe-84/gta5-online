@@ -90,7 +90,6 @@ class BusinessRuleTest extends AppWebTestCase
 
         $this->assertTrue($response['success']);
 
-        // @note: la sous-propriété reste obtenue tant qu'une autre propriété parente l'est
         $this->post('/property/update', ['propertyId' => $parentId, 'owned' => 0, 'wanted' => 0], '/properties');
 
         $this->assertSame(1, (int)$this->fetchOne('SELECT owned FROM property_user WHERE user_id = 1 AND property_id = ?', [$propertyTwoId]));

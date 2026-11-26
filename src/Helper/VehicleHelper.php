@@ -122,7 +122,6 @@ readonly class VehicleHelper
         ];
         $filter  = $this->requestStack->getSession()->get('vehicle');
 
-        // @note: a filter saved before a key was renamed is dropped, its stale keys would break the query
         return $defaultFilter || !$filter || array_diff_key($default, $filter) ? $default : $this->keepPageInRange($filter);
     }
 
@@ -1315,8 +1314,6 @@ readonly class VehicleHelper
             ";
         }
 
-        // @note: NO_SEMIJOIN garde la sous-requête de recherche à part ; fusionnée, ses jointures s'ajoutent à celles de la requête
-        // et l'optimiseur MySQL met plusieurs secondes à choisir leur ordre
         $query .= "
             FROM vehicle
             LEFT JOIN vehicle_locale ON vehicle_locale.vehicle_id = vehicle.id AND vehicle_locale.locale_id = :localeId

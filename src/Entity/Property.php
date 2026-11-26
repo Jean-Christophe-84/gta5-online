@@ -292,9 +292,7 @@ class Property
     public function setFile(?UploadedFile $file): static
     {
         $this->file = $file;
-        // check if we have an old image path
         if ($this->path !== null) {
-            // store the old name to delete after the update
             $this->temp = $this->path;
             $this->path = null;
         } else {

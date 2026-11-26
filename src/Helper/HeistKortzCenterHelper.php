@@ -104,7 +104,6 @@ readonly class HeistKortzCenterHelper
 
         $query .= " GROUP BY heist_kortz_center_secondary_loot.id";
 
-        // @note: filtered after grouping so the names not chosen by the user stay in the list
         if ($active !== null) {
             $query .= " HAVING active = :active";
         }
