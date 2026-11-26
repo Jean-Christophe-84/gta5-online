@@ -11,13 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 class PropertyLocale
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'propertyLocales')]
-    // @note: nullable=false by default
     private Property $property;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'propertyLocales')]
-    // @note: nullable=false by default
     private Locale $locale;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

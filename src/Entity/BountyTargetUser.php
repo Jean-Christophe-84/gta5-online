@@ -10,13 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
 class BountyTargetUser
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'bountyTargetUsers')]
-    // @note: nullable=false by default
     private User $user;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'bountyTargetUsers')]
-    // @note: nullable=false by default
     private BountyTarget $bountyTarget;
 
     #[ORM\Column(nullable: false, options: ['default' => false])]

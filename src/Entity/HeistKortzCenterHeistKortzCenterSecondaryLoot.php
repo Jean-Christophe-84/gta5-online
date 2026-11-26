@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 class HeistKortzCenterHeistKortzCenterSecondaryLoot
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'heistKortzCenterHeistKortzCenterSecondaryLoots')]
-    // @note: nullable=false by default
     private User $user;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'heistKortzCenterHeistKortzCenterSecondaryLoots')]
-    // @note: nullable=false by default
     private HeistKortzCenterSecondaryLootName $heistKortzCenterSecondaryLootName;
 
     #[ORM\Column(nullable: true)]

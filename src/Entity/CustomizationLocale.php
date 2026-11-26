@@ -14,13 +14,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class CustomizationLocale
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'customizationLocales')]
-    // @note: nullable=false by default
     private Customization $customization;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'customizationLocales')]
-    // @note: nullable=false by default
     private Locale $locale;
 
     #[ORM\Column(length: 256, nullable: false)]

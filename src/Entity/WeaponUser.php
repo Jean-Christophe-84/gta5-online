@@ -10,13 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
 class WeaponUser
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'weaponUsers')]
-    // @note: nullable=false by default
     private User $user;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'weaponUsers')]
-    // @note: nullable=false by default
     private Weapon $weapon;
 
     #[ORM\Column(nullable: false, options: ['default' => false])]

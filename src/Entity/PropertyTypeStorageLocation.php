@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 class PropertyTypeStorageLocation
 {
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'propertyTypeStorageLocations')]
-    // @note: nullable=false by default
     private PropertyType $propertyType;
 
     #[ORM\Id]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'propertyTypeStorageLocations')]
-    // @note: nullable=false by default
     private StorageLocation $storageLocation;
 
     use InfoUpdateTrait;
